@@ -16,36 +16,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(title: 'u/gitbluub'),
+      home: const MyUserPage(title: 'u/gitbluub'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyUserPage extends StatefulWidget {
+  const MyUserPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyUserPage> createState() => _MyUserPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _MyUserPageState extends State<MyUserPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
+        leading: const BackButton(
             color: Colors.white
         ),
-        title: Text(widget.title, style: TextStyle(color: Colors.white, fontSize: 20)),
+        title: Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 18)),
       ),
     );
   }
