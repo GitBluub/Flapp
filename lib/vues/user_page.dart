@@ -43,24 +43,41 @@ class _UserPageState extends State<UserPage> {
             ],
           ),
         ),
-        body: ListView(
-          children: [
-            SizedBox(
-                height: 100,
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                  child: Image(
-                    image: NetworkImage(widget.user.bannerUrl),
-                  ),
-                )),
-            Container(
-                width: 75,
-                height: 75,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: NetworkImage(widget.user.pictureUrl)))),
-          ],
-        ));
+        body: ListView(children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              SizedBox(
+                  height: 100,
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Image(
+                      image: NetworkImage(widget.user.bannerUrl),
+                    ),
+                  )),
+              Positioned(
+                  top: 50,
+                  left: 20,
+                  child: Row(children: [
+                    Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: NetworkImage(widget.user.pictureUrl)))),
+
+                  ])),
+
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+            children: [Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(widget.user.name, style: TextStyle(color: Colors.white, fontSize: 25), textAlign: TextAlign.center))],
+          )
+        ]));
   }
 }
