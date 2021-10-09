@@ -45,14 +45,21 @@ class _UserPageState extends State<UserPage> {
         ),
         body: ListView(
           children: [
-            Container(
+            SizedBox(
                 height: 100,
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: Image(
                     image: NetworkImage(widget.user.bannerUrl),
                   ),
-                ))
+                )),
+            Container(
+                width: 75,
+                height: 75,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: NetworkImage(widget.user.pictureUrl)))),
           ],
         ));
   }
