@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'post.dart';
 
 class Redditor {
-  String bannerUrl;
+  final String bannerUrl;
 
-  String pictureUrl;
+  final String pictureUrl;
 
-  String displayName;
+  final String displayName;
 
-  String name;
+  final String name;
 
-  int karma;
+  final int karma;
 
-  DateTime ancientness;
+  final DateTime ancientness;
 
-  List<String> subscribedSubreddits;
+  final List<String> subscribedSubreddits;
 
-  List<Post> posts;
+  final List<Post> posts;
 
-  Redditor(this.bannerUrl, this.pictureUrl, this.displayName, this.name,
-      this.karma, this.ancientness, this.subscribedSubreddits, this.posts);
+  const Redditor({Key? key,
+      required this.bannerUrl, required this.pictureUrl,
+      required this.displayName, required this.name,
+      required this.karma, required this.ancientness,
+      required this.subscribedSubreddits, required this.posts
+  });
 }
