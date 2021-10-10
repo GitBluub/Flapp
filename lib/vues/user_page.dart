@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/redditor.dart';
+import 'image_header.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({Key? key, required this.user}) : super(key: key);
@@ -43,41 +44,8 @@ class _UserPageState extends State<UserPage> {
             ],
           ),
         ),
-        body: ListView(children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              SizedBox(
-                  height: 100,
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    child: Image(
-                      image: NetworkImage(widget.user.bannerUrl),
-                    ),
-                  )),
-              Positioned(
-                  top: 50,
-                  left: 20,
-                  child: Row(children: [
-                    Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: NetworkImage(widget.user.pictureUrl)))),
-
-                  ])),
-
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [Container(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(widget.user.name, style: TextStyle(color: Colors.white, fontSize: 25), textAlign: TextAlign.center))],
-          )
-        ]));
+        body: ListView(children: const [
+          ImageHeader(bannerUrl: 'https://styles.redditmedia.com/t5_2sxpk/styles/bannerBackgroundImage_xg901qmo8no61.png', pictureUrl: 'https://styles.redditmedia.com/t5_2sxpk/styles/communityIcon_ic8kuvspll861.png?width=256&s=2eeaea442bb635fd6d70ebd62de259580eff1050', title: 'lol'),
+    ]));
   }
 }
