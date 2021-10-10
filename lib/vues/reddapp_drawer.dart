@@ -13,23 +13,27 @@ class ReddappDrawer extends StatelessWidget {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          Column(children: [SizedBox(
-              height: 150.0,
+          SizedBox(
+              height: 175.0,
               child: DrawerHeader(
-                child: CachedNetworkImage(
+                  child: Row(children: [
+                CachedNetworkImage(
+                  width: 75,
                   imageUrl: user.pictureUrl,
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(image: imageProvider),
-                    ),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(image: imageProvider)),
                   ),
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              )
-          )]),
+                Container(
+                  child: Text(user.name, style: const TextStyle(fontSize: 20)),
+                  padding: const EdgeInsets.only(left: 20),
+                )
+              ]))),
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Home'),
