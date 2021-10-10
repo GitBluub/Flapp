@@ -3,15 +3,15 @@ import '../models/redditor.dart';
 import 'image_header.dart';
 import 'drawer.dart';
 
-class UserPage extends StatefulWidget {
-  const UserPage({Key? key, required this.user}) : super(key: key);
+class UserPageVue extends StatefulWidget {
+  const UserPageVue({Key? key, required this.user}) : super(key: key);
   final Redditor user;
 
   @override
-  State<UserPage> createState() => _UserPageState();
+  State<UserPageVue> createState() => _UserPageVueState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _UserPageVueState extends State<UserPageVue> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +20,8 @@ class _UserPageState extends State<UserPage> {
               style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
         drawer: const ReddappDrawer(),
-        body: ListView(children: const [
-          ImageHeader(bannerUrl: 'https://styles.redditmedia.com/t5_2sxpk/styles/bannerBackgroundImage_xg901qmo8no61.png', pictureUrl: 'https://styles.redditmedia.com/t5_2sxpk/styles/communityIcon_ic8kuvspll861.png?width=256&s=2eeaea442bb635fd6d70ebd62de259580eff1050', title: 'lol'),
+        body: ListView(children: [
+          ImageHeader(bannerUrl: widget.user.bannerUrl, pictureUrl: widget.user.pictureUrl, title: widget.user.displayName),
     ]));
   }
 }
