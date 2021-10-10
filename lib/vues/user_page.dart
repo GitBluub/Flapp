@@ -19,7 +19,7 @@ class _UserPageVueState extends State<UserPageVue> {
           title: Text(widget.user.name,
               style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
-        drawer: const ReddappDrawer(),
+        drawer: ReddappDrawer(user: widget.user),
         body: ListView(children: [
           ImageHeader(bannerUrl: widget.user.bannerUrl, pictureUrl: widget.user.pictureUrl, title: widget.user.displayName),
     ]));

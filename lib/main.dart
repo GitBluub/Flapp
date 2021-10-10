@@ -14,10 +14,7 @@ class ReddApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Reddapp',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey,
-        primarySwatch: Colors.grey,
-      ),
+      theme: ThemeData.dark(),
       initialRoute: '/user',
       routes: {
         '/user': (context) => const UserPageController(),
