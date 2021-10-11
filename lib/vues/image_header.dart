@@ -55,7 +55,7 @@ class ImageHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
               child: Text(title,
                   style: const TextStyle(color: Colors.white, fontSize: 25),
                   textAlign: TextAlign.center))

@@ -15,8 +15,25 @@ class UserPageVue extends StatefulWidget {
 class _UserPageVueState extends State<UserPageVue> {
   @override
   Widget build(BuildContext context) {
-    return ReddappPage(title: widget.user.name, user: widget.user, body: ListView(children: [
-          ImageHeader(bannerUrl: widget.user.bannerUrl, pictureUrl: widget.user.pictureUrl, title: widget.user.displayName),
-    ]));
+    return ReddappPage(
+        title: widget.user.name,
+        user: widget.user,
+        body: ListView(children: [
+          Wrap(children: [
+            ImageHeader(
+                bannerUrl: widget.user.bannerUrl,
+                pictureUrl: widget.user.pictureUrl,
+                title: widget.user.displayName)
+          ]),
+          Row(
+            children: [
+              Container(padding: const EdgeInsets.only(left: 15), child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(shape: const StadiumBorder(), primary: Colors.grey),
+                  child: Row(children: const [Icon(Icons.edit), Text('Edit profile')]),
+              ))
+            ],
+          )
+        ]));
   }
 }
