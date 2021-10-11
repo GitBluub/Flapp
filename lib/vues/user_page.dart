@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/redditor.dart';
+import 'package:intl/intl.dart';
 import 'image_header.dart';
 import 'reddapp_page.dart';
-import 'package:intl/intl.dart';
+import 'post_vue.dart';
+import '../models/redditor.dart';
+import '../models/post.dart';
 
 class UserPageVue extends StatefulWidget {
   const UserPageVue({Key? key, required this.user}) : super(key: key);
@@ -48,6 +50,7 @@ class _UserPageVueState extends State<UserPageVue> {
               Text(widget.user.description)
             ],)
           ),
+          PostVue(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), upVotes: 1, downVotes: 0, parent: 's/lol')),
         ]));
   }
 }
