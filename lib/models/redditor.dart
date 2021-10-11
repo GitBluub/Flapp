@@ -10,6 +10,8 @@ class Redditor {
 
   final String name;
 
+  final String description;
+
   final int karma;
 
   final DateTime ancientness;
@@ -22,6 +24,7 @@ class Redditor {
       required this.bannerUrl, required this.pictureUrl,
       required this.displayName, required this.name,
       required this.karma, required this.ancientness,
-      required this.subscribedSubreddits, required this.posts
+      required this.subscribedSubreddits, required this.posts,
+      required this.description
   });
 }
