@@ -1,18 +1,19 @@
 import 'post.dart';
+import 'package:flutter/material.dart';
 
 class Subreddit {
-  String displayName;
+  final String displayName;
 
-  String fullName;
+  final String fullName;
 
-  List<Post> posts;
+  final List<Post> posts;
 
-  int membersCount;
+  final int membersCount;
 
-  String description;
+  final String description;
 
-  String link;
+  final String link;
 
-  Subreddit(this.displayName, this.fullName, this.posts, this.membersCount,
-      this.description, this.link);
+  const Subreddit({Key? key, required this.displayName, required this.fullName, required this.posts, required this.membersCount,
+  required this.description, required this.link});
 }

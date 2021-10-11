@@ -1,20 +1,21 @@
 import 'subreddit.dart';
+import 'package:flutter/material.dart';
 
 class Post {
-  String authorName;
+  final String authorName;
 
-  Subreddit parent;
+  final String parent;
 
-  DateTime createdTime;
+  final DateTime createdTime;
 
-  String title;
+  final String title;
 
-  String content;
+  final String content;
 
-  int upVotes;
+  final int upVotes;
 
-  int downVotes;
+  final int downVotes;
 
-  Post(this.authorName, this.parent, this.createdTime, this.title, this.content,
-      this.upVotes, this.downVotes);
+  const Post({Key? key, required this.authorName, required this.parent, required this.createdTime, required this.title, required this.content,
+    required this.upVotes, required this.downVotes});
 }
