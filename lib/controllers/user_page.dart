@@ -11,6 +11,9 @@ class UserPageController extends StatefulWidget {
 
 class _UserPageControllerState extends State<UserPageController> {
   @override
+
+  //requetes à l'api
+  //get un object
   Widget build(BuildContext context) {
     return UserPageVue(user: Redditor(
       description: "Hi! I'm Bluub, and I think Binding o Isaac is the ebst game ever. I hate other video games",

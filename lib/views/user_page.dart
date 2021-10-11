@@ -51,7 +51,7 @@ class _UserPageVueState extends State<UserPageVue> {
               Text(widget.user.description)
             ],)
           ),
-          PostView(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), upVotes: 1, downVotes: 0, parent: 's/lol')),
+          PostView(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), link: 'trol', upVotes: 1, downVotes: 0, parent: 's/lol')),
         ]));
   }
 }
