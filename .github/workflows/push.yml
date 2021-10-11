@@ -1,6 +1,6 @@
 name: Update Mirror
 
-on:[push]
+on: [push]
 
 jobs:
   Push:
