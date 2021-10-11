@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'image_header.dart';
 import 'reddapp_page.dart';
-import 'post_vue.dart';
+import 'post_preview.dart';
 import '../models/redditor.dart';
 import '../models/post.dart';
+import 'package:time_elapsed/time_elapsed.dart';
 
 class UserPageVue extends StatefulWidget {
   const UserPageVue({Key? key, required this.user}) : super(key: key);
@@ -19,7 +20,7 @@ class _UserPageVueState extends State<UserPageVue> {
   Widget build(BuildContext context) {
     String ancientnessFormat = 'Redditor since ';
 
-    ancientnessFormat += DateFormat('yyyy').format(widget.user.ancientness);
+    ancientnessFormat += TimeElapsed.fromDateTime(widget.user.ancientness);
     return ReddappPage(
         title: widget.user.name,
         user: widget.user,
@@ -50,7 +51,7 @@ class _UserPageVueState extends State<UserPageVue> {
               Text(widget.user.description)
             ],)
           ),
-          PostVue(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), upVotes: 1, downVotes: 0, parent: 's/lol')),
+          PostView(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), upVotes: 1, downVotes: 0, parent: 's/lol')),
         ]));
   }
 }

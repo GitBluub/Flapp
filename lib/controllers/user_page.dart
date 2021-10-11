@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../vues/user_page.dart';
+import '../views/user_page.dart';
 import '../models/redditor.dart';
 
 class UserPageController extends StatefulWidget {
