@@ -1,0 +1,19 @@
+name: Update Mirror
+
+on:[push]
+
+jobs:
+  Push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+        ref: master
+    - name: Push to Epitech repository
+      uses: pixta-dev/repository-mirroring-action@v1
+      with:
+        target_repo_url:
+          git@github.com:EpitechPromo2024/B-DEV-501-NAN-5-1-redditech-arthur.jamet.git
+        ssh_private_key:
+          ${{ secrets.SSH_KEY }}
