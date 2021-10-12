@@ -5,6 +5,7 @@ import 'post_preview.dart';
 import '../models/redditor.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
+import 'loading.dart';
 
 class RedditorPageVue extends StatefulWidget {
   const RedditorPageVue({Key? key, required this.user}) : super(key: key);
@@ -18,7 +19,7 @@ class _RedditorPageVueState extends State<RedditorPageVue> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return const Text("Loading");
+      return LoadingWidget();
     }
 
     Redditor user = widget.user as Redditor;

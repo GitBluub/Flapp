@@ -13,6 +13,7 @@ class RedditorPageController extends StatefulWidget {
 
 class _RedditorPageControllerState extends State<RedditorPageController> {
   Redditor? redditor;
+  bool fetched = false;
 
   @override
   void initState() {
@@ -21,7 +22,14 @@ class _RedditorPageControllerState extends State<RedditorPageController> {
   }
   @override
   Widget build(BuildContext context) {
-    setState(() async => redditor = await GetIt.I<RedditInterface>().getLoggedRedditor());
+    if (fetched)
+      return RedditorPageVue(user: redditor);
+    GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
+      setState(() {
+        redditor = redditorValue;
+        fetched = true;
+      });
+    });
     return RedditorPageVue(user: redditor);
   }
 }

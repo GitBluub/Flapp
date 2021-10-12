@@ -39,6 +39,7 @@ dependencies:
   flutter_web_auth: ^0.3.1
   get_it: ^7.2.0
   flutter_spinkit: ^5.1.0
+  path_provider: ^2.0.5
 
 
   # The following adds the Cupertino Icons font to your application.
