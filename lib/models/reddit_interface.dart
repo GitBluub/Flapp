@@ -1,6 +1,7 @@
 import 'package:draw/draw.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'dart:io' show Platform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RedditInterface {
 
@@ -11,7 +12,7 @@ class RedditInterface {
   }
 
   void _createAPIConnection() async {
-    String? clientId = Platform.environment['FLAPP_API_KEY'];
+    String? clientId = dotenv.env['FLAPP_API_KEY'];
 
     if (clientId == null) {
       throw new Exception("No FLAPP_API_KEY env var found...");
