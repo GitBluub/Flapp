@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'controllers/user_page.dart';
+import 'controllers/redditor_page.dart';
 import 'controllers/login_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,7 +24,7 @@ class Flapp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginPageController(),
-        '/user': (context) => const UserPageController(),
+        '/user': (context) => const RedditorPageController(),
       },
     );
   }
