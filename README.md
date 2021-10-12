@@ -1,2 +1,3 @@
-# Redditech
-Reddit Flutter Client made for an Epitech Project
+# Flapp
+Reddit Client in Flutter
+WIP
