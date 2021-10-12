@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'image_header.dart';
-import 'reddapp_page.dart';
+import 'flapp_page.dart';
 import 'post_preview.dart';
 import '../models/redditor.dart';
 import '../models/post.dart';
@@ -21,7 +21,7 @@ class _UserPageVueState extends State<UserPageVue> {
     String ancientnessFormat = 'Redditor since ';
 
     ancientnessFormat += TimeElapsed.fromDateTime(widget.user.ancientness);
-    return ReddappPage(
+    return FlappPage(
         title: widget.user.name,
         user: widget.user,
         body: ListView(children: [
@@ -51,7 +51,7 @@ class _UserPageVueState extends State<UserPageVue> {
               Text(widget.user.description)
             ],)
           ),
-          PostView(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), link: 'trol', upVotes: 1, downVotes: 0, parent: 's/lol')),
+          PostPreview(post: Post(authorName: 'u/bluub', title: 'title', content: 'LOL', createdTime: DateTime(1989, 10, 01), link: 'trol', upVotes: 1, downVotes: 0, parent: 's/lol')),
         ]));
   }
 }

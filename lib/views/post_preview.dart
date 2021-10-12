@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:reddapp/models/post.dart';
+import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
 
-class PostView extends StatelessWidget {
-  const PostView({Key? key, required this.post}) : super(key: key);
+class PostPreview extends StatelessWidget {
+  const PostPreview({Key? key, required this.post}) : super(key: key);
   final Post post;
 
   @override

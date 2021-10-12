@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'controllers/user_page.dart';
+import 'controllers/login_page.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
-  runApp(const ReddApp());
+  runApp(const Flapp());
 }
 
-class ReddApp extends StatelessWidget {
-  const ReddApp({Key? key}) : super(key: key);
+final getIt = GetIt.instance;
+
+class Flapp extends StatelessWidget {
+  const Flapp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Reddapp',
+      title: 'flapp',
       theme: ThemeData.dark(),
-      initialRoute: '/user',
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => const LoginPageController(),
         '/user': (context) => const UserPageController(),
       },
     );
