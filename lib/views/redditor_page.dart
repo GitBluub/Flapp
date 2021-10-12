@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'image_header.dart';
 import 'flapp_page.dart';
 import 'post_preview.dart';

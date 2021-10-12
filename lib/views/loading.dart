@@ -15,7 +15,7 @@ class LoadingWidget extends StatelessWidget {
               child: const SpinKitRotatingCircle(
                 color: Colors.white,
                 size: 50.0,
-              )
+              ))
         ]);
   }
 }
