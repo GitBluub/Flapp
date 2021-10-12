@@ -16,6 +16,8 @@ class Post {
 
   final int downVotes;
 
+  final String link;
+
   const Post({Key? key, required this.authorName, required this.parent, required this.createdTime, required this.title, required this.content,
-    required this.upVotes, required this.downVotes});
+    required this.upVotes, required this.downVotes, required this.link});
 }

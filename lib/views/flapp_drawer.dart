@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/redditor.dart';
 
-class ReddappDrawer extends StatelessWidget {
+class FlappDrawer extends StatelessWidget {
   final Redditor user;
-  const ReddappDrawer({Key? key, required this.user}) : super(key: key);
+  const FlappDrawer({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(context) {

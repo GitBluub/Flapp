@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'reddapp_drawer.dart';
+import 'flapp_drawer.dart';
 import '../models/redditor.dart';
 
-class ReddappPage extends StatelessWidget {
+class FlappPage extends StatelessWidget {
   final Widget body;
   final String title;
   final Redditor user;
-  const ReddappPage({Key? key, required this.title, required this.user, required this.body}) : super(key: key);
+  const FlappPage({Key? key, required this.title, required this.user, required this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ReddappPage extends StatelessWidget {
           title: Text(title,
               style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
-        drawer: ReddappDrawer(user: user),
+        drawer: FlappDrawer(user: user),
         body: body
     );
   }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/reddapp.iml" filepath="$PROJECT_DIR$/reddapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flapp.iml" filepath="$PROJECT_DIR$/flapp.iml" />
     </modules>
   </component>
 </project>
