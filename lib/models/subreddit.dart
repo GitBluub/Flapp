@@ -14,6 +14,10 @@ class Subreddit {
 
   final String link;
 
+  final String bannerUrl;
+
+  final String pictureUrl;
+
   const Subreddit({Key? key, required this.displayName, required this.fullName, required this.posts, required this.membersCount,
-  required this.description, required this.link});
+    required this.description, required this.link, required this.bannerUrl, required this.pictureUrl});
 }

@@ -2,6 +2,7 @@ import 'package:draw/draw.dart' show Reddit;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'redditor.dart';
+import 'subreddit.dart';
 
 class RedditInterface {
 
@@ -21,6 +22,33 @@ class RedditInterface {
         subscribedSubreddits: user.subreddits(),
         posts: []
     );
+  }
+
+  Future<List<Subreddit>> searchSubreddits(String name) async {
+    var searchRes = _reddit.subreddits.search(name);
+    List<Subreddit> sublist = [];
+    for (var sub in searchRes) {
+      sublist.add(Subreddit(
+        description: sub.title,
+        displayName: sub.displayName,
+        fullName: sub.fullName,
+        posts: [],
+        bannerUrl: sub.bannerImage(),
+        pictureUrl: sub.iconImage(),
+        membersCount: sub.traffic().subscribtion,
+        link: 'troll',
+      ));
+    }
+    return sublist;
+  }
+
+  Future<Subreddit?> getSubreddit(String name) async {
+    List<Subreddit> subs = await searchSubreddits(name);
+
+    if (subs == []) {
+      return null;
+    }
+    return subs[0];
   }
 
   Future<void> createAPIConnection() async {
