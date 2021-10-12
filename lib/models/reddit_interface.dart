@@ -8,10 +8,9 @@ class RedditInterface {
   var _reddit;
 
   RedditInterface() {
-    _createAPIConnection();
   }
 
-  void _createAPIConnection() async {
+  Future<void> createAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
 
     if (clientId == null) {
