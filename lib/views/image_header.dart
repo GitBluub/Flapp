@@ -19,19 +19,18 @@ class ImageHeader extends StatelessWidget {
         clipBehavior: Clip.none,
         children: <Widget>[
           SizedBox(
-            height: 100,
+            height: 120,
             child: FittedBox(
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
               child: CachedNetworkImage(
                 imageUrl: bannerUrl,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                placeholder: (context, url) =>  const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
           ),
           Positioned(
-              top: 50,
+              top: 70,
               left: 20,
               child: Row(children: [
                 CachedNetworkImage(
