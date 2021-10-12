@@ -48,8 +48,7 @@ class _RedditorPageVueState extends State<RedditorPageVue> {
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(ancientnessFormat,
-                    style: const TextStyle(color: Colors.grey)))
+                child: Text(ancientnessFormat))
           ]),
           Container(
               padding: const EdgeInsets.only(
