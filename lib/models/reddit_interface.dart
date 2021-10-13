@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'redditor.dart';
 import 'subreddit.dart';
+import 'dart:developer';
 
 class RedditInterface {
 
@@ -12,10 +13,16 @@ class RedditInterface {
 
   Future<Redditor> getLoggedRedditor() async {
     var user = _reddit.user;
-    var loggedUser = await user.me();
-    print(loggedUser.data["subreddit"]);
-    print(loggedUser);
-
+    var loggedUser = await _reddit.user.me();
+    //await loggedUser.fetch();
+    //print(loggedUser.data["subreddit"]);
+    //print(loggedUser);
+    //inspect(_reddit);
+    final subredditsstream = _reddit.user.subreddits();
+    List<String> subredditSubscribed = [];
+    await for (var sub in subredditsstream) {
+      subredditSubscribed.add(sub.displayName as String);
+    }
     return Redditor(
         description: loggedUser.data["subreddit"]["description"],
         bannerUrl: loggedUser.data["subreddit"]["banner_img"].replaceAll("&amp;", "&"),
@@ -24,7 +31,7 @@ class RedditInterface {
         name: "u/" + loggedUser.fullname,
         ancientness: loggedUser.createdUtc,
         karma: loggedUser.awardeeKarma + loggedUser.awarderKarma + loggedUser.commentKarma,
-        subscribedSubreddits: [],
+        subscribedSubreddits: subredditSubscribed,
         posts: []
     );
   }
