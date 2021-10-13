@@ -20,13 +20,13 @@ class PostPreview extends StatelessWidget {
                 Expanded(
                     child: Text(post.parent,
                         style:
-                            const TextStyle(fontSize: 20, color: Colors.grey),
+                            const TextStyle(fontSize: 20),
                         textAlign: TextAlign.end))
               ],
             ),
             Row(
               children: [
-                const Icon(Icons.access_time_outlined, color: Colors.grey),
+                const Icon(Icons.access_time_outlined),
                 Container(
                     padding: const EdgeInsets.only(left: 5),
                     child: Text(TimeElapsed.fromDateTime(post.createdTime),
@@ -34,7 +34,7 @@ class PostPreview extends StatelessWidget {
                 Expanded(
                     child: Text(post.authorName,
                         style:
-                            const TextStyle(fontSize: 20, color: Colors.grey),
+                            const TextStyle(fontSize: 20),
                         textAlign: TextAlign.end))
               ],
             ),
