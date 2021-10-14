@@ -23,7 +23,7 @@ class _HomePageViewState extends State<HomePageView> {
 
     return FlappPage(
       user: user,
-      title: user.name,
+      title: "Home",
       body: SubredditsCarousel(subredditsNames: user.subscribedSubreddits),
     );
   }
