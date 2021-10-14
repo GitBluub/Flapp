@@ -14,27 +14,8 @@ class SubredditsCarousel extends StatefulWidget {
 }
 
 class _SubredditsCarouselState extends State<SubredditsCarousel> {
-  Map<String, Subreddit?> subreddits = {};
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() =>
-    subreddits = {for (var name in widget.subredditsNames) name: null});
-  }
-
   @override
   Widget build(BuildContext context) {
-    for (var subredditName in widget.subredditsNames) {
-      if (subreddits[subredditName] != null) {
-        continue;
-      }
-      GetIt.I<RedditInterface>().getSubreddit(subredditName).then((subredditValue) {
-        setState(() {
-          subreddits[subredditName] = subredditValue;
-        });
-      });
-    }
 
     return DefaultTabController(
         length: widget.subredditsNames.length,
@@ -46,7 +27,7 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
               ]),
             ),
             body: TabBarView(children:
-              [for (var name in widget.subredditsNames) SubredditPostsList(subreddit: subreddits[name])]
+              [for (var name in widget.subredditsNames) SubredditPostsList(subredditName: name)]
             )
         )
     );
