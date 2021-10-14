@@ -1,25 +1,19 @@
 import 'package:draw/draw.dart' show Reddit;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'redditor.dart';
 import 'subreddit.dart';
-import 'dart:developer';
+import 'post.dart';
 
 class RedditInterface {
 
   var _reddit;
 
   Future<Redditor> getLoggedRedditor() async {
-    var user = _reddit.user;
     var loggedUser = await _reddit.user.me();
-    //await loggedUser.fetch();
-    //print(loggedUser.data["subreddit"]);
-    //print(loggedUser);
-    //inspect(_reddit);
     final subredditsstream = _reddit.user.subreddits();
     List<String> subredditSubscribed = [];
+
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
@@ -39,28 +33,30 @@ class RedditInterface {
   Future<List<Subreddit>> searchSubreddits(String name) async {
     var searchRes = _reddit.subreddits.search(name);
     List<Subreddit> sublist = [];
-    for (var sub in searchRes) {
+
+    await for (var sub in searchRes) {
+      List<Post> posts = [];
+      await for (var post in sub.hot()) {
+        posts.add(Post.fromSubmission(post));
+      }
       sublist.add(Subreddit(
         description: sub.title,
         displayName: sub.displayName,
         fullName: sub.fullName,
-        posts: [],
+        posts: posts,
         bannerUrl: sub.bannerImage(),
         pictureUrl: sub.iconImage(),
         membersCount: sub.traffic().subscribtion,
-        link: 'troll',
+        link: 'https://www.reddit.com/r/'+ sub.displayName,
       ));
     }
     return sublist;
   }
 
-  Future<Subreddit?> getSubreddit(String name) async {
-    List<Subreddit> subs = await searchSubreddits(name);
+  Future<Subreddit> getSubreddit(String name) async {
+    Future<Subreddit> sub = _reddit.subreddit(name);
 
-    if (subs == []) {
-      return null;
-    }
-    return subs[0];
+    return sub;
   }
 
   Future<void> createAPIConnection() async {

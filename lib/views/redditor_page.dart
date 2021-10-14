@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'image_header.dart';
 import 'flapp_page.dart';
-import 'post_preview.dart';
 import '../models/redditor.dart';
-import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'loading.dart';
 
@@ -19,7 +17,7 @@ class _RedditorPageVueState extends State<RedditorPageVue> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return LoadingWidget();
+      return const LoadingWidget();
     }
 
     Redditor user = widget.user as Redditor;
@@ -56,16 +54,6 @@ class _RedditorPageVueState extends State<RedditorPageVue> {
               child: Wrap(
                 children: [Text(user.description)],
               )),
-          PostPreview(
-              post: Post(
-                  authorName: 'u/bluub',
-                  title: 'title',
-                  content: 'LOL',
-                  createdTime: DateTime(1989, 10, 01),
-                  link: 'trol',
-                  upVotes: 1,
-                  downVotes: 0,
-                  parent: 's/lol')),
         ]));
   }
 }

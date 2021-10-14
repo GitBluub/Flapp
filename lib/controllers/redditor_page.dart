@@ -22,8 +22,9 @@ class _RedditorPageControllerState extends State<RedditorPageController> {
   }
   @override
   Widget build(BuildContext context) {
-    if (fetched)
+    if (fetched) {
       return RedditorPageVue(user: redditor);
+    }
     GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
       setState(() {
         redditor = redditorValue;

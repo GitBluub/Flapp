@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:draw/draw.dart' show Submission;
 
 class Post {
-  final String authorName;
+  Post(
+      {Key? key,
+      required this.authorName,
+      required this.parent,
+      required this.createdTime,
+      required this.title,
+      required this.content,
+      required this.score,
+      required this.link});
 
-  final String parent;
+  Post.fromSubmission(Submission submission)
+      : authorName = submission.author,
+        parent = submission.subreddit.displayName,
+        createdTime = submission.createdUtc,
+        title = submission.title,
+        content = submission.body == null ? "" : submission.body as String,
+        score = submission.upvotes,
+        link = submission.shortlink.toString();
 
-  final DateTime createdTime;
+  String authorName;
 
-  final String title;
+  String parent;
 
-  final String content;
+  DateTime createdTime;
 
-  final int upVotes;
+  String title;
 
-  final int downVotes;
+  String content;
 
-  final String link;
+  int score;
 
-  const Post({Key? key, required this.authorName, required this.parent, required this.createdTime, required this.title, required this.content,
-    required this.upVotes, required this.downVotes, required this.link});
+  String link;
 }

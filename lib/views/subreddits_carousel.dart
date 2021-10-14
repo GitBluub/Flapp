@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import '../models/subreddit.dart';
+import '../models/reddit_interface.dart';
+import 'package:get_it/get_it.dart';
+import 'subreddit_posts_list.dart';
 
 class SubredditsCarousel extends StatefulWidget {
   final List<String> subredditsNames;
@@ -17,11 +19,20 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
   @override
   void initState() {
     super.initState();
-    setState(() => {for (var name in widget.subredditsNames) name: null});
+    setState(() =>
+    subreddits = {for (var name in widget.subredditsNames) name: null});
   }
 
   @override
   Widget build(BuildContext context) {
+    for (var subredditName in widget.subredditsNames) {
+      GetIt.I<RedditInterface>().getSubreddit(subredditName).then((subredditValue) {
+        setState(() {
+          subreddits[subredditName] = subredditValue;
+        });
+      });
+    }
+
     return DefaultTabController(
         length: widget.subredditsNames.length,
         child: Scaffold(
@@ -31,10 +42,8 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
                 for (var name in widget.subredditsNames) Tab(text: name)
               ]),
             ),
-            body: TabBarView(children: [
-              // TODO Post Preview
-              for (var name in widget.subredditsNames) Tab(text: name)
-            ]
+            body: TabBarView(children:
+              [for (var name in widget.subredditsNames) SubredditPostsList(subreddit: subreddits[name])]
             )
         )
     );

@@ -46,7 +46,7 @@ class PostPreview extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.thumb_up),
                   ),
-                  Text(post.upVotes.toString())
+                  Text(post.score.toString())
                 ])),
                 Expanded(
                     child: IconButton(

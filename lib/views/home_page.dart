@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/redditor.dart';
-import '../models/subreddit.dart';
-import '../models/post.dart';
 import '../views/loading.dart';
 import 'flapp_page.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'subreddits_carousel.dart';
 
 class HomePageVue extends StatefulWidget {
