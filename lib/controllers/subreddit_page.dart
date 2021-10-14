@@ -26,7 +26,7 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
   Widget build(BuildContext context) {
 
     if (fetched) {
-      return SubredditPageVue(subreddit: subreddit);
+      return SubredditPageView(subreddit: subreddit);
     }
 
     GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
@@ -35,6 +35,6 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
         fetched = true;
       });
     });
-    return SubredditPageVue(subreddit: subreddit);
+    return SubredditPageView(subreddit: subreddit);
   }
 }

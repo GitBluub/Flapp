@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/subreddit.dart';
 
-class SubredditPageVue extends StatelessWidget{
+class SubredditPageView extends StatelessWidget{
   final Subreddit? subreddit;
-  const SubredditPageVue({Key? key, required this.subreddit}) : super(key: key);
+  const SubredditPageView({Key? key, required this.subreddit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

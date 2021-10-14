@@ -24,7 +24,7 @@ class _HomePageControllerState extends State<HomePageController> {
   @override
   Widget build(BuildContext context) {
     if (fetched) {
-      return HomePageVue(user: redditor);
+      return HomePageView(user: redditor);
     }
     GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
       setState(() {
@@ -32,6 +32,6 @@ class _HomePageControllerState extends State<HomePageController> {
         fetched = true;
       });
     });
-    return HomePageVue(user: redditor);
+    return HomePageView(user: redditor);
   }
 }

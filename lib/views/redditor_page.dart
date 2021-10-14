@@ -5,15 +5,15 @@ import '../models/redditor.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'loading.dart';
 
-class RedditorPageVue extends StatefulWidget {
-  const RedditorPageVue({Key? key, required this.user}) : super(key: key);
+class RedditorPageView extends StatefulWidget {
+  const RedditorPageView({Key? key, required this.user}) : super(key: key);
   final Redditor? user;
 
   @override
-  State<RedditorPageVue> createState() => _RedditorPageVueState();
+  State<RedditorPageView> createState() => _RedditorPageViewState();
 }
 
-class _RedditorPageVueState extends State<RedditorPageVue> {
+class _RedditorPageViewState extends State<RedditorPageView> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {

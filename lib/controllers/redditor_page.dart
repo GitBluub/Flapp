@@ -23,7 +23,7 @@ class _RedditorPageControllerState extends State<RedditorPageController> {
   @override
   Widget build(BuildContext context) {
     if (fetched) {
-      return RedditorPageVue(user: redditor);
+      return RedditorPageView(user: redditor);
     }
     GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
       setState(() {
@@ -31,6 +31,6 @@ class _RedditorPageControllerState extends State<RedditorPageController> {
         fetched = true;
       });
     });
-    return RedditorPageVue(user: redditor);
+    return RedditorPageView(user: redditor);
   }
 }

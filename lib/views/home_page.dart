@@ -4,15 +4,15 @@ import '../views/loading.dart';
 import 'flapp_page.dart';
 import 'subreddits_carousel.dart';
 
-class HomePageVue extends StatefulWidget {
-  const HomePageVue({Key? key, required this.user}) : super(key: key);
+class HomePageView extends StatefulWidget {
+  const HomePageView({Key? key, required this.user}) : super(key: key);
   final Redditor? user;
 
   @override
-  State<HomePageVue> createState() => _HomePageVueState();
+  State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageVueState extends State<HomePageVue> {
+class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
