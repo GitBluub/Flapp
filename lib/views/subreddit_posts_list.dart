@@ -25,13 +25,17 @@ class _SubredditPostsListState extends State<SubredditPostsList> {
       return const LoadingWidget();
     }
 
+    ScrollController listController = ScrollController();
     Subreddit sub = widget.subreddit as Subreddit;
 
     return Stack(children: [
       NotificationListener<ScrollEndNotification>(
-        child: ListView(children: [for (var post in sub.posts) PostPreview(post: post)], ),
+        child: ListView(
+          controller: listController,
+          children: [for (var post in sub.posts) PostPreview(post: post)]
+        ),
         onNotification: (notification) {
-          print(_scrollController.position.pixels);
+          print(listController.position.pixels);
           // Return true to cancel the notification bubbling. Return false (or null) to
           // allow the notification to continue to be dispatched to further ancestors.
           return true;
