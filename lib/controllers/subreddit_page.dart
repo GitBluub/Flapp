@@ -24,8 +24,11 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
 
   @override
   Widget build(BuildContext context) {
-    if (fetched)
-        return SubredditPageVue(subreddit: subreddit);
+
+    if (fetched) {
+      return SubredditPageVue(subreddit: subreddit);
+    }
+
     GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
       setState(() {
         subreddit = subreddit;
