@@ -32,6 +32,7 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
               ]),
             ),
             body: TabBarView(children: [
+              // TODO Post Preview
               for (var name in widget.subredditsNames) Tab(text: name)
             ]
             )
