@@ -22,6 +22,7 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (subreddit == null) {
       GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subredditValue) {
         setState(() {
