@@ -3,6 +3,7 @@ import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
+import 'package:intl/intl.dart';
 
 class PostPreview extends StatelessWidget {
   const PostPreview({Key? key, required this.post}) : super(key: key);
@@ -16,11 +17,17 @@ class PostPreview extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(post.title, style: const TextStyle(fontSize: 25)),
                 Expanded(
-                    child: Text(post.parent,
-                        style:
-                            const TextStyle(fontSize: 20),
+                  flex: 2,
+                  child: Text(
+                    post.title,
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Text("r/" + post.parent,
+                        style: const TextStyle(fontSize: 10),
                         textAlign: TextAlign.end))
               ],
             ),
@@ -33,26 +40,25 @@ class PostPreview extends StatelessWidget {
                         style: const TextStyle(fontSize: 15))),
                 Expanded(
                     child: Text(post.authorName,
-                        style:
-                            const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.end))
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
+                  flex: 3,
                     child: Row(children: [
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.thumb_up),
                   ),
-                  Text(post.score.toString())
+                  Text((NumberFormat.compact().format(post.score)).toString()),
+                  IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.thumb_down))
                 ])),
-                Expanded(
-                    child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.thumb_down),
-                )),
                 Expanded(
                     child: IconButton(
                   onPressed: () {},

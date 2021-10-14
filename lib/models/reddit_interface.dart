@@ -1,4 +1,4 @@
-import 'package:draw/draw.dart' show Reddit;
+import 'package:draw/draw.dart' as draw;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'redditor.dart';
@@ -36,7 +36,7 @@ class RedditInterface {
 
     await for (var sub in searchRes) {
       List<Post> posts = [];
-      await for (var post in sub.hot()) {
+      await for (var post in sub.hot(limit: 10)) {
         posts.add(Post.fromSubmission(post));
       }
       sublist.add(Subreddit(
@@ -54,9 +54,22 @@ class RedditInterface {
   }
 
   Future<Subreddit> getSubreddit(String name) async {
-    Future<Subreddit> sub = _reddit.subreddit(name);
+    draw.SubredditRef subRef = _reddit.subreddit(name);
+    draw.Subreddit sub = await subRef.populate();
+    List<Post> posts = [];
 
-    return sub;
+    await for (var post in sub.hot(limit: 10)) {
+      posts.add(Post.fromSubmission(post as draw.Submission));
+    }
+    return Subreddit(
+        description: sub.title,
+        displayName: sub.displayName,
+        fullName: sub.fullname == null ? "" : sub.fullname as String,
+        posts: posts,
+        bannerUrl: sub.headerImage.toString(),
+        pictureUrl: sub.iconImage.toString(),
+        membersCount: 0,
+    link: 'https://www.reddit.com/r/'+ sub.displayName,);
   }
 
   Future<void> createAPIConnection() async {
@@ -79,7 +92,7 @@ class RedditInterface {
     if (clientId == null) {
       throw Exception("No FLAPP_API_KEY env var found...");
     }
-    _reddit = Reddit.createInstalledFlowInstance(
+    _reddit = draw.Reddit.createInstalledFlowInstance(
         clientId: clientId,
         userAgent: "flapp",
         redirectUri: Uri.parse("flapp://home"));

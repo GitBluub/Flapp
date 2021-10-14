@@ -26,6 +26,9 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
   @override
   Widget build(BuildContext context) {
     for (var subredditName in widget.subredditsNames) {
+      if (subreddits[subredditName] != null) {
+        continue;
+      }
       GetIt.I<RedditInterface>().getSubreddit(subredditName).then((subredditValue) {
         setState(() {
           subreddits[subredditName] = subredditValue;
