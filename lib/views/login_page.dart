@@ -20,7 +20,7 @@ class LoginPageView extends StatelessWidget {
                     RedditInterface interface = RedditInterface();
                     await interface.createAPIConnection();
                     GetIt.I.registerSingleton<RedditInterface>(interface);
-                    Navigator.pushNamed(context, '/user');
+                    Navigator.pushNamed(context, '/home');
                   } catch (e) {
                     showDialog(
                         context: context,
