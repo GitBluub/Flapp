@@ -45,7 +45,7 @@ class FlappDrawer extends StatelessWidget {
             leading: const Icon(Icons.account_circle),
             title: const Text('Profile'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/user');
             },
           ),
           ListTile(
