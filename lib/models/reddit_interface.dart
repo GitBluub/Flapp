@@ -4,6 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'redditor.dart';
 import 'subreddit.dart';
 import 'post.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class RedditInterface {
 
@@ -75,19 +77,25 @@ class RedditInterface {
   Future<void> createAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
 
-    /*
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
     final file = File('$path/credentials.json');
 
+
+    print("a");
+    final cred = await file.readAsString();
+    print("cred: $cred");
     try {
-      final cred = await file.readAsString();
-      print("cred: $cred");
-      _reddit = Reddit.restoreInstalledAuthenticatedInstance(cred);
+      if (cred == "") {
+        throw Exception();
+      }
+      _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
+      clientId: "BhlBIYBQjYthI4AAu6mmOw",
+      userAgent: "flapp_application");
       return;
     } catch (e) {
       print("didnt find cred");
-    }*/
+    }
 
     if (clientId == null) {
       throw Exception("No FLAPP_API_KEY env var found...");
@@ -104,7 +112,10 @@ class RedditInterface {
 
     // Extract token from resulting url
     final code = Uri.parse(result).queryParameters['code'];
-    //Lawait file.writeAsString(_reddit.auth.credentials.toJson());
+
     await _reddit.auth.authorize(code.toString());
+    await file.writeAsString(_reddit.auth.credentials.toJson());
+    final creda = await file.readAsString();
+    print("creda: $creda");
   }
 }
