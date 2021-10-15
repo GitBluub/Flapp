@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/subreddit.dart';
-import '../models/reddit_interface.dart';
-import 'package:get_it/get_it.dart';
 import 'subreddit_posts_list.dart';
 
 class SubredditsCarousel extends StatefulWidget {

@@ -16,7 +16,7 @@ void main() async {
 
 class Flapp extends StatelessWidget {
   final bool connected;
-  const Flapp({Key? key, required this.connected}) : super(key: key);
+  Flapp({Key? key, required this.connected}) : super(key: key);
 
   // This widget is the root of your application.
   @override
