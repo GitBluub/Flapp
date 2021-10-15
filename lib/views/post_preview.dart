@@ -39,7 +39,7 @@ class PostPreview extends StatelessWidget {
                     child: Text(TimeElapsed.fromDateTime(post.createdTime),
                         style: const TextStyle(fontSize: 15))),
                 Expanded(
-                    child: Text(post.authorName,
+                    child: Text("u/" + post.authorName,
                         style: const TextStyle(fontSize: 15),
                         textAlign: TextAlign.end))
               ],
