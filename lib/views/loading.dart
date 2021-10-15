@@ -12,7 +12,7 @@ class LoadingWidget extends StatelessWidget {
         children: [
           Container(
               alignment: Alignment.center,
-              child: const SpinKitRotatingCircle(
+              child: const SpinKitWanderingCubes(
                 color: Colors.white,
                 size: 50.0,
               ))

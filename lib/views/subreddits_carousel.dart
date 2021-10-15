@@ -21,8 +21,12 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
         length: widget.subredditsNames.length,
         child: Scaffold(
             appBar: AppBar(
+              toolbarHeight: 48,
               automaticallyImplyLeading: false,
-              flexibleSpace: TabBar(isScrollable: true, tabs: [
+              flexibleSpace: TabBar(
+                  padding: EdgeInsets.zero,
+                  isScrollable: true,
+                  tabs: [
                 for (var name in widget.subredditsNames) Tab(text: name)
               ]),
             ),

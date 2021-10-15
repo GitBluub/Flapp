@@ -53,10 +53,6 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
           return true;
         },
       ),
-      FloatingActionButton(
-        onPressed: () {},
-        child: Row(children: const [Icon(Icons.arrow_downward_sharp), Icon(Icons.arrow_upward_sharp)])
-      )
-    ]);
+      ]);
   }
 }

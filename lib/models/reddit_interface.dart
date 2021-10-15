@@ -58,7 +58,7 @@ class RedditInterface {
     draw.Subreddit sub = await subRef.populate();
     List<Post> posts = [];
 
-    await for (var post in sub.hot(limit: 100)) {
+    await for (var post in sub.hot(limit: 15)) {
       posts.add(Post.fromSubmission(post as draw.Submission));
     }
     return Subreddit(
