@@ -4,16 +4,19 @@ import 'controllers/login_page.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'controllers/home_page.dart';
+import 'models/reddit_interface.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
-  runApp(const Flapp());
+  RedditInterface interface = RedditInterface();
+  GetIt.I.registerSingleton<RedditInterface>(interface);
+  await interface.restoreAPIConnection();
+  runApp(Flapp(connected: interface.connected));
 }
 
-final getIt = GetIt.instance;
-
 class Flapp extends StatelessWidget {
-  const Flapp({Key? key}) : super(key: key);
+  final bool connected;
+  const Flapp({Key? key, required this.connected}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -22,7 +25,7 @@ class Flapp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'flapp',
       theme: ThemeData.dark(),
-      initialRoute: '/login',
+      initialRoute: connected ? "/home" : "/login",
       routes: {
         '/login': (context) => const LoginPageController(),
         '/user': (context) => const RedditorPageController(),

@@ -17,9 +17,7 @@ class LoginPageView extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    RedditInterface interface = RedditInterface();
-                    await interface.createAPIConnection();
-                    GetIt.I.registerSingleton<RedditInterface>(interface);
+                    await GetIt.I<RedditInterface>().createAPIConnection();
                     Navigator.pushNamed(context, '/home');
                   } catch (e) {
                     showDialog(

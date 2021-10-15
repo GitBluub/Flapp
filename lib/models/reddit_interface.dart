@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 class RedditInterface {
-
+  bool connected = false;
   var _reddit;
 
   Future<Redditor> getLoggedRedditor() async {
@@ -74,29 +74,30 @@ class RedditInterface {
     link: 'https://www.reddit.com/r/'+ sub.displayName,);
   }
 
+  Future<void> restoreAPIConnection() async {
+    String? clientId = dotenv.env['FLAPP_API_KEY'];
+
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final path = directory.path;
+      final file = File('$path/credentials.json');
+      final cred = await file.readAsString();
+      if (cred == "") {
+        throw Exception("Empty creds");
+      }
+      _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
+        clientId: clientId,
+        userAgent: "flapp_application");
+      connected = true;
+  } catch (e) { }
+}
+
   Future<void> createAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
 
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
     final file = File('$path/credentials.json');
-
-
-    print("a");
-    final cred = await file.readAsString();
-    print("cred: $cred");
-    try {
-      if (cred == "") {
-        throw Exception();
-      }
-      _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
-      clientId: "BhlBIYBQjYthI4AAu6mmOw",
-      userAgent: "flapp_application");
-      return;
-    } catch (e) {
-      print("didnt find cred");
-    }
-
     if (clientId == null) {
       throw Exception("No FLAPP_API_KEY env var found...");
     }
@@ -115,7 +116,6 @@ class RedditInterface {
 
     await _reddit.auth.authorize(code.toString());
     await file.writeAsString(_reddit.auth.credentials.toJson());
-    final creda = await file.readAsString();
-    print("creda: $creda");
+    connected = true;
   }
 }
