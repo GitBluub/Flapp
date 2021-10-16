@@ -4,6 +4,7 @@ import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
 import 'package:intl/intl.dart';
+import 'vote_widget.dart';
 
 class PostPreview extends StatelessWidget {
   const PostPreview({Key? key, required this.post}) : super(key: key);
@@ -51,15 +52,7 @@ class PostPreview extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                    child: Row(children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_up),
-                  ),
-                  Text((NumberFormat.compact().format(post.score)).toString()),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.thumb_down))
-                ])),
+                    child: VoteWidget(likeCount: post.score, liked: null /*TODO get if post is liked*/)),
                 Expanded(
                     child: IconButton(
                   onPressed: () {},
