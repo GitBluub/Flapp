@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/redditor.dart';
@@ -32,8 +31,7 @@ class FlappDrawer extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(image: imageProvider)),
                       ),
-                      placeholder: (context, url) =>
-                          const LoadingWidget(),
+                      placeholder: (context, url) => const LoadingWidget(),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     )),
@@ -64,6 +62,13 @@ class FlappDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.sensor_door_outlined),
+            title: const Text('Log out'),
             onTap: () {
               Navigator.pop(context);
             },
