@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/redditor.dart';
+import 'loading.dart';
 
 class FlappDrawer extends StatelessWidget {
   final Redditor user;
@@ -32,7 +33,7 @@ class FlappDrawer extends StatelessWidget {
                             image: DecorationImage(image: imageProvider)),
                       ),
                       placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
+                          const LoadingWidget(),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     )),
