@@ -12,6 +12,7 @@ class FlappPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text(title,
               style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
