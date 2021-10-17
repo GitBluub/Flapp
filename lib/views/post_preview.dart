@@ -3,7 +3,6 @@ import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
-import 'package:intl/intl.dart';
 import 'vote_widget.dart';
 
 class PostPreview extends StatelessWidget {
@@ -52,7 +51,7 @@ class PostPreview extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                    child: VoteWidget(likeCount: post.score, liked: null /*TODO get if post is liked*/)),
+                    child: VoteWidget(post: post)),
                 Expanded(
                     child: IconButton(
                   onPressed: () {},

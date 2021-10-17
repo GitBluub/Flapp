@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../models/post.dart';
 
 class VoteWidget extends StatefulWidget {
-  int likeCount;
-  bool? liked;
-  VoteWidget({Key? key, required this.likeCount, required this.liked})
+  Post post;
+  VoteWidget({Key? key, required this.post})
       : super(key: key);
 
   @override
@@ -17,9 +17,9 @@ class _VoteWidgetState extends State<VoteWidget> {
     bool liked = false;
     bool disliked = false;
 
-    if (widget.liked != null) {
-      liked = widget.liked as bool;
-      disliked = !(widget.liked as bool);
+    if (widget.post.vote != null) {
+      liked = widget.post.vote as bool;
+      disliked = !(widget.post.vote as bool);
     }
     Widget likeIcon = Icon(liked
         ? Icons.thumb_up
@@ -33,31 +33,27 @@ class _VoteWidgetState extends State<VoteWidget> {
         onPressed: () {
           setState(() {
             if (!liked) {
-              widget.likeCount += 1;
-              widget.liked = true;
-              //TODO Tell API
+              widget.post.score += 1;
+              widget.post.setVote(true);
             } else if (liked) {
-              widget.likeCount -= 1;
-              widget.liked = null;
-              //TODO Tell API
+              widget.post.score -= 1;
+              widget.post.setVote(null);
             }
           });
         },
         icon: likeIcon,
       ),
-      Text((NumberFormat.compact().format(widget.likeCount)).toString()),
+      Text((NumberFormat.compact().format(widget.post.score)).toString()),
       IconButton(
           onPressed: () {
             setState(() {
               if (!disliked) {
                 if (liked) {
-                  widget.likeCount -= 1;
+                  widget.post.score -= 1;
                 }
-                widget.liked = false;
-                //TODO Tell API
+                widget.post.setVote(false);
               } else if (disliked) {
-                widget.liked = null;
-                //TODO Tell API
+                widget.post.setVote(null);
               }
             });
           },

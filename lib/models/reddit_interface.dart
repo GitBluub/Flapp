@@ -89,7 +89,7 @@ class RedditInterface {
         clientId: clientId,
         userAgent: "flapp_application");
       connected = true;
-  } catch (e) { }
+  } catch (e) {}
 }
 
   Future<void> createAPIConnection() async {
