@@ -43,7 +43,7 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
         onNotification: (notification) {
           if (listController.position.atEdge) {
             if (listController.position.pixels == 0) {
-              print("top");
+              sub.refreshPosts();
             } else {
               print("bottom");
             }

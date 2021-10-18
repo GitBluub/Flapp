@@ -37,20 +37,8 @@ class RedditInterface {
     List<Subreddit> sublist = [];
 
     await for (var sub in searchRes) {
-      List<Post> posts = [];
-      await for (var post in sub.hot(limit: 10)) {
-        posts.add(Post.fromSubmission(post));
-      }
-      sublist.add(Subreddit(
-        description: sub.title,
-        displayName: sub.displayName,
-        fullName: sub.fullName,
-        posts: posts,
-        bannerUrl: sub.bannerImage(),
-        pictureUrl: sub.iconImage(),
-        membersCount: sub.traffic().subscribtion,
-        link: 'https://www.reddit.com/r/'+ sub.displayName,
-      ));
+      List<Post> posts = [for (var post in sub.hot(limit: 15)) Post.fromSubmission(post)];
+      sublist.add(Subreddit.fromDRAW(sub, posts));
     }
     return sublist;
   }
@@ -63,15 +51,7 @@ class RedditInterface {
     await for (var post in sub.hot(limit: 15)) {
       posts.add(Post.fromSubmission(post as draw.Submission));
     }
-    return Subreddit(
-        description: sub.title,
-        displayName: sub.displayName,
-        fullName: sub.fullname == null ? "" : sub.fullname as String,
-        posts: posts,
-        bannerUrl: sub.headerImage.toString(),
-        pictureUrl: sub.iconImage.toString(),
-        membersCount: 0,
-    link: 'https://www.reddit.com/r/'+ sub.displayName,);
+    return Subreddit.fromDRAW(sub, posts);
   }
 
   Future<void> restoreAPIConnection() async {
