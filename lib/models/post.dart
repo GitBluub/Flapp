@@ -6,7 +6,7 @@ class Post {
         parent = submission.subreddit.displayName,
         createdTime = submission.createdUtc,
         title = submission.title,
-        content = submission.body == null ? "" : submission.body as String,
+        content = submission.selftext == null ? "" : submission.selftext as String,
         score = submission.upvotes,
         link = submission.shortlink.toString() {
         switch (submission.vote) {

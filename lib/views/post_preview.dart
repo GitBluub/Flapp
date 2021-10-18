@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
+import 'package:intl/intl.dart';
+import 'dart:math';
 import 'vote_widget.dart';
 
 class PostPreview extends StatelessWidget {
@@ -32,6 +35,21 @@ class PostPreview extends StatelessWidget {
                         textAlign: TextAlign.end))
               ],
             ),
+            Row(
+              children: [
+                Expanded(
+                  child:
+                    Text(
+                      post.content,
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 10
+                      ),
+                    )
+                ),
+              ],
+            ),
+
             Row(
               children: [
                 const Icon(Icons.access_time_outlined),
