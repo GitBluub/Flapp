@@ -6,6 +6,7 @@ import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
+import 'vote_widget.dart';
 
 class PostPreview extends StatelessWidget {
   const PostPreview({Key? key, required this.post}) : super(key: key);
@@ -68,15 +69,7 @@ class PostPreview extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                    child: Row(children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_up),
-                  ),
-                  Text((NumberFormat.compact().format(post.score)).toString().padRight(7, " ")),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.thumb_down))
-                ])),
+                    child: VoteWidget(post: post)),
                 Expanded(
                     child: IconButton(
                   onPressed: () {},
@@ -92,6 +85,7 @@ class PostPreview extends StatelessWidget {
                 )),
               ],
             ),
+            Divider(),
           ],
         ));
   }

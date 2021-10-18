@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'loading.dart';
 
 class ImageHeader extends StatelessWidget {
   final String bannerUrl;
@@ -14,20 +15,25 @@ class ImageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget bannerWidget = Container();
+
+    if (bannerUrl != "") {
+      bannerWidget = FittedBox(
+        fit: BoxFit.cover,
+        child: CachedNetworkImage(
+          imageUrl: bannerUrl,
+          placeholder: (context, url) =>  const LoadingWidget(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
+      );
+    }
     return Wrap(children: [
       Stack(
         clipBehavior: Clip.none,
         children: <Widget>[
           SizedBox(
             height: 120,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: CachedNetworkImage(
-                imageUrl: bannerUrl,
-                placeholder: (context, url) =>  const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
+            child: bannerWidget
           ),
           Positioned(
               top: 70,
@@ -44,8 +50,7 @@ class ImageHeader extends StatelessWidget {
                           image: imageProvider, fit: BoxFit.cover),
                     ),
                   ),
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  placeholder: (context, url) => const LoadingWidget(),
                 ),
               ])),
         ],
@@ -54,7 +59,7 @@ class ImageHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-              padding: const EdgeInsets.only(top: 10, bottom: 20),
+              padding: const EdgeInsets.only(top: 10, bottom: 20, left: 100),
               child: Text(title,
                   style: const TextStyle(color: Colors.white, fontSize: 25),
                   textAlign: TextAlign.center))
