@@ -51,6 +51,7 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
               sub.fetchMorePosts();
             }
           }
+          setState((){});
           // Return true to cancel the notification bubbling. Return false (or null) to
           // allow the notification to continue to be dispatched to further ancestors.
           return true;

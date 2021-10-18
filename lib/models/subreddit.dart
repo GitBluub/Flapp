@@ -37,54 +37,37 @@ class Subreddit {
 
   Future<void>refreshPosts() async
   {
-    int postsCount = posts.length;
-    posts = [];
+    var refreshedPosts = fetch(posts.length, null);
 
-    var refreshedPosts;
-
-    switch (sortingMethod) {
-      case PostSort.hot:
-        refreshedPosts = drawInterface.hot(limit: postsCount);
-        break;
-      case PostSort.top:
-        refreshedPosts = drawInterface.top(limit: postsCount);
-        break;
-      case PostSort.newest:
-        refreshedPosts = drawInterface.newest(limit: postsCount);
-        break;
-      case PostSort.rising:
-        refreshedPosts = drawInterface.rising(limit: postsCount);
-        break;
-    }
     posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
   }
 
   Future<void>fetchMorePosts() async
   {
     // TODO: Find what parameter to pass fetcher
-    String? lastPage = posts.isNotEmpty ? null : null;
-    var fetchedPosts;
+    String? lastPage = posts.isNotEmpty ? posts.last.fullName : null;
+    var fetchedPosts = fetch(1, lastPage);
 
+    /*'''await for (var post in fetchedPosts) {
+      var posted = Post.fromSubmission(post as draw.Submission);
+      print("Fetched ${posted.submission.data}");
+      posts.add(posted);
+    }*/
+    posts.addAll([await for (var post in fetchedPosts) Post.fromSubmission(post as draw.Submission)]);
+  }
+
+  Stream fetch(int? limit, String? after)
+  {
     switch (sortingMethod) {
       case PostSort.hot:
-        fetchedPosts = drawInterface.hot(limit: SubredditPostsList.pageSize, after: lastPage);
-        break;
+        return drawInterface.hot(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.top:
-        fetchedPosts = drawInterface.top(limit: SubredditPostsList.pageSize, after: lastPage);
-        break;
+        return drawInterface.top(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.newest:
-        fetchedPosts = drawInterface.newest(limit: SubredditPostsList.pageSize, after: lastPage);
-        break;
+        return drawInterface.newest(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.rising:
-        fetchedPosts = drawInterface.rising(limit: SubredditPostsList.pageSize, after: lastPage);
-        break;
+        return drawInterface.rising(limit: SubredditPostsList.pageSize, after: after);
     }
-    await for (var post in fetchedPosts) {
-      var posted = Post.fromSubmission(post as draw.Submission);
-      print("Fetched ${posted.title}");
-      posts.add(posted);
-    }
-    //posts += [await for (var post in fetchedPosts) Post.fromSubmission(post as draw.Submission)];
   }
 
 }
