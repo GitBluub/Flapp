@@ -1,3 +1,4 @@
+import 'package:flapp/views/widgets/postContent/post_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flapp/models/post.dart';
@@ -7,6 +8,7 @@ import 'package:share/share.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 import 'vote_widget.dart';
+import 'widgets/postContent/post_content.dart';
 
 class PostPreview extends StatelessWidget {
   const PostPreview({Key? key, required this.post}) : super(key: key);
@@ -48,6 +50,11 @@ class PostPreview extends StatelessWidget {
                     )
                 ),
               ],
+            ),
+            Row(
+              children: [
+                PostContentWidget(post: post)
+              ]
             ),
 
             Row(
