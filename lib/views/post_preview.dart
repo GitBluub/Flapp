@@ -67,6 +67,7 @@ class PostPreview extends StatelessWidget {
                 )),
               ],
             ),
+            Divider(),
           ],
         ));
   }
