@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class PostPreview extends StatelessWidget {
   const PostPreview({Key? key, required this.post}) : super(key: key);
@@ -34,6 +36,21 @@ class PostPreview extends StatelessWidget {
             ),
             Row(
               children: [
+                Expanded(
+                  child:
+                    Text(
+                      post.content,
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontSize: 10
+                      ),
+                    )
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
                 const Icon(Icons.access_time_outlined),
                 Container(
                     padding: const EdgeInsets.only(left: 5),
@@ -56,7 +73,7 @@ class PostPreview extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(Icons.thumb_up),
                   ),
-                  Text((NumberFormat.compact().format(post.score)).toString()),
+                  Text((NumberFormat.compact().format(post.score)).toString().padRight(7, " ")),
                   IconButton(
                       onPressed: () {}, icon: const Icon(Icons.thumb_down))
                 ])),
