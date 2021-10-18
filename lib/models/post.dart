@@ -2,24 +2,8 @@ import 'package:draw/draw.dart' show Submission, VoteState;
 
 class Post {
   Post.fromSubmission(this.submission)
-      : authorName = submission.author,
-        parent = submission.subreddit.displayName,
-        createdTime = submission.createdUtc,
-        title = submission.title,
-        content = submission.selftext == null ? "" : submission.selftext as String,
-        score = submission.upvotes,
-        link = submission.shortlink.toString() {
-        switch (submission.vote) {
-          case VoteState.none:
-            vote = null;
-            break;
-          case VoteState.upvoted:
-            vote = true;
-            break;
-          case VoteState.downvoted:
-            vote = false;
-            break;
-        }
+  {
+    _refreshFromSubmission();
   }
 
   // If vote is null, cancels any vote from the user on this post
@@ -39,21 +23,49 @@ class Post {
     this.vote = vote;
   }
 
-  String authorName;
+  Future<void> refresh() async {
+    submission.refresh();
 
-  String parent;
+    _refreshFromSubmission();
+  }
 
-  DateTime createdTime;
+  void _refreshFromSubmission()
+  {
+    authorName = submission.author;
+    parent = submission.subreddit.displayName;
+    createdTime = submission.createdUtc;
+    title = submission.title;
+    content = submission.selftext == null ? "" : submission.selftext as String;
+    score = submission.upvotes;
+    link = submission.shortlink.toString();
+    switch (submission.vote) {
+      case VoteState.none:
+        vote = null;
+        break;
+      case VoteState.upvoted:
+        vote = true;
+        break;
+      case VoteState.downvoted:
+        vote = false;
+        break;
+    }
+  }
 
-  String title;
+  late String authorName;
 
-  String content;
+  late String parent;
 
-  int score;
+  late DateTime createdTime;
 
-  bool? vote;
+  late String title;
 
-  String link;
+  late String content;
+
+  late int score;
+
+  late bool? vote;
+
+  late String link;
 
   Submission submission;
 }
