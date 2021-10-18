@@ -6,6 +6,9 @@ import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
 class SubredditPostsList extends StatefulWidget {
+
+  static int pageSize = 15;
+
   final String subredditName;
 
   const SubredditPostsList({Key? key, required this.subredditName})
