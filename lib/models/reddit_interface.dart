@@ -92,12 +92,17 @@ class RedditInterface {
   } catch (e) {}
 }
 
-  Future<void> createAPIConnection() async {
-    String? clientId = dotenv.env['FLAPP_API_KEY'];
-
+  Future<File> getCredentialsFile() async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
-    final file = File('$path/credentials.json');
+
+    return File('$path/credentials.json');
+  }
+
+  Future<void> createAPIConnection() async {
+    String? clientId = dotenv.env['FLAPP_API_KEY'];
+    final file = await getCredentialsFile();
+
     if (clientId == null) {
       throw Exception("No FLAPP_API_KEY env var found...");
     }
@@ -117,5 +122,14 @@ class RedditInterface {
     await _reddit.auth.authorize(code.toString());
     await file.writeAsString(_reddit.auth.credentials.toJson());
     connected = true;
+  }
+
+  Future<void> stopAPIConnection() async {
+    File credentials = await getCredentialsFile();
+
+    if (credentials.existsSync()) {
+      await credentials.delete();
+    }
+    connected = false;
   }
 }

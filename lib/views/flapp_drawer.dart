@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/redditor.dart';
 import 'loading.dart';
+import '../models/reddit_interface.dart';
+import 'package:get_it/get_it.dart';
 
 class FlappDrawer extends StatelessWidget {
   final Redditor user;
@@ -70,7 +72,8 @@ class FlappDrawer extends StatelessWidget {
             leading: const Icon(Icons.sensor_door_outlined),
             title: const Text('Log out'),
             onTap: () {
-              Navigator.pop(context);
+              GetIt.I<RedditInterface>().stopAPIConnection();
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ],
