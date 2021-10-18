@@ -48,7 +48,7 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
             if (listController.position.pixels == 0) {
               sub.refreshPosts();
             } else {
-              print("bottom");
+              sub.fetchMorePosts();
             }
           }
           // Return true to cancel the notification bubbling. Return false (or null) to
