@@ -20,7 +20,7 @@ class RedditInterface {
       subredditSubscribed.add(sub.displayName as String);
     }
     return Redditor(
-        description: loggedUser.data["subreddit"]["description"],
+        description: loggedUser.data["subreddit"]["public_description"].replaceAll("&amp;", "&"),
         bannerUrl: loggedUser.data["subreddit"]["banner_img"].replaceAll("&amp;", "&"),
         pictureUrl: loggedUser.data["subreddit"]["icon_img"].replaceAll("&amp;", "&"),
         displayName: loggedUser.displayName,
