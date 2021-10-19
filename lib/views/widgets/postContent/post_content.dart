@@ -9,16 +9,15 @@ class PostContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (post.submission.isVideo) {
-      return (
-          PostVideoWidget(post: post)
-      );
+    ContentType type = getContentType(post.submission);
+    switch (type)
+    {
+      case ContentType.image:
+        return (PostImgWidget(post: post));
+      case ContentType.video:
+        return (PostVideoWidget(post: post));
+      default:
+        return Container();
     }
-    if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(post.submission.url.toString())) {
-      return (
-        PostImgWidget(post: post)
-      );
-    }
-    return Container();
   }
 }
