@@ -37,8 +37,7 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
     Subreddit sub = subreddit as Subreddit;
     ScrollController listController = ScrollController();
 
-    return Stack(children: [
-      NotificationListener<ScrollEndNotification>(
+    return NotificationListener<ScrollEndNotification>(
         child: ListView(
           controller: listController,
           children: [for (var post in sub.posts) PostPreview(post: post)]
@@ -56,7 +55,6 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
           // allow the notification to continue to be dispatched to further ancestors.
           return true;
         },
-      ),
-      ]);
+      );
   }
 }
