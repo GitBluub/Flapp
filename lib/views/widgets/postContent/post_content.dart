@@ -1,6 +1,7 @@
 import '../../../models/post.dart';
 import 'package:flutter/material.dart';
 import 'post_video.dart';
+import 'post_img.dart';
 
 class PostContentWidget extends StatelessWidget {
   final Post post;
@@ -11,6 +12,11 @@ class PostContentWidget extends StatelessWidget {
     if (post.submission.isVideo) {
       return (
           PostVideoWidget(post: post)
+      );
+    }
+    if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(post.submission.url.toString())) {
+      return (
+        PostImgWidget(post: post)
       );
     }
     return Container();
