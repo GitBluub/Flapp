@@ -1,14 +1,14 @@
 import 'post.dart';
 import 'package:flutter/material.dart';
+import 'sort.dart';
+import 'package:draw/draw.dart' as draw;
 
 class Subreddit {
   final String displayName;
 
-  final String fullName;
+  List<Post> posts;
 
-  final List<Post> posts;
-
-  final int membersCount;
+  int membersCount;
 
   final String description;
 
@@ -18,6 +18,44 @@ class Subreddit {
 
   final String pictureUrl;
 
-  const Subreddit({Key? key, required this.displayName, required this.fullName, required this.posts, required this.membersCount,
-    required this.description, required this.link, required this.bannerUrl, required this.pictureUrl});
+  final PostSort sortingMethod;
+
+  final PostTopSort? topSortingMethod;
+
+  draw.Subreddit drawInterface;
+
+  Subreddit.fromDRAW(this.drawInterface, this.posts):
+      displayName = drawInterface.displayName,
+      description = drawInterface.title,
+      bannerUrl = drawInterface.headerImage.toString(),
+      pictureUrl = drawInterface.iconImage.toString(),
+      membersCount = 0, // TODO
+      link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
+      sortingMethod = PostSort.hot,
+      topSortingMethod = null;
+
+  Future<void>refreshPosts() async
+  {
+    int postsCount = posts.length;
+    posts = [];
+
+    var refreshedPosts;
+
+    switch (sortingMethod) {
+      case PostSort.hot:
+        refreshedPosts = drawInterface.hot(limit: postsCount);
+        break;
+      case PostSort.top:
+        refreshedPosts = drawInterface.top(limit: postsCount);
+        break;
+      case PostSort.newest:
+        refreshedPosts = drawInterface.newest(limit: postsCount);
+        break;
+      case PostSort.rising:
+        refreshedPosts = drawInterface.rising(limit: postsCount);
+        break;
+    }
+    posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
+  }
+
 }
