@@ -34,6 +34,8 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
 
   @override
   Widget build(BuildContext context) {
+
+    final width = MediaQuery.of(context).size.width - 40;
     return FutureBuilder(
         future: _initializeVideoPlayerFuture,
         builder: (context, snapshot) {
@@ -50,8 +52,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
               child: Hero(
                   tag: 'video-by-' + widget.post.title,
                   child: Container(
-                      width: 300,
-                      height: 200,
+                      width: width,
                       child:
                           Stack(alignment: Alignment.bottomCenter, children: [
                         AspectRatio(

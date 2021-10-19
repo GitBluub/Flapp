@@ -22,10 +22,11 @@ class _PostImgWidgetState extends State<PostImgWidget>
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width - 40;
     return FittedBox(
-      fit: BoxFit.scaleDown,
+      fit: BoxFit.contain,
       child: CachedNetworkImage(
-        width: 300,
+        width: width,
         imageUrl: widget.post.submission.url.toString(),
         placeholder: (context, url) {
           return LoadingWidget();
