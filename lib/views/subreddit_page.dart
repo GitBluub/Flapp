@@ -23,7 +23,7 @@ class SubredditPageView extends StatelessWidget{
             ImageHeader(
                 bannerUrl: sub.bannerUrl,
                 pictureUrl: sub.pictureUrl,
-                title: sub.displayName)
+                title: 'r/' + sub.displayName)
           ]),
           Row(children: [
             Container(
