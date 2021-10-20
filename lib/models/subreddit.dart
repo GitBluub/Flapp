@@ -25,7 +25,7 @@ class Subreddit {
   draw.Subreddit drawInterface;
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
-      displayName = 'r/' + drawInterface.displayName,
+      displayName = drawInterface.displayName,
       description = drawInterface.data!['public_description'],
       bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
