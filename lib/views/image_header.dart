@@ -2,6 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'loading.dart';
 
+class CircularCachedNetworkImage extends StatelessWidget {
+  final String url;
+  final double size;
+
+  const CircularCachedNetworkImage({Key? key, required this.url, required this.size}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (url == '') {
+      return Icon(Icons.no_photography, size: size);
+    }
+    return CachedNetworkImage(
+      imageUrl: url,
+      imageBuilder: (context, imageProvider) => Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+              image: imageProvider, fit: BoxFit.cover),
+        ),
+      ),
+      placeholder: (context, url) => const LoadingWidget(),
+      errorWidget: (context, url, error) => Icon(Icons.no_photography, size: size),
+    );
+  }
+
+}
+
 class ImageHeader extends StatelessWidget {
   final String bannerUrl;
   final String pictureUrl;
@@ -16,6 +45,7 @@ class ImageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bannerWidget = Container();
+    //print("This is the banne rurl '$bannerUrl'");
 
     if (bannerUrl != "") {
       bannerWidget = FittedBox(
@@ -39,19 +69,7 @@ class ImageHeader extends StatelessWidget {
               top: 70,
               left: 20,
               child: Row(children: [
-                CachedNetworkImage(
-                  imageUrl: pictureUrl,
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: 100.0,
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
-                    ),
-                  ),
-                  placeholder: (context, url) => const LoadingWidget(),
-                ),
+                CircularCachedNetworkImage(url: pictureUrl, size: 100),
               ])),
         ],
       ),

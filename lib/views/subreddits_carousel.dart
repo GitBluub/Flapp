@@ -23,6 +23,7 @@ class _SubredditsCarouselState extends State<SubredditsCarousel> {
               flexibleSpace: TabBar(
                   padding: EdgeInsets.zero,
                   isScrollable: true,
+                  labelColor: Theme.of(context).primaryColor,
                   tabs: [
                 for (var name in widget.subredditsNames) Tab(text: name)
               ]),

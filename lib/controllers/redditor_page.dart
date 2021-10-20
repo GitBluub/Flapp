@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../views/redditor_page.dart';
-import '../models/redditor.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
@@ -12,25 +11,9 @@ class RedditorPageController extends StatefulWidget {
 }
 
 class _RedditorPageControllerState extends State<RedditorPageController> {
-  Redditor? redditor;
-  bool fetched = false;
 
   @override
-  void initState() {
-    super.initState();
-    setState(() => redditor = null);
-  }
-  @override
   Widget build(BuildContext context) {
-    if (fetched) {
-      return RedditorPageView(user: redditor);
-    }
-    GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
-      setState(() {
-        redditor = redditorValue;
-        fetched = true;
-      });
-    });
-    return RedditorPageView(user: redditor);
+    return RedditorPageView(user: GetIt.I<RedditInterface>().loggedRedditor);
   }
 }

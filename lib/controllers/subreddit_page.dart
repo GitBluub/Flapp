@@ -4,6 +4,22 @@ import '../models/subreddit.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
+class SubredditPageArguments {
+  final String subredditName;
+
+  SubredditPageArguments(this.subredditName);
+}
+
+class ExtractArgumentsSubredditPage extends StatelessWidget {
+  const ExtractArgumentsSubredditPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final SubredditPageArguments subredditPageArguments = ModalRoute.of(context)!.settings.arguments as SubredditPageArguments;
+    return SubredditPageController(subredditName: subredditPageArguments.subredditName);
+  }
+}
+
 class SubredditPageController extends StatefulWidget {
   final String subredditName;
   const SubredditPageController({Key? key, required this.subredditName}) : super(key: key);
@@ -20,21 +36,16 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
   void initState() {
     super.initState();
     setState(() => subreddit = null);
+    GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subreddit) {
+      setState(() {
+        this.subreddit = subreddit;
+        fetched = true;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-    if (fetched) {
-      return SubredditPageView(subreddit: subreddit);
-    }
-
-    GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
-      setState(() {
-        subreddit = subreddit;
-        fetched = true;
-      });
-    });
     return SubredditPageView(subreddit: subreddit);
   }
 }

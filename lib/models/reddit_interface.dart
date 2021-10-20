@@ -10,9 +10,11 @@ import '../views/subreddit_posts_list.dart';
 
 class RedditInterface {
   bool connected = false;
+  late Redditor loggedRedditor;
+  // ignore: prefer_typing_uninitialized_variables
   var _reddit;
 
-  Future<Redditor> getLoggedRedditor() async {
+  Future<Redditor> _fetchLoggedRedditor() async {
     var loggedUser = await _reddit.user.me();
     final subredditsstream = _reddit.user.subreddits();
     List<String> subredditSubscribed = [];
@@ -20,7 +22,7 @@ class RedditInterface {
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    return Redditor(
+    loggedRedditor = Redditor(
         description: loggedUser.data["subreddit"]["public_description"].replaceAll("&amp;", "&"),
         bannerUrl: loggedUser.data["subreddit"]["banner_img"].replaceAll("&amp;", "&"),
         pictureUrl: loggedUser.data["subreddit"]["icon_img"].replaceAll("&amp;", "&"),
@@ -31,15 +33,16 @@ class RedditInterface {
         subscribedSubreddits: subredditSubscribed,
         posts: []
     );
+    return loggedRedditor;
   }
 
-  Future<List<Subreddit>> searchSubreddits(String name) async {
-    var searchRes = _reddit.subreddits.search(name);
+  Future<List<Subreddit>> searchSubreddits(String name, int? limit) async {
+    var searchRes = await _reddit.subreddits.searchByName(name);
     List<Subreddit> sublist = [];
 
-    await for (var sub in searchRes) {
-      List<Post> posts = [for (var post in sub.hot(limit: SubredditPostsList.pageSize)) Post.fromSubmission(post)];
-      sublist.add(Subreddit.fromDRAW(sub, posts));
+    for (var sub in searchRes) {
+      var populated = await sub.populate();
+      sublist.add(Subreddit.fromDRAW(populated, []));
     }
     return sublist;
   }
@@ -69,6 +72,7 @@ class RedditInterface {
       _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
         clientId: clientId,
         userAgent: "flapp_application");
+      await _fetchLoggedRedditor();
       connected = true;
   } catch (e) {}
 }
@@ -102,6 +106,7 @@ class RedditInterface {
 
     await _reddit.auth.authorize(code.toString());
     await file.writeAsString(_reddit.auth.credentials.toJson());
+    await _fetchLoggedRedditor();
     connected = true;
   }
 

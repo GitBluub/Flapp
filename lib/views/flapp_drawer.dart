@@ -4,6 +4,35 @@ import '../models/redditor.dart';
 import 'loading.dart';
 import '../models/reddit_interface.dart';
 import 'package:get_it/get_it.dart';
+import 'image_header.dart';
+
+class DrawerButton extends StatelessWidget
+{
+  final IconData icon;
+  final String title;
+  final String route;
+  final void Function()? callback;
+
+  const DrawerButton({Key? key, required this.icon, required this.title, required this.route, this.callback}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String currentRoute = "";
+
+    currentRoute = ModalRoute.of(context)!.settings.name!;
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: callback ?? () {
+        if (currentRoute == route) {
+          Navigator.pop(context);
+        } else {
+          Navigator.pushNamed(context, route);
+        }
+      },
+    );
+  }
+}
 
 class FlappDrawer extends StatelessWidget {
   final Redditor user;
@@ -11,9 +40,7 @@ class FlappDrawer extends StatelessWidget {
 
   @override
   Widget build(context) {
-    String currentRoute = "";
 
-    currentRoute = ModalRoute.of(context)!.settings.name!;
     return Drawer(
         child: Column(
       // Important: Remove any padding from the ListView.
@@ -22,60 +49,20 @@ class FlappDrawer extends StatelessWidget {
             height: 200.0,
             child: DrawerHeader(
                 child: Column(children: [
-              Container(
+              SizedBox(
                   height: 100,
-                  child: CachedNetworkImage(
-                    width: 80,
-                    imageUrl: user.pictureUrl,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(image: imageProvider)),
-                    ),
-                    placeholder: (context, url) => const LoadingWidget(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  )),
+                  child: CircularCachedNetworkImage(url: user.pictureUrl, size: 80),),
               Text(user.name, style: const TextStyle(fontSize: 20))
             ]))),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                if (currentRoute == '/home') {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.pushNamed(context, '/home');
-                }
-              },
-            ),
-            ListTile(
-              title: const Text('Profile'),
-              leading: const Icon(Icons.account_circle),
-              onTap: () {
-                if (currentRoute == '/user') {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.pushNamed(context, '/user');
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
+            const DrawerButton(icon: Icons.home, route: '/home', title: 'Home'),
+            const DrawerButton(icon: Icons.account_circle, route: '/user', title: 'Profile'),
+            const DrawerButton(icon: Icons.manage_search, route: '/search', title: 'Search'),
+            const DrawerButton(icon: Icons.settings, route: '/settings', title: 'Settings'),
             Expanded(child: Container()),
-            ListTile(
-              leading: const Icon(Icons.sensor_door_outlined),
-              title: const Text('Log out'),
-              onTap: () {
-                GetIt.I<RedditInterface>().stopAPIConnection();
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-            ),
+            DrawerButton(icon: Icons.sensor_door_outlined, route: '/settings', title: 'Log out', callback: () {
+              GetIt.I<RedditInterface>().stopAPIConnection();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }),
           ],
     ));
   }

@@ -1,5 +1,4 @@
 import 'post.dart';
-import 'package:flutter/material.dart';
 import 'sort.dart';
 import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
@@ -26,11 +25,11 @@ class Subreddit {
   draw.Subreddit drawInterface;
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
-      displayName = drawInterface.displayName,
-      description = drawInterface.title,
-      bannerUrl = drawInterface.headerImage.toString(),
+      displayName = 'r/' + drawInterface.displayName,
+      description = drawInterface.data!['public_description'],
+      bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
-      membersCount = 0, // TODO
+      membersCount = drawInterface.data!['subscribers'],
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       topSortingMethod = null;
