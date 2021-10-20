@@ -10,6 +10,9 @@ class CircularCachedNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (url == '') {
+      return Icon(Icons.no_photography, size: size);
+    }
     return CachedNetworkImage(
       imageUrl: url,
       imageBuilder: (context, imageProvider) => Container(

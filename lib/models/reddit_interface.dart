@@ -36,12 +36,12 @@ class RedditInterface {
   }
 
   Future<List<Subreddit>> searchSubreddits(String name, int? limit) async {
-    var searchRes = _reddit.subreddits.search(name, limit: limit);
+    var searchRes = await _reddit.subreddits.searchByName(name);
     List<Subreddit> sublist = [];
 
-    await for (var sub in searchRes) {
-      List<Post> posts = [await for (var post in sub.hot(limit: 15)) Post.fromSubmission(post)];
-      sublist.add(Subreddit.fromDRAW(sub, posts));
+    for (var sub in searchRes) {
+      var populated = await sub.populate();
+      sublist.add(Subreddit.fromDRAW(populated, []));
     }
     return sublist;
   }

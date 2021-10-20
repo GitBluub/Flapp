@@ -1,3 +1,4 @@
+import 'package:flapp/controllers/subreddit_page.dart';
 import 'package:flutter/material.dart';
 import 'controllers/redditor_page.dart';
 import 'controllers/login_page.dart';
@@ -32,6 +33,7 @@ class Flapp extends StatelessWidget {
         '/user': (context) => const RedditorPageController(),
         '/home': (context) => const HomePageController(),
         '/search': (context) => const SearchPageController(),
+        '/subreddit': (context) => const ExtractArgumentsSubredditPage(),
       },
     );
   }

@@ -31,6 +31,7 @@ class SearchPageView extends StatelessWidget {
           onSearch: _searchSubreddits,
           textStyle: const TextStyle(),
           onError: (Error? error) {
+            print(error);
             return Row(
                 children: const [Text("Oops... An error occured", style: TextStyle(fontSize: 20), textAlign: TextAlign.center)],
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,16 +46,18 @@ class SearchPageView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center
           ),
           onCancelled: () {},
-          onItemFound: (Subreddit? post, int index) {
-            if (post == null) {
+          onItemFound: (Subreddit? subreddit, int index) {
+            if (subreddit == null) {
               return Container();
             }
-            Subreddit sub = post;
-            return  TextButton(
+            Subreddit sub = subreddit;
+            return TextButton(
                 style: TextButton.styleFrom(
                   primary: Theme.of(context).primaryColor,
                 ),
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pushNamed(context, '/subreddit', arguments: SubredditPageArguments(sub.displayName));
+              },
               child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,

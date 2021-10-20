@@ -4,6 +4,7 @@ import '../models/redditor.dart';
 import 'loading.dart';
 import '../models/reddit_interface.dart';
 import 'package:get_it/get_it.dart';
+import 'image_header.dart';
 
 class DrawerButton extends StatelessWidget
 {
@@ -50,18 +51,7 @@ class FlappDrawer extends StatelessWidget {
                 child: Column(children: [
               SizedBox(
                   height: 100,
-                  child: CachedNetworkImage(
-                    width: 80,
-                    imageUrl: user.pictureUrl,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(image: imageProvider)),
-                    ),
-                    placeholder: (context, url) => const LoadingWidget(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  )),
+                  child: CircularCachedNetworkImage(url: user.pictureUrl, size: 80),),
               Text(user.name, style: const TextStyle(fontSize: 20))
             ]))),
             const DrawerButton(icon: Icons.home, route: '/home', title: 'Home'),
