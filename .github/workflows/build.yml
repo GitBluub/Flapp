@@ -16,7 +16,6 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build apk
       - name: Create release
         id: create_release
