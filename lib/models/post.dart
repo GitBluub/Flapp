@@ -1,5 +1,23 @@
 import 'package:draw/draw.dart' show Submission, VoteState;
 
+enum ContentType {
+  self,
+  image,
+  video,
+  gif,
+}
+
+ContentType getContentType(Submission sub)
+{
+  if (sub.isVideo)
+    return ContentType.video;
+  if (sub.isSelf)
+    return ContentType.self;
+  if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(sub.url.toString()))
+    return ContentType.image;
+  return ContentType.self;
+}
+
 class Post {
   Post.fromSubmission(this.submission)
   {
