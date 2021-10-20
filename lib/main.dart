@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'controllers/home_page.dart';
 import 'models/reddit_interface.dart';
+import 'controllers/search_page.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -29,7 +30,8 @@ class Flapp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPageController(),
         '/user': (context) => const RedditorPageController(),
-        '/home': (context) => const HomePageController()
+        '/home': (context) => const HomePageController(),
+        '/search': (context) => const SearchPageController(),
       },
     );
   }

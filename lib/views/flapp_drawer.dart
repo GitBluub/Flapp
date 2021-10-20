@@ -60,6 +60,13 @@ class FlappDrawer extends StatelessWidget {
                 }
               },
             ),
+        ListTile(
+          leading: const Icon(Icons.manage_search),
+          title: const Text('Search'),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
