@@ -62,6 +62,7 @@ class FlappDrawer extends StatelessWidget {
             DrawerButton(icon: Icons.sensor_door_outlined, route: '/settings', title: 'Log out', callback: () {
               GetIt.I<RedditInterface>().stopAPIConnection();
               Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).popAndPushNamed("/login");
             }),
           ],
     ));
