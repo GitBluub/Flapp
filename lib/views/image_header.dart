@@ -45,6 +45,7 @@ class ImageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bannerWidget = Container();
+    //print("This is the banne rurl '$bannerUrl'");
 
     if (bannerUrl != "") {
       bannerWidget = FittedBox(

@@ -24,11 +24,11 @@ class Subreddit {
   draw.Subreddit drawInterface;
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
-      displayName = drawInterface.displayName,
-      description = drawInterface.title,
-      bannerUrl = drawInterface.headerImage.toString(),
+      displayName = 'r/' + drawInterface.displayName,
+      description = drawInterface.data!['public_description'],
+      bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
-      membersCount = 0, // TODO
+      membersCount = drawInterface.data!['subscribers'],
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       topSortingMethod = null;

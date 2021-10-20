@@ -31,7 +31,6 @@ class SearchPageView extends StatelessWidget {
           onSearch: _searchSubreddits,
           textStyle: const TextStyle(),
           onError: (Error? error) {
-            print(error);
             return Row(
                 children: const [Text("Oops... An error occured", style: TextStyle(fontSize: 20), textAlign: TextAlign.center)],
                 crossAxisAlignment: CrossAxisAlignment.center,
