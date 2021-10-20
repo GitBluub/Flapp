@@ -1,25 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flapp/controllers/subreddit_page.dart';
 import 'package:flapp/models/subreddit.dart';
 import 'package:flapp/views/loading.dart';
 import 'package:flappy_search_bar_ns/scaled_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'flapp_page.dart';
 import '../models/redditor.dart';
 import 'package:flappy_search_bar_ns/flappy_search_bar_ns.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
-import '../controllers/subreddit_page.dart';
+import 'image_header.dart';
 
-/*class SearchPageView extends StatefulWidget {
-  const SearchPageView({Key? key, required this.user}) : super(key: key);
-  final Redditor user;
-
-  @override
-  State<StatefulWidget> createState() => _SearchPageViewWidget();
-}
-
-class _SearchPageViewWidget extends State<SearchPageView> {
-*/
 class SearchPageView extends StatelessWidget {
 
   SearchPageView({Key? key}) : super(key: key);
@@ -36,13 +28,15 @@ class SearchPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FlappPage(
+      title: "Search Subreddits",
       body: SafeArea(
         child: SearchBar<Subreddit>(
           searchBarPadding: const EdgeInsets.symmetric(horizontal: 10),
           headerPadding: const EdgeInsets.symmetric(horizontal: 10),
-          listPadding: const EdgeInsets.symmetric(horizontal: 10),
+          listPadding: const EdgeInsets.symmetric(horizontal: 20),
           onSearch: _searchSubreddits,
+          textStyle: const TextStyle(),
           onError: (Error? error) {
             return Row(
                 children: const [Text("Oops... An error occured", style: TextStyle(fontSize: 20), textAlign: TextAlign.center)],
@@ -52,28 +46,33 @@ class SearchPageView extends StatelessWidget {
             } ,
           cancellationWidget: const Text("Cancel"),
           loader: const LoadingWidget(),
-          emptyWidget: const Text("No matching subreddit"),
-          indexedScaledTileBuilder: (int index) => ScaledTile.count(1, index.isEven ? 2 : 1),
-          onCancelled: () {
-            print("Cancelled triggered");
-          },
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          crossAxisCount: 2,
+          emptyWidget: Row(
+              children: const [Text("No matching subreddit...", style: TextStyle(fontSize: 20), textAlign: TextAlign.center)],
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center
+          ),
+          onCancelled: () {},
           onItemFound: (Subreddit? post, int index) {
-            if (post == null)
-                return Container();
+            if (post == null) {
+              return Container();
+            }
             Subreddit sub = post;
-            return Container(
-              color: Colors.lightBlue,
-              child: ListTile(
-                title: Text(sub.displayName),
-                isThreeLine: true,
-                subtitle: Text(sub.description),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SubredditPageController(subredditName: post.displayName)));
-                },
-              ),
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(20),
+                    child: CircularCachedNetworkImage(url: sub.pictureUrl, size: 40)
+                ),
+                Expanded(
+                    child: Text(sub.displayName)
+                ),
+                Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(NumberFormat.compact().format(sub.membersCount).toString())
+                ),
+              ],
             );
           },
         ),
