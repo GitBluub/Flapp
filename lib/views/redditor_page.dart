@@ -49,11 +49,12 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                 child: Text(ancientnessFormat))
           ]),
           Container(
-              padding: const EdgeInsets.only(
-                  top: 15, bottom: 20, left: 15, right: 15),
-              child: Wrap(
-                children: [Text(user.description)],
-              )),
+              padding: const EdgeInsets.only(left: 20, top: 15),
+              child: Row(
+              children: [
+                Wrap(children: [Text(user.description)]),
+            ]
+          )),
         ]));
   }
 }
