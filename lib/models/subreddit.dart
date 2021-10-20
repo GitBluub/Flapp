@@ -1,6 +1,7 @@
 import 'post.dart';
 import 'sort.dart';
 import 'package:draw/draw.dart' as draw;
+import '../views/subreddit_posts_list.dart';
 
 class Subreddit {
   final String displayName;
@@ -35,26 +36,37 @@ class Subreddit {
 
   Future<void>refreshPosts() async
   {
-    int postsCount = posts.length;
-    posts = [];
+    var refreshedPosts = fetch(posts.length, null);
 
-    var refreshedPosts;
+    posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
+  }
 
+  Future<void>fetchMorePosts() async
+  {
+    // TODO: Find what parameter to pass fetcher
+    String? lastPage = posts.isNotEmpty ? posts.last.fullName : null;
+    var fetchedPosts = fetch(1, lastPage);
+
+    /*'''await for (var post in fetchedPosts) {
+      var posted = Post.fromSubmission(post as draw.Submission);
+      print("Fetched ${posted.submission.data}");
+      posts.add(posted);
+    }*/
+    posts.addAll([await for (var post in fetchedPosts) Post.fromSubmission(post as draw.Submission)]);
+  }
+
+  Stream fetch(int? limit, String? after)
+  {
     switch (sortingMethod) {
       case PostSort.hot:
-        refreshedPosts = drawInterface.hot(limit: postsCount);
-        break;
+        return drawInterface.hot(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.top:
-        refreshedPosts = drawInterface.top(limit: postsCount);
-        break;
+        return drawInterface.top(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.newest:
-        refreshedPosts = drawInterface.newest(limit: postsCount);
-        break;
+        return drawInterface.newest(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.rising:
-        refreshedPosts = drawInterface.rising(limit: postsCount);
-        break;
+        return drawInterface.rising(limit: SubredditPostsList.pageSize, after: after);
     }
-    posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
   }
 
 }

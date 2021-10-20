@@ -6,6 +6,7 @@ import 'subreddit.dart';
 import 'post.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import '../views/subreddit_posts_list.dart';
 
 class RedditInterface {
   bool connected = false;
@@ -51,7 +52,7 @@ class RedditInterface {
     draw.Subreddit sub = await subRef.populate();
     List<Post> posts = [];
 
-    await for (var post in sub.hot(limit: 15)) {
+    await for (var post in sub.hot(limit: SubredditPostsList.pageSize)) {
       posts.add(Post.fromSubmission(post as draw.Submission));
     }
     return Subreddit.fromDRAW(sub, posts);

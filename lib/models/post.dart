@@ -1,5 +1,23 @@
 import 'package:draw/draw.dart' show Submission, VoteState;
 
+enum ContentType {
+  self,
+  image,
+  video,
+  gif,
+}
+
+ContentType getContentType(Submission sub)
+{
+  if (sub.isVideo)
+    return ContentType.video;
+  if (sub.isSelf)
+    return ContentType.self;
+  if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(sub.url.toString()))
+    return ContentType.image;
+  return ContentType.self;
+}
+
 class Post {
   Post.fromSubmission(this.submission)
   {
@@ -38,6 +56,7 @@ class Post {
     content = submission.selftext == null ? "" : submission.selftext as String;
     score = submission.upvotes;
     link = submission.shortlink.toString();
+    fullName = submission.fullname!;
     switch (submission.vote) {
       case VoteState.none:
         vote = null;
@@ -62,6 +81,8 @@ class Post {
   late String content;
 
   late int score;
+
+  late String fullName;
 
   late bool? vote;
 
