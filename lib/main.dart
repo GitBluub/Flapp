@@ -25,7 +25,7 @@ class Flapp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'flapp',
-      theme: ThemeData.dark(),
+      theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.white),
       initialRoute: connected ? "/home" : "/login",
       routes: {
         '/login': (context) => const LoginPageController(),

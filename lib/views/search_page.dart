@@ -17,13 +17,7 @@ class SearchPageView extends StatelessWidget {
   SearchPageView({Key? key}) : super(key: key);
 
   Future<List<Subreddit>> _searchSubreddits(String? name) {
-    print("Searching for -$name-");
     return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "", 10);
-    /*print(list.length);
-    for (var subreddit in list) {
-      print(subreddit.displayName);
-    }
-    return list;*/
   }
 
   @override
@@ -32,8 +26,7 @@ class SearchPageView extends StatelessWidget {
       title: "Search Subreddits",
       body: SafeArea(
         child: SearchBar<Subreddit>(
-          searchBarPadding: const EdgeInsets.symmetric(horizontal: 10),
-          headerPadding: const EdgeInsets.symmetric(horizontal: 10),
+          searchBarPadding: const EdgeInsets.symmetric(horizontal: 20),
           listPadding: const EdgeInsets.symmetric(horizontal: 20),
           onSearch: _searchSubreddits,
           textStyle: const TextStyle(),
@@ -57,22 +50,29 @@ class SearchPageView extends StatelessWidget {
               return Container();
             }
             Subreddit sub = post;
-            return Row(
+            return  TextButton(
+                style: TextButton.styleFrom(
+                  primary: Theme.of(context).primaryColor,
+                ),
+              onPressed: () {},
+              child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
-                    padding: const EdgeInsets.all(20),
-                    child: CircularCachedNetworkImage(url: sub.pictureUrl, size: 40)
+                    padding: const EdgeInsets.all(15),
+                    child: CircularCachedNetworkImage(url: sub.pictureUrl, size: 50)
                 ),
                 Expanded(
                     child: Text(sub.displayName)
                 ),
+
                 Container(
                     padding: const EdgeInsets.all(20),
                     child: Text(NumberFormat.compact().format(sub.membersCount).toString())
                 ),
               ],
+            )
             );
           },
         ),
