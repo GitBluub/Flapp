@@ -38,6 +38,7 @@ class Post {
     content = submission.selftext == null ? "" : submission.selftext as String;
     score = submission.upvotes;
     link = submission.shortlink.toString();
+    fullName = submission.fullname!;
     switch (submission.vote) {
       case VoteState.none:
         vote = null;
@@ -62,6 +63,8 @@ class Post {
   late String content;
 
   late int score;
+
+  late String fullName;
 
   late bool? vote;
 

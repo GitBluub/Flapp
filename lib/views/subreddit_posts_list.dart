@@ -4,8 +4,11 @@ import 'loading.dart';
 import '../models/subreddit.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
+import 'loading.dart';
 
 class SubredditPostsList extends StatefulWidget {
+  static int pageSize = 15;
+
   final String subredditName;
 
   const SubredditPostsList({Key? key, required this.subredditName})
@@ -15,8 +18,12 @@ class SubredditPostsList extends StatefulWidget {
   State<StatefulWidget> createState() => _SubredditPostsListState();
 }
 
-class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticKeepAliveClientMixin {
+class _SubredditPostsListState extends State<SubredditPostsList>
+    with AutomaticKeepAliveClientMixin {
   Subreddit? subreddit;
+
+  bool loading = false;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -24,7 +31,9 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
   Widget build(BuildContext context) {
     super.build(context);
     if (subreddit == null) {
-      GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subredditValue) {
+      GetIt.I<RedditInterface>()
+          .getSubreddit(widget.subredditName)
+          .then((subredditValue) {
         setState(() {
           subreddit = subredditValue;
         });
@@ -33,26 +42,46 @@ class _SubredditPostsListState extends State<SubredditPostsList> with AutomaticK
     }
     Subreddit sub = subreddit as Subreddit;
     ScrollController listController = ScrollController();
-
-    return Stack(children: [
-      NotificationListener<ScrollEndNotification>(
-        child: ListView(
+    Widget list = NotificationListener<ScrollEndNotification>(
+      child: ListView(
           controller: listController,
-          children: [for (var post in sub.posts) PostPreview(post: post)]
-        ),
-        onNotification: (notification) {
-          if (listController.position.atEdge) {
-            if (listController.position.pixels == 0) {
-              sub.refreshPosts();
-            } else {
-              print("bottom");
-            }
+          children: [for (var post in sub.posts) PostPreview(post: post)]),
+      onNotification: (notification) {
+        if (listController.position.atEdge) {
+          loading = true;
+          setState(() {});
+          if (listController.position.pixels == 0) {
+            sub.refreshPosts().then((_) {
+              setState(() {
+                loading = false;
+              });
+            });
+          } else {
+            sub.fetchMorePosts().then((_) {
+              setState(() {
+                loading = false;
+              });
+            });
           }
-          // Return true to cancel the notification bubbling. Return false (or null) to
-          // allow the notification to continue to be dispatched to further ancestors.
-          return true;
-        },
-      ),
+        }
+        // Return true to cancel the notification bubbling. Return false (or null) to
+        // allow the notification to continue to be dispatched to further ancestors.
+        return true;
+      },
+    );
+
+    if (loading) {
+      return Stack(children: [
+        SizedBox.expand(
+          child: Container(
+            color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
+            ),
+          ),
+        const LoadingWidget(),
+        list
       ]);
+    } else {
+      return list;
+    }
   }
 }
