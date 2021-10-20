@@ -9,6 +9,6 @@ class SearchPageController extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return SearchPageView(user: GetIt.I<RedditInterface>().loggedRedditor);
+    return SearchPageView(/*user: GetIt.I<RedditInterface>().loggedRedditor*/);
   }
 }
