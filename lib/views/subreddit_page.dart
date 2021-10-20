@@ -7,12 +7,13 @@ import 'image_header.dart';
 
 class SubredditPageView extends StatelessWidget{
   final Subreddit? subreddit;
-  const SubredditPageView({Key? key, required this.subreddit}) : super(key: key);
+  final bool? subscribed;
+  const SubredditPageView({Key? key, required this.subreddit, required this.subscribed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    if (subreddit == null) {
+    if (subreddit == null || subscribed == null) {
       return const LoadingWidget();
     }
     Subreddit sub = subreddit as Subreddit;
@@ -27,17 +28,20 @@ class SubredditPageView extends StatelessWidget{
           ]),
           Row(children: [
             Container(
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(), primary: Colors.grey),
+                      shape: const StadiumBorder(),
+                      onPrimary: subscribed! == false ? Theme.of(context).primaryColor : Colors.grey,
+                      primary: subscribed! == false ? Colors.grey : Theme.of(context).scaffoldBackgroundColor,
+                      side: subscribed! ? BorderSide(width: 2.0, color: Colors.grey) : null),
                   child: Row(
-                      children: const [Icon(Icons.edit), Text('Edit profile')]),
+                      children: [subscribed! ? Text('JOINED') : Text('JOIN')]),
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(NumberFormat.compact().format(sub.membersCount).toString()))
+                child: Text(NumberFormat.compact().format(sub.membersCount).toString() + " Members"))
           ]),
           Container(
               padding: const EdgeInsets.only(

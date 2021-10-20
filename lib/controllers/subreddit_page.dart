@@ -30,7 +30,7 @@ class SubredditPageController extends StatefulWidget {
 
 class _SubredditPageControllerState extends State<SubredditPageController> {
   Subreddit? subreddit;
-  bool fetched = false;
+  bool? subscribed;
 
   @override
   void initState() {
@@ -39,13 +39,13 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
     GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subreddit) {
       setState(() {
         this.subreddit = subreddit;
-        fetched = true;
+        subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(widget.subredditName);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SubredditPageView(subreddit: subreddit);
+    return SubredditPageView(subreddit: subreddit, subscribed: subscribed);
   }
 }
