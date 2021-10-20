@@ -5,18 +5,26 @@ import 'flapp_page.dart';
 import 'loading.dart';
 import 'image_header.dart';
 
-class SubredditPageView extends StatelessWidget{
+class SubredditPageView extends StatefulWidget {
   final Subreddit? subreddit;
-  final bool? subscribed;
-  const SubredditPageView({Key? key, required this.subreddit, required this.subscribed}) : super(key: key);
+
+  const SubredditPageView({Key? key, required this.subreddit})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SubredditPageViewState();
+}
+
+class _SubredditPageViewState extends State<SubredditPageView>
+{
 
   @override
   Widget build(BuildContext context) {
 
-    if (subreddit == null || subscribed == null) {
+    if (widget.subreddit == null) {
       return const LoadingWidget();
     }
-    Subreddit sub = subreddit as Subreddit;
+    Subreddit sub = widget.subreddit as Subreddit;
     return FlappPage(
         title: sub.displayName,
         body: ListView(children: [
@@ -30,14 +38,22 @@ class SubredditPageView extends StatelessWidget{
             Container(
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                      setState(() {
+                    if (sub.subscribed == true) {
+                      sub.unsubscribe();
+                    } else {
+                      sub.subscribe();
+                    }
+                    sub.subscribed = !sub.subscribed;
+                  });},
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      onPrimary: subscribed! == false ? Theme.of(context).primaryColor : Colors.grey,
-                      primary: subscribed! == false ? Colors.grey : Theme.of(context).scaffoldBackgroundColor,
-                      side: subscribed! ? BorderSide(width: 2.0, color: Colors.grey) : null),
+                      onPrimary: sub.subscribed == false ? Theme.of(context).primaryColor : Colors.grey,
+                      primary: sub.subscribed == false ? Colors.grey : Theme.of(context).scaffoldBackgroundColor,
+                      side: sub.subscribed ? BorderSide(width: 2.0, color: Colors.grey) : null),
                   child: Row(
-                      children: [subscribed! ? Text('JOINED') : Text('JOIN')]),
+                      children: [sub.subscribed ? Text('JOINED') : Text('JOIN')]),
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 15),

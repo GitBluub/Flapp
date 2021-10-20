@@ -36,7 +36,7 @@ class RedditInterface {
     return loggedRedditor;
   }
 
-  Future<List<Subreddit>> searchSubreddits(String name, int? limit) async {
+  Future<List<Subreddit>> searchSubreddits(String name) async {
     var searchRes = await _reddit.subreddits.searchByName(name);
     List<Subreddit> sublist = [];
 

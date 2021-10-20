@@ -17,7 +17,7 @@ class SearchPageView extends StatelessWidget {
   SearchPageView({Key? key}) : super(key: key);
 
   Future<List<Subreddit>> _searchSubreddits(String? name) {
-    return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "", 10);
+    return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "");
   }
 
   @override
