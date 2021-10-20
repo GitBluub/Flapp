@@ -30,7 +30,7 @@ class Subreddit {
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
       displayName = drawInterface.displayName,
-      description = drawInterface.data!['public_description'],
+      description = drawInterface.data!['public_description'].toString(),
       bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
       membersCount = drawInterface.data!['subscribers'],

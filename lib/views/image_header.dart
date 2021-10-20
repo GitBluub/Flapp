@@ -62,11 +62,11 @@ class ImageHeader extends StatelessWidget {
         clipBehavior: Clip.none,
         children: <Widget>[
           SizedBox(
-            height: 120,
+            height: 80,
             child: bannerWidget
           ),
           Positioned(
-              top: 70,
+              top: 30,
               left: 20,
               child: Row(children: [
                 CircularCachedNetworkImage(url: pictureUrl, size: 100),

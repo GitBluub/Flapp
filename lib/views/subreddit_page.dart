@@ -4,6 +4,7 @@ import '../models/subreddit.dart';
 import 'flapp_page.dart';
 import 'loading.dart';
 import 'image_header.dart';
+import 'subreddit_posts_list.dart';
 
 class SubredditPageView extends StatefulWidget {
   final Subreddit? subreddit;
@@ -15,12 +16,9 @@ class SubredditPageView extends StatefulWidget {
   State<StatefulWidget> createState() => _SubredditPageViewState();
 }
 
-class _SubredditPageViewState extends State<SubredditPageView>
-{
-
+class _SubredditPageViewState extends State<SubredditPageView> {
   @override
   Widget build(BuildContext context) {
-
     if (widget.subreddit == null) {
       return const LoadingWidget();
     }
@@ -39,25 +37,35 @@ class _SubredditPageViewState extends State<SubredditPageView>
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
                   onPressed: () {
-                      setState(() {
-                    if (sub.subscribed == true) {
-                      sub.unsubscribe();
-                    } else {
-                      sub.subscribe();
-                    }
-                    sub.subscribed = !sub.subscribed;
-                  });},
+                    setState(() {
+                      if (sub.subscribed == true) {
+                        sub.unsubscribe();
+                      } else {
+                        sub.subscribe();
+                      }
+                      sub.subscribed = !sub.subscribed;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      onPrimary: sub.subscribed == false ? Theme.of(context).primaryColor : Colors.grey,
-                      primary: sub.subscribed == false ? Colors.grey : Theme.of(context).scaffoldBackgroundColor,
-                      side: sub.subscribed ? BorderSide(width: 2.0, color: Colors.grey) : null),
-                  child: Row(
-                      children: [sub.subscribed ? Text('JOINED') : Text('JOIN')]),
+                      onPrimary: sub.subscribed == false
+                          ? Theme.of(context).primaryColor
+                          : Colors.grey,
+                      primary: sub.subscribed == false
+                          ? Colors.grey
+                          : Theme.of(context).scaffoldBackgroundColor,
+                      side: sub.subscribed
+                          ? BorderSide(width: 2.0, color: Colors.grey)
+                          : null),
+                  child: Row(children: [
+                    sub.subscribed ? Text('JOINED') : Text('JOIN')
+                  ]),
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(NumberFormat.compact().format(sub.membersCount).toString() + " Members"))
+                child: Text(
+                    NumberFormat.compact().format(sub.membersCount).toString() +
+                        " Members"))
           ]),
           Container(
               padding: const EdgeInsets.only(
@@ -65,6 +73,8 @@ class _SubredditPageViewState extends State<SubredditPageView>
               child: Wrap(
                 children: [Text(sub.description)],
               )),
+          SizedBox(height: MediaQuery.of(context).size.height,child:
+          SubredditPostsList(subreddit: sub))
         ]));
   }
 }
