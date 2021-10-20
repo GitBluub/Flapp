@@ -77,11 +77,13 @@ class Subreddit {
   Future<void> subscribe() async
   {
     await drawInterface.subscribe();
+    GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.add(displayName);
   }
 
   Future<void> unsubscribe() async
   {
     await drawInterface.unsubscribe();
+    GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.remove(displayName);
   }
 
 }
