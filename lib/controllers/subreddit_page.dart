@@ -29,7 +29,7 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
       return SubredditPageView(subreddit: subreddit);
     }
 
-    GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
+    GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subreddit) {
       setState(() {
         subreddit = subreddit;
         fetched = true;

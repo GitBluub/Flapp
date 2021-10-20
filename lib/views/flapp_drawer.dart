@@ -48,7 +48,7 @@ class FlappDrawer extends StatelessWidget {
             height: 200.0,
             child: DrawerHeader(
                 child: Column(children: [
-              Container(
+              SizedBox(
                   height: 100,
                   child: CachedNetworkImage(
                     width: 80,

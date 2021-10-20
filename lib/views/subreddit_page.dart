@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/subreddit.dart';
+import 'flapp_page.dart';
 
 class SubredditPageView extends StatelessWidget{
   final Subreddit? subreddit;
@@ -7,6 +8,6 @@ class SubredditPageView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return FlappPage(body: Container(), title: subreddit!.displayName);
   }
 }

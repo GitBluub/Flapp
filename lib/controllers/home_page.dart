@@ -12,26 +12,9 @@ class HomePageController extends StatefulWidget {
 }
 
 class _HomePageControllerState extends State<HomePageController> {
-  Redditor? redditor;
-  bool fetched = false;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() => redditor = null);
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (fetched) {
-      return HomePageView(user: redditor);
-    }
-    GetIt.I<RedditInterface>().getLoggedRedditor().then((redditorValue) {
-      setState(() {
-        redditor = redditorValue;
-        fetched = true;
-      });
-    });
-    return HomePageView(user: redditor);
+    return HomePageView(user: GetIt.I<RedditInterface>().loggedRedditor);
   }
 }

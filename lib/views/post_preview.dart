@@ -4,8 +4,6 @@ import 'package:flapp/models/post.dart';
 import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import 'package:share/share.dart';
-import 'package:intl/intl.dart';
-import 'dart:math';
 import 'vote_widget.dart';
 
 class PostPreview extends StatelessWidget {

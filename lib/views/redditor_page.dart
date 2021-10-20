@@ -3,11 +3,10 @@ import 'image_header.dart';
 import 'flapp_page.dart';
 import '../models/redditor.dart';
 import 'package:time_elapsed/time_elapsed.dart';
-import 'loading.dart';
 
 class RedditorPageView extends StatefulWidget {
   const RedditorPageView({Key? key, required this.user}) : super(key: key);
-  final Redditor? user;
+  final Redditor user;
 
   @override
   State<RedditorPageView> createState() => _RedditorPageViewState();
@@ -16,23 +15,17 @@ class RedditorPageView extends StatefulWidget {
 class _RedditorPageViewState extends State<RedditorPageView> {
   @override
   Widget build(BuildContext context) {
-    if (widget.user == null) {
-      return const LoadingWidget();
-    }
-
-    Redditor user = widget.user as Redditor;
     String ancientnessFormat = 'Redditor since ';
 
-    ancientnessFormat += TimeElapsed.fromDateTime(user.ancientness);
+    ancientnessFormat += TimeElapsed.fromDateTime(widget.user.ancientness);
     return FlappPage(
-        title: user.name,
-        user: user,
+        title: widget.user.name,
         body: ListView(children: [
           Wrap(children: [
             ImageHeader(
-                bannerUrl: user.bannerUrl,
-                pictureUrl: user.pictureUrl,
-                title: user.displayName)
+                bannerUrl: widget.user.bannerUrl,
+                pictureUrl: widget.user.pictureUrl,
+                title: widget.user.displayName)
           ]),
           Row(children: [
             Container(
@@ -52,7 +45,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
               padding: const EdgeInsets.only(
                   top: 15, bottom: 20, left: 15, right: 15),
               child: Wrap(
-                children: [Text(user.description)],
+                children: [Text(widget.user.description)],
               )),
         ]));
   }
