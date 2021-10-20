@@ -43,8 +43,13 @@ class SearchPageView extends StatelessWidget {
           headerPadding: const EdgeInsets.symmetric(horizontal: 10),
           listPadding: const EdgeInsets.symmetric(horizontal: 10),
           onSearch: _searchSubreddits,
-          onError: (Error? error) {print("fucked up: ${error}, ${error!.stackTrace}"); return Container();} ,
-          placeHolder: const Text("placeholder"),
+          onError: (Error? error) {
+            return Row(
+                children: const [Text("Oops... An error occured", style: TextStyle(fontSize: 20), textAlign: TextAlign.center)],
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center
+            );
+            } ,
           cancellationWidget: const Text("Cancel"),
           loader: const LoadingWidget(),
           emptyWidget: const Text("No matching subreddit"),
