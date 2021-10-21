@@ -9,8 +9,9 @@ import 'vote_widget.dart';
 import 'widgets/postContent/post_content.dart';
 
 class PostPreview extends StatelessWidget {
-  const PostPreview({Key? key, required this.post}) : super(key: key);
+  const PostPreview({Key? key, required this.post, required this.displaySubName}) : super(key: key);
   final Post post;
+  final bool displaySubName;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +29,14 @@ class PostPreview extends StatelessWidget {
                     style: const TextStyle(fontSize: 15),
                   ),
                 ),
-                Expanded(
-                    flex: 1,
-                    child: Text("r/" + post.parent,
-                        style: const TextStyle(fontSize: 10),
-                        textAlign: TextAlign.end))
+                displaySubName
+                    ? Expanded(
+                      flex: 1,
+                      child: Text("r/" + post.parent,
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.end
+                      ))
+            : Container()
               ],
             ),
             Row(

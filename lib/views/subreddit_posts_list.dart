@@ -115,7 +115,7 @@ class _SubredditPostsListState extends State<SubredditPostsList>
               },
               child: ListView(
                 controller: listController,
-                children: [for (var post in sub.posts) PostPreview(post: post)],
+                children: [for (var post in sub.posts) PostPreview(post: post, displaySubName: false)],
               )))
     ]);
 
