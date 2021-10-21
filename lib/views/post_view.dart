@@ -27,7 +27,7 @@ class PostView extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     post.title,
-                    style: const TextStyle(fontSize: 15,),
+                    style: const TextStyle(fontSize: 17),
                   ),
                 ),
                 displaySubName
@@ -40,7 +40,7 @@ class PostView extends StatelessWidget {
             : Container()
               ],
             ),
-            Container(padding: const EdgeInsets.all(10)),
+            Container(padding: const EdgeInsets.all(5)),
             Row(
               children: [
                 Expanded(
