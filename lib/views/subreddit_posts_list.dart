@@ -44,34 +44,60 @@ class _SubredditPostsListState extends State<SubredditPostsList>
       return const LoadingWidget();
     }
     Subreddit sub = widget.subreddit as Subreddit;
+
     ScrollController listController = ScrollController();
-    Widget list = NotificationListener<ScrollEndNotification>(
-      child: ListView(
-          controller: listController,
-          children: [for (var post in sub.posts) PostPreview(post: post)]),
-      onNotification: (notification) {
-        if (listController.position.atEdge) {
-          loading = true;
-          setState(() {});
-          if (listController.position.pixels == 0) {
-            sub.refreshPosts().then((_) {
-              setState(() {
-                loading = false;
-              });
-            });
-          } else {
-            sub.fetchMorePosts().then((_) {
-              setState(() {
-                loading = false;
-              });
-            });
-          }
-        }
-        // Return true to cancel the notification bubbling. Return false (or null) to
-        // allow the notification to continue to be dispatched to further ancestors.
-        return true;
-      },
-    );
+    Widget list = Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+      Container(
+          padding: const EdgeInsets.only(right: 20),
+
+          child: DropdownButton<PostSort>(
+            value: sub.sortingMethod,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            onChanged: (PostSort? newValue) {
+              loading = true;
+              setState(() {});
+              sub.sortingMethod = newValue!;
+              sub.refreshPosts().then(
+                      (_) => setState(() {loading = false;})
+                      );
+            },
+            items: PostSort.values.map<DropdownMenuItem<PostSort>>((PostSort value) {
+              return DropdownMenuItem<PostSort>(
+                value: value,
+                child: Text(value.toString().split('.').elementAt(1)),
+              );
+            }).toList(),
+          ),
+      ),
+      Expanded(child: NotificationListener<ScrollEndNotification>(
+              onNotification: (notification) {
+                if (listController.position.atEdge) {
+                  loading = true;
+                  setState(() {});
+                  if (listController.position.pixels == 0) {
+                    sub.refreshPosts().then((_) {
+                      setState(() {
+                        loading = false;
+                      });
+                    });
+                  } else {
+                    sub.fetchMorePosts().then((_) {
+                      setState(() {
+                        loading = false;
+                      });
+                    });
+                  }
+                }
+                // Return true to cancel the notification bubbling. Return false (or null) to
+                // allow the notification to continue to be dispatched to further ancestors.
+                return true;
+              },
+              child: ListView(
+                controller: listController,
+                children: [for (var post in sub.posts) PostPreview(post: post)],
+              )))]);
 
     if (loading) {
       return Stack(children: [
