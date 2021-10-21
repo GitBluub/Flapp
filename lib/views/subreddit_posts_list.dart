@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'post_preview.dart';
+import 'post_view.dart';
 import 'loading.dart';
 import '../models/subreddit.dart';
 import 'package:get_it/get_it.dart';
@@ -115,7 +115,7 @@ class _SubredditPostsListState extends State<SubredditPostsList>
               },
               child: ListView(
                 controller: listController,
-                children: [for (var post in sub.posts) PostPreview(post: post, displaySubName: false)],
+                children: [for (var post in sub.posts) PostView(post: post, displaySubName: false, preview: true)],
               )))
     ]);
 
