@@ -1,9 +1,25 @@
 import 'post.dart';
-import 'sort.dart';
 import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
+
+
+enum PostSort {
+  hot,
+  top,
+  newest,
+  rising
+}
+
+enum PostTopSort {
+  hour,
+  day,
+  week,
+  month,
+  year,
+  all
+}
 
 class Subreddit {
   final String displayName;
@@ -20,9 +36,9 @@ class Subreddit {
 
   final String pictureUrl;
 
-  final PostSort sortingMethod;
+  PostSort sortingMethod;
 
-  final PostTopSort? topSortingMethod;
+  PostTopSort? topSortingMethod;
 
   bool subscribed;
 
@@ -66,7 +82,22 @@ class Subreddit {
       case PostSort.hot:
         return drawInterface.hot(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.top:
-        return drawInterface.top(limit: SubredditPostsList.pageSize, after: after);
+        switch (topSortingMethod) {
+          case PostTopSort.hour:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.hour);
+          case PostTopSort.day:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.day);
+          case PostTopSort.week:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.week);
+          case PostTopSort.month:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.month);
+          case PostTopSort.year:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.year);
+          case PostTopSort.all:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.all);
+          case null:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.all);
+        }
       case PostSort.newest:
         return drawInterface.newest(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.rising:

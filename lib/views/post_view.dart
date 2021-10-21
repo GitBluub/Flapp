@@ -8,9 +8,11 @@ import 'package:share/share.dart';
 import 'vote_widget.dart';
 import 'widgets/postContent/post_content.dart';
 
-class PostPreview extends StatelessWidget {
-  const PostPreview({Key? key, required this.post}) : super(key: key);
+class PostView extends StatelessWidget {
+  const PostView({Key? key, required this.post, required this.displaySubName, required this.preview}) : super(key: key);
   final Post post;
+  final bool displaySubName;
+  final bool preview;
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +27,30 @@ class PostPreview extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     post.title,
-                    style: const TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 17),
                   ),
                 ),
-                Expanded(
-                    flex: 1,
-                    child: Text("r/" + post.parent,
-                        style: const TextStyle(fontSize: 10),
-                        textAlign: TextAlign.end))
+                displaySubName
+                    ? Expanded(
+                      flex: 1,
+                      child: Text("r/" + post.parent,
+                        style: const TextStyle(fontSize: 15),
+                        textAlign: TextAlign.end
+                      ))
+            : Container()
               ],
             ),
+            Container(padding: const EdgeInsets.all(5)),
             Row(
               children: [
                 Expanded(
                   child:
                     Text(
                       post.content,
+                      maxLines: preview ? 5 : null,
+                      overflow: preview ? TextOverflow.ellipsis : null,
                       style: const TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          fontSize: 10
+                          fontSize: 12,
                       ),
                     )
                 ),
@@ -77,12 +84,12 @@ class PostPreview extends StatelessWidget {
                 Expanded(
                   flex: 3,
                     child: VoteWidget(post: post)),
-                Expanded(
+                preview ? Expanded(
                     child: IconButton(
                   onPressed: () {},
                   //label: user.comment
                   icon: const Icon(Icons.mode_comment),
-                )),
+                )) : Container(),
                 Expanded(
                     child: IconButton(
                   onPressed: () {
