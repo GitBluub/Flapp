@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'post_view.dart';
 import 'loading.dart';
@@ -70,23 +72,28 @@ class _SubredditPostsListState extends State<SubredditPostsList>
                   value: value,
                   child: value != PostSort.top
                       ? Text(value.toString().split('.').elementAt(1))
-                      : Row(children: [Text(value.toString().split('.').elementAt(1) + " "), DropdownButton<PostTopSort>(
-                          value: sub.topSortingMethod,
-                          elevation: 16,
-                          onChanged: (PostTopSort? newValue) {
-                            sub.topSortingMethod = newValue!;
-                            sub.sortingMethod = PostSort.top;
-                            sub.refreshPosts().then((_) => setState(() {}));
+                      : Row(children: [
+                          Text(value.toString().split('.').elementAt(1) + " "),
+                          DropdownButton<PostTopSort>(
+                            value: sub.topSortingMethod,
+                            elevation: 16,
+                            onChanged: (PostTopSort? newValue) {
+                              sub.topSortingMethod = newValue!;
+                              sub.sortingMethod = PostSort.top;
+                              sub.refreshPosts().then((_) => setState(() {}));
                             },
-                          items: PostTopSort.values
-                              .map<DropdownMenuItem<PostTopSort>>(
-                                  (PostTopSort value) {
-                            return DropdownMenuItem<PostTopSort>(
-                                value: value,
-                                child: Text(
-                                    value.toString().split('.').elementAt(1)));
-                          }).toList(),
-                        )]),
+                            items: PostTopSort.values
+                                .map<DropdownMenuItem<PostTopSort>>(
+                                    (PostTopSort value) {
+                              return DropdownMenuItem<PostTopSort>(
+                                  value: value,
+                                  child: Text(value
+                                      .toString()
+                                      .split('.')
+                                      .elementAt(1)));
+                            }).toList(),
+                          )
+                        ]),
                 );
               }).toList())),
       Expanded(
@@ -115,20 +122,20 @@ class _SubredditPostsListState extends State<SubredditPostsList>
               },
               child: ListView(
                 controller: listController,
-                children: [for (var post in sub.posts) PostView(post: post, displaySubName: false, preview: true)],
+                children: [
+                  for (var post in sub.posts)
+                    PostView(post: post, displaySubName: false, preview: true)
+                ],
               )))
     ]);
 
     if (loading) {
       return Stack(children: [
-        SizedBox.expand(
-          child: Container(
-            color:
-                Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-          ),
-        ),
+        list,
+        BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            child: Container(height: 125, color: Theme.of(context).scaffoldBackgroundColor)),
         const LoadingWidget(),
-        list
       ]);
     } else {
       return list;
