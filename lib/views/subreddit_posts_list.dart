@@ -12,8 +12,8 @@ class SubredditPostsList extends StatefulWidget {
   late Subreddit? subreddit;
   late String? subredditName;
 
-  SubredditPostsList({Key? key, this.subredditName, this.subreddit})  : super(key: key)
-  {
+  SubredditPostsList({Key? key, this.subredditName, this.subreddit})
+      : super(key: key) {
     assert(subreddit != null || subredditName != null);
     assert(subreddit == null || subredditName == null);
   }
@@ -24,7 +24,6 @@ class SubredditPostsList extends StatefulWidget {
 
 class _SubredditPostsListState extends State<SubredditPostsList>
     with AutomaticKeepAliveClientMixin {
-
   bool loading = false;
 
   @override
@@ -49,29 +48,49 @@ class _SubredditPostsListState extends State<SubredditPostsList>
     Widget list = Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
       Container(
           padding: const EdgeInsets.only(right: 20),
-
           child: DropdownButton<PostSort>(
-            value: sub.sortingMethod,
-            icon: const Icon(Icons.arrow_downward),
-            iconSize: 24,
-            elevation: 16,
-            onChanged: (PostSort? newValue) {
-              loading = true;
-              setState(() {});
-              sub.sortingMethod = newValue!;
-              sub.refreshPosts().then(
-                      (_) => setState(() {loading = false;})
-                      );
-            },
-            items: PostSort.values.map<DropdownMenuItem<PostSort>>((PostSort value) {
-              return DropdownMenuItem<PostSort>(
-                value: value,
-                child: Text(value.toString().split('.').elementAt(1)),
-              );
-            }).toList(),
-          ),
-      ),
-      Expanded(child: NotificationListener<ScrollEndNotification>(
+              value: sub.sortingMethod,
+              icon: const Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              onChanged: (PostSort? newValue) {
+                loading = true;
+                setState(() {});
+                if (newValue! != PostSort.top) {
+                  sub.topSortingMethod = null;
+                }
+                sub.sortingMethod = newValue;
+                sub.refreshPosts().then((_) => setState(() {
+                      loading = false;
+                    }));
+              },
+              items: PostSort.values
+                  .map<DropdownMenuItem<PostSort>>((PostSort value) {
+                return DropdownMenuItem<PostSort>(
+                  value: value,
+                  child: value != PostSort.top
+                      ? Text(value.toString().split('.').elementAt(1))
+                      : Row(children: [Text(value.toString().split('.').elementAt(1) + " "), DropdownButton<PostTopSort>(
+                          value: sub.topSortingMethod,
+                          elevation: 16,
+                          onChanged: (PostTopSort? newValue) {
+                            sub.topSortingMethod = newValue!;
+                            sub.sortingMethod = PostSort.top;
+                            sub.refreshPosts().then((_) => setState(() {}));
+                            },
+                          items: PostTopSort.values
+                              .map<DropdownMenuItem<PostTopSort>>(
+                                  (PostTopSort value) {
+                            return DropdownMenuItem<PostTopSort>(
+                                value: value,
+                                child: Text(
+                                    value.toString().split('.').elementAt(1)));
+                          }).toList(),
+                        )]),
+                );
+              }).toList())),
+      Expanded(
+          child: NotificationListener<ScrollEndNotification>(
               onNotification: (notification) {
                 if (listController.position.atEdge) {
                   loading = true;
@@ -97,15 +116,17 @@ class _SubredditPostsListState extends State<SubredditPostsList>
               child: ListView(
                 controller: listController,
                 children: [for (var post in sub.posts) PostPreview(post: post)],
-              )))]);
+              )))
+    ]);
 
     if (loading) {
       return Stack(children: [
         SizedBox.expand(
           child: Container(
-            color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-            ),
+            color:
+                Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
           ),
+        ),
         const LoadingWidget(),
         list
       ]);

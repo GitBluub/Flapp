@@ -82,7 +82,22 @@ class Subreddit {
       case PostSort.hot:
         return drawInterface.hot(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.top:
-        return drawInterface.top(limit: SubredditPostsList.pageSize, after: after);
+        switch (topSortingMethod) {
+          case PostTopSort.hour:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.hour);
+          case PostTopSort.day:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.day);
+          case PostTopSort.week:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.week);
+          case PostTopSort.month:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.month);
+          case PostTopSort.year:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.year);
+          case PostTopSort.all:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.all);
+          case null:
+            return drawInterface.top(limit: SubredditPostsList.pageSize, after: after, timeFilter: draw.TimeFilter.all);
+        }
       case PostSort.newest:
         return drawInterface.newest(limit: SubredditPostsList.pageSize, after: after);
       case PostSort.rising:
