@@ -2,6 +2,8 @@ import 'post.dart';
 import 'sort.dart';
 import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
+import 'package:get_it/get_it.dart';
+import 'reddit_interface.dart';
 
 class Subreddit {
   final String displayName;
@@ -22,16 +24,19 @@ class Subreddit {
 
   final PostTopSort? topSortingMethod;
 
+  bool subscribed;
+
   draw.Subreddit drawInterface;
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
       displayName = drawInterface.displayName,
-      description = drawInterface.data!['public_description'],
+      description = drawInterface.data!['public_description'].toString(),
       bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
       membersCount = drawInterface.data!['subscribers'],
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
+      subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(drawInterface.displayName),
       topSortingMethod = null;
 
   Future<void>refreshPosts() async
@@ -67,6 +72,18 @@ class Subreddit {
       case PostSort.rising:
         return drawInterface.rising(limit: SubredditPostsList.pageSize, after: after);
     }
+  }
+
+  Future<void> subscribe() async
+  {
+    await drawInterface.subscribe();
+    GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.add(displayName);
+  }
+
+  Future<void> unsubscribe() async
+  {
+    await drawInterface.unsubscribe();
+    GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.remove(displayName);
   }
 
 }

@@ -54,7 +54,9 @@ class PostPreview extends StatelessWidget {
                 PostContentWidget(post: post)
               ]
             ),
-
+            Container(
+              padding: const EdgeInsets.all(10),
+            ),
             Row(
               children: [
                 const Icon(Icons.access_time_outlined),

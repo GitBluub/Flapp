@@ -17,7 +17,7 @@ class SearchPageView extends StatelessWidget {
   SearchPageView({Key? key}) : super(key: key);
 
   Future<List<Subreddit>> _searchSubreddits(String? name) {
-    return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "", 10);
+    return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "");
   }
 
   @override
@@ -27,7 +27,6 @@ class SearchPageView extends StatelessWidget {
       body: SafeArea(
         child: SearchBar<Subreddit>(
           searchBarPadding: const EdgeInsets.symmetric(horizontal: 20),
-          listPadding: const EdgeInsets.symmetric(horizontal: 20),
           onSearch: _searchSubreddits,
           textStyle: const TextStyle(),
           onError: (Error? error) {
@@ -71,7 +70,7 @@ class SearchPageView extends StatelessWidget {
 
                 Container(
                     padding: const EdgeInsets.all(20),
-                    child: Text(NumberFormat.compact().format(sub.membersCount).toString())
+                    child: Text(NumberFormat.compact().format(sub.membersCount).toString() + " Members")
                 ),
               ],
             )

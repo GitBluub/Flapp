@@ -9,10 +9,14 @@ import 'loading.dart';
 class SubredditPostsList extends StatefulWidget {
   static int pageSize = 15;
 
-  final String subredditName;
+  late Subreddit? subreddit;
+  late String? subredditName;
 
-  const SubredditPostsList({Key? key, required this.subredditName})
-      : super(key: key);
+  SubredditPostsList({Key? key, this.subredditName, this.subreddit})  : super(key: key)
+  {
+    assert(subreddit != null || subredditName != null);
+    assert(subreddit == null || subredditName == null);
+  }
 
   @override
   State<StatefulWidget> createState() => _SubredditPostsListState();
@@ -20,7 +24,6 @@ class SubredditPostsList extends StatefulWidget {
 
 class _SubredditPostsListState extends State<SubredditPostsList>
     with AutomaticKeepAliveClientMixin {
-  Subreddit? subreddit;
 
   bool loading = false;
 
@@ -30,17 +33,17 @@ class _SubredditPostsListState extends State<SubredditPostsList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (subreddit == null) {
+    if (widget.subreddit == null) {
       GetIt.I<RedditInterface>()
-          .getSubreddit(widget.subredditName)
+          .getSubreddit(widget.subredditName!)
           .then((subredditValue) {
         setState(() {
-          subreddit = subredditValue;
+          widget.subreddit = subredditValue;
         });
       });
       return const LoadingWidget();
     }
-    Subreddit sub = subreddit as Subreddit;
+    Subreddit sub = widget.subreddit as Subreddit;
     ScrollController listController = ScrollController();
     Widget list = NotificationListener<ScrollEndNotification>(
       child: ListView(

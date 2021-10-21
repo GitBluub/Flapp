@@ -30,7 +30,6 @@ class SubredditPageController extends StatefulWidget {
 
 class _SubredditPageControllerState extends State<SubredditPageController> {
   Subreddit? subreddit;
-  bool fetched = false;
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _SubredditPageControllerState extends State<SubredditPageController> {
     GetIt.I<RedditInterface>().getSubreddit(widget.subredditName).then((subreddit) {
       setState(() {
         this.subreddit = subreddit;
-        fetched = true;
       });
     });
   }

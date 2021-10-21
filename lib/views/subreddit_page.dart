@@ -4,18 +4,25 @@ import '../models/subreddit.dart';
 import 'flapp_page.dart';
 import 'loading.dart';
 import 'image_header.dart';
+import 'subreddit_posts_list.dart';
 
-class SubredditPageView extends StatelessWidget{
+class SubredditPageView extends StatefulWidget {
   final Subreddit? subreddit;
-  const SubredditPageView({Key? key, required this.subreddit}) : super(key: key);
+
+  const SubredditPageView({Key? key, required this.subreddit})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() => _SubredditPageViewState();
+}
 
-    if (subreddit == null) {
+class _SubredditPageViewState extends State<SubredditPageView> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.subreddit == null) {
       return const LoadingWidget();
     }
-    Subreddit sub = subreddit as Subreddit;
+    Subreddit sub = widget.subreddit as Subreddit;
     return FlappPage(
         title: sub.displayName,
         body: ListView(children: [
@@ -23,21 +30,42 @@ class SubredditPageView extends StatelessWidget{
             ImageHeader(
                 bannerUrl: sub.bannerUrl,
                 pictureUrl: sub.pictureUrl,
-                title: sub.displayName)
+                title: 'r/' + sub.displayName)
           ]),
           Row(children: [
             Container(
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      if (sub.subscribed == true) {
+                        sub.unsubscribe();
+                      } else {
+                        sub.subscribe();
+                      }
+                      sub.subscribed = !sub.subscribed;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(), primary: Colors.grey),
-                  child: Row(
-                      children: const [Icon(Icons.edit), Text('Edit profile')]),
+                      shape: const StadiumBorder(),
+                      onPrimary: sub.subscribed == false
+                          ? Theme.of(context).primaryColor
+                          : Colors.grey,
+                      primary: sub.subscribed == false
+                          ? Colors.grey
+                          : Theme.of(context).scaffoldBackgroundColor,
+                      side: sub.subscribed
+                          ? BorderSide(width: 2.0, color: Colors.grey)
+                          : null),
+                  child: Row(children: [
+                    sub.subscribed ? Text('JOINED') : Text('JOIN')
+                  ]),
                 )),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(NumberFormat.compact().format(sub.membersCount).toString()))
+                child: Text(
+                    NumberFormat.compact().format(sub.membersCount).toString() +
+                        " Members"))
           ]),
           Container(
               padding: const EdgeInsets.only(
@@ -45,6 +73,8 @@ class SubredditPageView extends StatelessWidget{
               child: Wrap(
                 children: [Text(sub.description)],
               )),
+          SizedBox(height: MediaQuery.of(context).size.height,child:
+          SubredditPostsList(subreddit: sub))
         ]));
   }
 }
