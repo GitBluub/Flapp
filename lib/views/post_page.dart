@@ -1,3 +1,4 @@
+import 'package:flapp/views/loading.dart';
 import 'package:flutter/material.dart';
 import '../models/post.dart';
 import 'post_view.dart';
@@ -18,13 +19,10 @@ class PostPageView extends StatefulWidget
 
 class _PostPageViewState extends State<PostPageView>
 {
-
   @override
   Widget build(BuildContext context) {
-
     return FlappPage(title: widget.post.title, body: ListView(children: <Widget>[
       PostView(post: widget.post, preview: false, displaySubName: true)
     ] + [for (Comment comment in widget.post.comments) CommentView(comment: comment)]));
   }
-
 }
