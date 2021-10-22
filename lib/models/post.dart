@@ -1,4 +1,5 @@
 import 'package:draw/draw.dart' show Submission, VoteState;
+import 'package:html_unescape/html_unescape.dart';
 
 /// Enumeration of possible post content
 enum ContentType {
@@ -61,11 +62,13 @@ class Post {
   /// Apply Submission's field's values on Post's values
   void _refreshFromSubmission()
   {
+    var unescape = HtmlUnescape();
+
     authorName = submission.author;
     parent = submission.subreddit.displayName;
     createdTime = submission.createdUtc;
-    title = submission.title;
-    content = submission.selftext == null ? "" : submission.selftext as String;
+    title = unescape.convert(submission.title);
+    content = submission.selftext == null ? "" : unescape.convert(submission.selftext as String);
     score = submission.upvotes;
     link = submission.shortlink.toString();
     fullName = submission.fullname!;
