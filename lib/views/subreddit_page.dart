@@ -5,6 +5,7 @@ import 'flapp_page.dart';
 import 'loading.dart';
 import 'image_header.dart';
 import 'subreddit_posts_list.dart';
+import 'package:share/share.dart';
 
 class SubredditPageView extends StatefulWidget {
   final Subreddit? subreddit;
@@ -61,18 +62,22 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                     sub.subscribed ? Text('JOINED') : Text('JOIN')
                   ]),
                 )),
-            Container(
-                padding: const EdgeInsets.only(left: 15),
-                child: Text(
+            Expanded(flex: 2, child: Text(
                     NumberFormat.compact().format(sub.membersCount).toString() +
-                        " Members"))
+                        " Members", textAlign: TextAlign.center)
+            ),
+            Expanded(child: IconButton(onPressed: () => Share.share(sub.link),
+            icon: const Icon(Icons.share), )
+            ),
+
           ]),
           Container(
               padding: const EdgeInsets.only(
                   top: 15, bottom: 20, left: 15, right: 15),
               child: Wrap(
                 children: [Text(sub.description)],
-              )),
+    )),
+          Divider(),
           SizedBox(height: MediaQuery.of(context).size.height,child:
           SubredditPostsList(subreddit: sub))
         ]));
