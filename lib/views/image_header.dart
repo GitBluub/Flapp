@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'loading.dart';
 
+/// Widget to put cached image network in a circle
 class CircularCachedNetworkImage extends StatelessWidget {
+  /// Image's url
   final String url;
+  /// Size of the hodling circle
   final double size;
 
   const CircularCachedNetworkImage({Key? key, required this.url, required this.size}) : super(key: key);
@@ -31,9 +34,13 @@ class CircularCachedNetworkImage extends StatelessWidget {
 
 }
 
+/// Widget for image header (Stack of banner and profile picture)
 class ImageHeader extends StatelessWidget {
+  /// Banner's url
   final String bannerUrl;
+  /// Main picture's url
   final String pictureUrl;
+  /// Header's title
   final String title;
   const ImageHeader(
       {Key? key,
