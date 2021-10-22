@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 import 'loading.dart';
 
+/// Widget for a subreddit's post list
 class SubredditPostsList extends StatefulWidget {
   static int pageSize = 15;
 

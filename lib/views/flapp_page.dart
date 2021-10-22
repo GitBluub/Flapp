@@ -3,8 +3,11 @@ import 'flapp_drawer.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
+/// Application base page, hold scaffold and drawer
 class FlappPage extends StatelessWidget {
+  /// Body of the page
   final Widget body;
+  /// Title of the page
   final String title;
   const FlappPage({Key? key, required this.title, required this.body}) : super(key: key);
 
