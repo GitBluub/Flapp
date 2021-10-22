@@ -13,6 +13,7 @@ class LoginPageView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Image(image: AssetImage('assets/title.png')),
           Container(
               alignment: Alignment.center,
               child: ElevatedButton(

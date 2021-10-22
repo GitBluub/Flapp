@@ -1,8 +1,11 @@
+import 'package:html_unescape/html_unescape.dart';
+
 import 'post.dart';
 import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:html_unescape/html_unescape.dart';
 
 /// Enumeration of possible sorting method for posts
@@ -30,13 +33,13 @@ class Subreddit {
   /// List of posts
   List<Post> posts;
   /// Number of subscribers
-  int membersCount;
+  int membersCount = 0;
   /// Subreddit's description
-  String description;
+  String description = "";
   /// Short Link to subreddit
   final String link;
   /// URL to subreddit's banner
-  final String bannerUrl;
+  String bannerUrl = "";
   /// URL to subreddit's picture
   final String pictureUrl;
   /// Current sorting method for posts
@@ -51,28 +54,35 @@ class Subreddit {
   /// Creates a Subreddit instance from DRAW's subreddit
   Subreddit.fromDRAW(this.drawInterface, this.posts):
       displayName = drawInterface.displayName,
-      description = drawInterface.data!['public_description'].toString(),
-      bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
-      membersCount = drawInterface.data!['subscribers'],
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(drawInterface.displayName),
       topSortingMethod = null
   {
-    description = HtmlUnescape().convert(description);
+      var unescape = HtmlUnescape();
+      if (drawInterface.data == null) {
+        return;
+      }
+      membersCount = drawInterface.data!['subscribers'];
+      description = unescape.convert(drawInterface.data!['public_description'].toString());
+      if (drawInterface.data!['mobile_banner_image'].toString() != "") {
+        bannerUrl =  unescape.convert(drawInterface.data!['mobile_banner_image'].toString());
+      } else {
+        bannerUrl =  unescape.convert(drawInterface.data!['banner_background_image'].toString());
+      }
+      description = HtmlUnescape().convert(description);
   }
   ///Refresh all stored posts using sorting method
   Future<void>refreshPosts() async
   {
-    var refreshedPosts = fetch(posts.length, null);
+    var refreshedPosts = fetch(this.posts.length, null);
 
-    posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
+    this.posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
   }
   /// Get more posts
   Future<void>fetchMorePosts() async
   {
-    // TODO: Find what parameter to pass fetcher
     String? lastPage = posts.isNotEmpty ? posts.last.fullName : null;
     var fetchedPosts = fetch(1, lastPage);
 

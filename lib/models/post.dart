@@ -1,4 +1,5 @@
-import 'package:draw/draw.dart' show Submission, VoteState;
+import 'package:draw/draw.dart' as draw;
+import 'comment.dart';
 import 'package:html_unescape/html_unescape.dart';
 
 /// Enumeration of possible post content
@@ -12,7 +13,6 @@ enum ContentType {
   /// Animated image
   gif,
 }
-
 
 /// Post entity
 class Post {
@@ -59,6 +59,41 @@ class Post {
     _refreshFromSubmission();
   }
 
+  Future<List<draw.Comment>> _expandedMoreComments(draw.MoreComments more) async {
+
+    List<draw.Comment> expanded = [];
+    var list = await more.comments();
+
+    if (list == null) {
+      return expanded;
+    }
+    for (var v in list) {
+      if (v is draw.MoreComments) {
+        expanded += await _expandedMoreComments(v);
+      } else {
+        expanded.add(v);
+      }
+    }
+    return expanded;
+  }
+
+  Future<void> fetchComments() async
+  {
+    await submission.refreshComments();
+    if (submission.comments == null) {
+      return;
+    }
+    comments = [];
+    for (var comment in submission.comments!.comments) {
+      if (comment is draw.MoreComments) {
+        var r = await _expandedMoreComments(comment);
+        comments += [for (draw.Comment scomment in r) Comment.fromDraw(scomment)];
+      } else {
+        comments.add(Comment.fromDraw(comment));
+      }
+    }
+  }
+ 
   /// Apply Submission's field's values on Post's values
   void _refreshFromSubmission()
   {
@@ -73,13 +108,13 @@ class Post {
     link = submission.shortlink.toString();
     fullName = submission.fullname!;
     switch (submission.vote) {
-      case VoteState.none:
+      case draw.VoteState.none:
         vote = null;
         break;
-      case VoteState.upvoted:
+      case draw.VoteState.upvoted:
         vote = true;
         break;
-      case VoteState.downvoted:
+      case draw.VoteState.downvoted:
         vote = false;
         break;
     }
@@ -115,6 +150,8 @@ class Post {
   /// Short link to post (useful to share) 
   late String link;
 
+  List<Comment> comments = [];
+  
   /// DRAW Submission entity, allows easy communication between object and API
-  Submission submission;
+  draw.Submission submission;
 }

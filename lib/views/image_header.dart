@@ -52,12 +52,13 @@ class ImageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bannerWidget = Container();
-    //print("This is the banne rurl '$bannerUrl'");
 
     if (bannerUrl != "") {
       bannerWidget = FittedBox(
         fit: BoxFit.cover,
         child: CachedNetworkImage(
+          fit: BoxFit.fitWidth,
+          repeat: ImageRepeat.repeat,
           imageUrl: bannerUrl,
           placeholder: (context, url) =>  const LoadingWidget(),
           errorWidget: (context, url, error) => const Icon(Icons.error),
