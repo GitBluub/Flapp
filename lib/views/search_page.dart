@@ -12,10 +12,12 @@ import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 import 'image_header.dart';
 
+/// View for Search page
 class SearchPageView extends StatelessWidget {
 
   SearchPageView({Key? key}) : super(key: key);
 
+  /// Get list of subreddit's matching name
   Future<List<Subreddit>> _searchSubreddits(String? name) {
     return GetIt.I<RedditInterface>().searchSubreddits(name != null ? name.trim() : "");
   }

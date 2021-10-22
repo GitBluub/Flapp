@@ -4,8 +4,10 @@ import 'flapp_page.dart';
 import '../models/redditor.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 
+/// View for reddditor page
 class RedditorPageView extends StatefulWidget {
   const RedditorPageView({Key? key, required this.user}) : super(key: key);
+  /// Redditor's entity
   final Redditor user;
 
   @override

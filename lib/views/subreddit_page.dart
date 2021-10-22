@@ -6,7 +6,9 @@ import 'loading.dart';
 import 'image_header.dart';
 import 'subreddit_posts_list.dart';
 
+/// View for Subreddit's page
 class SubredditPageView extends StatefulWidget {
+  /// Subreddit entity
   final Subreddit? subreddit;
 
   const SubredditPageView({Key? key, required this.subreddit})
