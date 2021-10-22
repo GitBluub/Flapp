@@ -3,21 +3,18 @@ import '../models/redditor.dart';
 import 'flapp_page.dart';
 import 'subreddits_carousel.dart';
 
-class HomePageView extends StatefulWidget {
+/// View for Home/Main Page
+class HomePageView extends StatelessWidget {
   const HomePageView({Key? key, required this.user}) : super(key: key);
+  /// Logged redditor 
   final Redditor user;
 
-  @override
-  State<HomePageView> createState() => _HomePageViewState();
-}
-
-class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
 
     return FlappPage(
       title: "Home",
-      body: SubredditsCarousel(subredditsNames: widget.user.subscribedSubreddits),
+      body: SubredditsCarousel(subredditsNames: user.subscribedSubreddits),
     );
   }
 }

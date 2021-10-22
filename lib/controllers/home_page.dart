@@ -4,6 +4,7 @@ import '../views/home_page.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
+/// Controller for Home Page, where all the subscribed-to subreddits are displayed 
 class HomePageController extends StatefulWidget {
   const HomePageController({Key? key}) : super(key: key);
 

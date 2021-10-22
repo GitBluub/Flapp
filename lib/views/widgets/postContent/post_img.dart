@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../models/post.dart';
 import '../../loading.dart';
 
+/// Widget to display Image from post
 class PostImgWidget extends StatefulWidget {
+  /// Post to get content from
   final Post post;
 
   const PostImgWidget({Key? key, required this.post}) : super(key: key);

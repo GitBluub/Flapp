@@ -8,12 +8,18 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import '../views/subreddit_posts_list.dart';
 
+/// Object that allow simple call to API, Singleton
 class RedditInterface {
+  /// Boolean to know if user is authenticated
   bool connected = false;
+  /// Allows quick access to logged user.
+  /// This allows not having to fetch it at every page
   late Redditor loggedRedditor;
-  // ignore: prefer_typing_uninitialized_variables
+  
+  /// Reddit object from DRAW
   var _reddit;
 
+  /// Fetch logged Redditor using API
   Future<Redditor> _fetchLoggedRedditor() async {
     var loggedUser = await _reddit.user.me();
     final subredditsstream = _reddit.user.subreddits();
@@ -36,6 +42,8 @@ class RedditInterface {
     return loggedRedditor;
   }
 
+  /// Get list of subreddits matching name
+  /// The subreddits don't hold posts
   Future<List<Subreddit>> searchSubreddits(String name) async {
     var searchRes = await _reddit.subreddits.searchByName(name);
     List<Subreddit> sublist = [];
@@ -47,6 +55,8 @@ class RedditInterface {
     return sublist;
   }
 
+  /// Get a subreddit with name
+  /// The subreddit get a certain number of posts
   Future<Subreddit> getSubreddit(String name) async {
     draw.SubredditRef subRef = _reddit.subreddit(name);
     draw.Subreddit sub = await subRef.populate();
@@ -58,6 +68,7 @@ class RedditInterface {
     return Subreddit.fromDRAW(sub, posts);
   }
 
+  /// Create an API connection using previously created credentials
   Future<void> restoreAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
 
@@ -77,6 +88,7 @@ class RedditInterface {
   } catch (e) {}
 }
 
+  /// Get the file that holds the log credentials
   Future<File> getCredentialsFile() async {
     final directory = await getApplicationDocumentsDirectory();
     final path = directory.path;
@@ -84,6 +96,7 @@ class RedditInterface {
     return File('$path/credentials.json');
   }
 
+  /// Creates an API connection and save credentials to a file
   Future<void> createAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
     final file = await getCredentialsFile();
@@ -110,6 +123,7 @@ class RedditInterface {
     connected = true;
   }
 
+  /// Close API connection and delete credentials
   Future<void> stopAPIConnection() async {
     File credentials = await getCredentialsFile();
 
