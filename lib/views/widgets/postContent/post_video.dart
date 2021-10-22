@@ -4,7 +4,9 @@ import '../../../models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+/// Widget to display video from post
 class PostVideoWidget extends StatefulWidget {
+  /// Post to get content from
   final Post post;
   const PostVideoWidget({Key? key, required this.post}) : super(key: key);
 
