@@ -1,4 +1,4 @@
-[![Marvinette](assets/title.png)](assets/title.png)
+[![FLAPP](assets/title.png)](assets/title.png)
 
 # Get the essential from your Reddit browsing
 
@@ -27,6 +27,7 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 
 - Dart with Flutter (2.5.1)
 - Android Studio
+- DRAW (Reddit API Wrapper)
 
 ## Upcoming features
 
