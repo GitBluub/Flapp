@@ -31,7 +31,9 @@ class PostView extends StatelessWidget {
         displaySubName
             ? Expanded(
             flex: 1,
-            child: TextButton(child: Text("r/" + post.parent,
+            child: TextButton(style: TextButton.styleFrom(
+    primary: Theme.of(context).primaryColor,
+    ), child: Text("r/" + post.parent,
                 style: const TextStyle(fontSize: 15),
                 textAlign: TextAlign.end
             ), onPressed: () { Navigator.of(context).pushNamed('/subreddit', arguments: SubredditPageArguments(post.parent)); }))
