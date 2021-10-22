@@ -3,6 +3,7 @@ import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 /// Enumeration of possible sorting method for posts
 enum PostSort {
@@ -57,7 +58,10 @@ class Subreddit {
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(drawInterface.displayName),
-      topSortingMethod = null;
+      topSortingMethod = null
+  {
+    description = HtmlUnescape().convert(description);
+  }
   ///Refresh all stored posts using sorting method
   Future<void>refreshPosts() async
   {

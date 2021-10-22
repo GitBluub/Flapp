@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'post.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 /// Entity holding a Redditor's info
 class Redditor {
@@ -11,6 +12,7 @@ class Redditor {
   final String displayName;
   /// Name of the user
   final String name;
+
   /// Profile's bio
   final String description;
   /// Karma of the user
@@ -29,5 +31,8 @@ class Redditor {
       required this.karma, required this.ancientness,
       required this.subscribedSubreddits, required this.posts,
       required this.description
-  });
+  }) {
+    var unescape = HtmlUnescape();
+    description = unescape.convert(description);
+  }
 }
