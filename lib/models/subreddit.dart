@@ -64,7 +64,6 @@ class Subreddit {
 
   Future<void>fetchMorePosts() async
   {
-    // TODO: Find what parameter to pass fetcher
     String? lastPage = posts.isNotEmpty ? posts.last.fullName : null;
     var fetchedPosts = fetch(1, lastPage);
 

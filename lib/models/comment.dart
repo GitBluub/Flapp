@@ -14,7 +14,7 @@ class Comment {
 
   Comment.fromDraw(draw.Comment comment):
         authorName = comment.author,
-        content = comment.body == null ? "" : HtmlUnescape().convert(comment.body!),
+        content = comment.body == null ? "" : HtmlUnescape().convert(comment.body!.trim()),
         createdTime = comment.createdUtc;
 
 }

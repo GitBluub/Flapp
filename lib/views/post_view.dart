@@ -1,4 +1,5 @@
 import 'package:flapp/controllers/post_page.dart';
+import 'package:flapp/controllers/subreddit_page.dart';
 import 'package:flapp/views/widgets/postContent/post_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,10 @@ class PostView extends StatelessWidget {
         displaySubName
             ? Expanded(
             flex: 1,
-            child: Text("r/" + post.parent,
+            child: TextButton(child: Text("r/" + post.parent,
                 style: const TextStyle(fontSize: 15),
                 textAlign: TextAlign.end
-            ))
+            ), onPressed: () { Navigator.of(context).pushNamed('/subreddit', arguments: SubredditPageArguments(post.parent)); }))
             : Container()
       ],
     );
