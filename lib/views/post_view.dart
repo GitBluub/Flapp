@@ -27,7 +27,7 @@ class PostView extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     post.title,
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
                 displaySubName
@@ -50,7 +50,7 @@ class PostView extends StatelessWidget {
                       maxLines: preview ? 5 : null,
                       overflow: preview ? TextOverflow.ellipsis : null,
                       style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 16,
                       ),
                     )
                 ),
