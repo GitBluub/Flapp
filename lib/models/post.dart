@@ -1,32 +1,30 @@
 import 'package:draw/draw.dart' show Submission, VoteState;
 
+/// Enumeration of possible post content
 enum ContentType {
+  /// Text only
   self,
+  /// Image
   image,
+  /// Video
   video,
+  /// Animated image
   gif,
 }
 
-ContentType getContentType(Submission sub)
-{
-  if (sub.isVideo)
-    return ContentType.video;
-  if (sub.isSelf)
-    return ContentType.self;
-  if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(sub.url.toString()))
-    return ContentType.image;
-  return ContentType.self;
-}
 
+/// Post entity
 class Post {
+  /// Creates a Post entity from a populated DRAW Submission
   Post.fromSubmission(this.submission)
   {
     _refreshFromSubmission();
   }
 
-  // If vote is null, cancels any vote from the user on this post
-  // If vote is true, up votes
-  // Else, down votes
+  /// Apply vote on post and call API to update
+  /// If vote is null, cancels any vote from the user on this post
+  /// If vote is true, up votes
+  /// Else, down votes
   void setVote(bool? vote) {
     if (vote == null) {
       submission.clearVote();
@@ -41,12 +39,26 @@ class Post {
     this.vote = vote;
   }
 
+  /// Get ContentType from Submission
+  ContentType getContentType()
+  {
+    if (submission.isVideo)
+      return ContentType.video;
+    if (submission.isSelf)
+      return ContentType.self;
+    if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(submission.url.toString()))
+      return ContentType.image;
+    return ContentType.self;
+  }
+
+  /// Refresh submission and update Post values
   Future<void> refresh() async {
     submission.refresh();
 
     _refreshFromSubmission();
   }
 
+  /// Apply Submission's field's values on Post's values
   void _refreshFromSubmission()
   {
     authorName = submission.author;
@@ -70,23 +82,36 @@ class Post {
     }
   }
 
+  /// Name of the Post's author 
   late String authorName;
 
+  /// Name of the subreddit the post belongs to
   late String parent;
 
+  /// Timestamp of the post's publication
   late DateTime createdTime;
 
+  /// Title of the post
   late String title;
 
+  /// Content of the post
   late String content;
 
+  /// Number of upvotes
   late int score;
 
+  /// Full name of the post
   late String fullName;
 
+  /// User's reaction to post
+  /// If vote is null, no reaction
+  /// If vote is true, the post is liked
+  /// Else, the post is disliked
   late bool? vote;
 
+  /// Short link to post (useful to share) 
   late String link;
 
+  /// DRAW Submission entity, allows easy communication between object and API
   Submission submission;
 }

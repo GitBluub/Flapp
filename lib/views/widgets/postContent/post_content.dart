@@ -9,7 +9,7 @@ class PostContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ContentType type = getContentType(post.submission);
+    ContentType type = post.getContentType();
     switch (type)
     {
       case ContentType.image:
