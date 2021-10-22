@@ -1,4 +1,5 @@
 import 'package:draw/draw.dart' show Submission, VoteState;
+import 'comment.dart';
 
 enum ContentType {
   self,
@@ -47,6 +48,15 @@ class Post {
     _refreshFromSubmission();
   }
 
+  Future<void> fetchComments() async
+  {
+    await submission.refreshComments();
+    if (submission.comments == null) {
+      return;
+    }
+    comments = [for (var comment in submission.comments!.comments) Comment.fromDraw(comment)];
+  }
+
   void _refreshFromSubmission()
   {
     authorName = submission.author;
@@ -87,6 +97,8 @@ class Post {
   late bool? vote;
 
   late String link;
+
+  List<Comment> comments = [];
 
   Submission submission;
 }

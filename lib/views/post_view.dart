@@ -1,3 +1,4 @@
+import 'package:flapp/controllers/post_page.dart';
 import 'package:flapp/views/widgets/postContent/post_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,51 +17,60 @@ class PostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget title = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            post.title,
+            style: const TextStyle(fontSize: 20),
+          ),
+        ),
+        displaySubName
+            ? Expanded(
+            flex: 1,
+            child: Text("r/" + post.parent,
+                style: const TextStyle(fontSize: 15),
+                textAlign: TextAlign.end
+            ))
+            : Container()
+      ],
+    );
+    Widget textContent = Row(
+      children: [
+        Expanded(
+            child:
+            Text(
+              post.content,
+              maxLines: preview ? 5 : null,
+              overflow: preview ? TextOverflow.ellipsis : null,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            )
+        ),
+      ],
+    );
+    Widget otherContent = Row(
+        children: [
+          PostContentWidget(post: post)
+        ]
+    );
     return Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    post.title,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ),
-                displaySubName
-                    ? Expanded(
-                      flex: 1,
-                      child: Text("r/" + post.parent,
-                        style: const TextStyle(fontSize: 15),
-                        textAlign: TextAlign.end
-                      ))
-            : Container()
-              ],
-            ),
+            TextButton(child: title, style: TextButton.styleFrom(
+              primary: Theme.of(context).primaryColor,
+            ),onPressed: () {
+              if (preview) {
+                Navigator.of(context).pushNamed('/post', arguments: PostPageArguments(post));
+              }
+            }),
             Container(padding: const EdgeInsets.all(5)),
-            Row(
-              children: [
-                Expanded(
-                  child:
-                    Text(
-                      post.content,
-                      maxLines: preview ? 5 : null,
-                      overflow: preview ? TextOverflow.ellipsis : null,
-                      style: const TextStyle(
-                          fontSize: 16,
-                      ),
-                    )
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                PostContentWidget(post: post)
-              ]
-            ),
+            textContent,
+            otherContent,
             Container(
               padding: const EdgeInsets.all(10),
             ),
@@ -86,8 +96,7 @@ class PostView extends StatelessWidget {
                     child: VoteWidget(post: post)),
                 preview ? Expanded(
                     child: IconButton(
-                  onPressed: () {},
-                  //label: user.comment
+                  onPressed: () {Navigator.of(context).pushNamed('/post', arguments: PostPageArguments(post));},
                   icon: const Icon(Icons.mode_comment),
                 )) : Container(),
                 Expanded(
