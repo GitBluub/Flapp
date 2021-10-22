@@ -1,8 +1,11 @@
+import 'package:html_unescape/html_unescape.dart';
+
 import 'post.dart';
 import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
+import 'package:http_parser/http_parser.dart';
 
 
 enum PostSort {
@@ -26,13 +29,13 @@ class Subreddit {
 
   List<Post> posts;
 
-  int membersCount;
+  int membersCount = 0;
 
-  final String description;
+  String description = "";
 
   final String link;
 
-  final String bannerUrl;
+  String bannerUrl = "";
 
   final String pictureUrl;
 
@@ -46,14 +49,24 @@ class Subreddit {
 
   Subreddit.fromDRAW(this.drawInterface, this.posts):
       displayName = drawInterface.displayName,
-      description = drawInterface.data!['public_description'].toString(),
-      bannerUrl = drawInterface.mobileHeaderImage.toString(),
       pictureUrl = drawInterface.iconImage.toString(),
-      membersCount = drawInterface.data!['subscribers'],
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(drawInterface.displayName),
-      topSortingMethod = null;
+      topSortingMethod = null
+  {
+      var unescape = HtmlUnescape();
+      if (drawInterface.data == null) {
+        return;
+      }
+      membersCount = drawInterface.data!['subscribers'];
+      description = unescape.convert(drawInterface.data!['public_description'].toString());
+      if (drawInterface.data!['mobile_banner_image'].toString() != "") {
+        bannerUrl =  unescape.convert(drawInterface.data!['mobile_banner_image'].toString());
+      } else {
+        bannerUrl =  unescape.convert(drawInterface.data!['banner_background_image'].toString());
+      }
+  }
 
   Future<void>refreshPosts() async
   {
