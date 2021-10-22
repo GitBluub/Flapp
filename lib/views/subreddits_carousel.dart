@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'subreddit_posts_list.dart';
 
+/// Carousel for subreddits (used on home page)
 class SubredditsCarousel extends StatefulWidget {
   final List<String> subredditsNames;
   const SubredditsCarousel({Key? key, required this.subredditsNames})

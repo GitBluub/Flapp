@@ -10,10 +10,14 @@ import 'package:share/share.dart';
 import 'vote_widget.dart';
 import 'widgets/postContent/post_content.dart';
 
+/// View for post
 class PostView extends StatelessWidget {
   const PostView({Key? key, required this.post, required this.displaySubName, required this.preview}) : super(key: key);
+  /// Post entity
   final Post post;
+  /// bool to know if subreddit's name shoudl be dislpayed or not (for exmaple it should'nt if the post is in the subreddit's post list)
   final bool displaySubName;
+  /// bool to know if the widget is used as a preview or not (if it is, the comment button will be displayed, and the content will be cropped)
   final bool preview;
 
   @override

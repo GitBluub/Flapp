@@ -6,11 +6,17 @@ import '../models/reddit_interface.dart';
 import 'package:get_it/get_it.dart';
 import 'image_header.dart';
 
+/// Widget for button in Drawer
 class DrawerButton extends StatelessWidget
 {
+  /// Leading IconData
   final IconData icon;
+  /// Button's label 
   final String title;
+  /// Route to redirect onto, when button click
   final String route;
+  /// Custom callback on button click
+  /// If none, update navigator's route
   final void Function()? callback;
 
   const DrawerButton({Key? key, required this.icon, required this.title, required this.route, this.callback}) : super(key: key);
@@ -34,7 +40,9 @@ class DrawerButton extends StatelessWidget
   }
 }
 
+/// App Drawer
 class FlappDrawer extends StatelessWidget {
+  /// Logged user, to display name and profile picture
   final Redditor user;
   const FlappDrawer({Key? key, required this.user}) : super(key: key);
 

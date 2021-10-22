@@ -6,8 +6,9 @@ import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:html_unescape/html_unescape.dart';
 
-
+/// Enumeration of possible sorting method for posts
 enum PostSort {
   hot,
   top,
@@ -15,6 +16,7 @@ enum PostSort {
   rising
 }
 
+/// Enumeration of possible top sorting method for posts
 enum PostTopSort {
   hour,
   day,
@@ -24,29 +26,32 @@ enum PostTopSort {
   all
 }
 
+/// Entity holding Subreddit's information
 class Subreddit {
+  /// Display name of the subreddit
   final String displayName;
-
+  /// List of posts
   List<Post> posts;
-
+  /// Number of subscribers
   int membersCount = 0;
-
-  String description = "";
-
+  /// Subreddit's description
+  final String description = "";
+  /// Short Link to subreddit
   final String link;
-
-  String bannerUrl = "";
-
+  /// URL to subreddit's banner
+  final String bannerUrl = "";
+  /// URL to subreddit's picture
   final String pictureUrl;
-
+  /// Current sorting method for posts
   PostSort sortingMethod;
-
+  /// Current top sorting method for posts
   PostTopSort? topSortingMethod;
-
+  /// Logged reditor relation to subreddit
   bool subscribed;
-
+  /// Subreddit instance from DRAW
   draw.Subreddit drawInterface;
 
+  /// Creates a Subreddit instance from DRAW's subreddit
   Subreddit.fromDRAW(this.drawInterface, this.posts):
       displayName = drawInterface.displayName,
       pictureUrl = drawInterface.iconImage.toString(),
@@ -68,13 +73,16 @@ class Subreddit {
       }
   }
 
+    description = HtmlUnescape().convert(description);
+  }
+  ///Refresh all stored posts using sorting method
   Future<void>refreshPosts() async
   {
     var refreshedPosts = fetch(posts.length, null);
 
     posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
   }
-
+  /// Get more posts
   Future<void>fetchMorePosts() async
   {
     String? lastPage = posts.isNotEmpty ? posts.last.fullName : null;
@@ -87,7 +95,7 @@ class Subreddit {
     }*/
     posts.addAll([await for (var post in fetchedPosts) Post.fromSubmission(post as draw.Submission)]);
   }
-
+  /// Post Fetcher
   Stream fetch(int? limit, String? after)
   {
     switch (sortingMethod) {
@@ -116,17 +124,16 @@ class Subreddit {
         return drawInterface.rising(limit: SubredditPostsList.pageSize, after: after);
     }
   }
-
+  /// Call API to notify subscribtion, add name of the subreddit in redditor's subscribtion list
   Future<void> subscribe() async
   {
     await drawInterface.subscribe();
     GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.add(displayName);
   }
-
+  /// Call API to notify unsubscribtion, remove name of the subreddit in redditor's subscribtion list
   Future<void> unsubscribe() async
   {
     await drawInterface.unsubscribe();
     GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.remove(displayName);
   }
-
 }
