@@ -3,7 +3,7 @@ import 'package:draw/draw.dart' as draw;
 import '../views/subreddit_posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
-
+import 'package:html_unescape/html_unescape.dart';
 
 enum PostSort {
   hot,
@@ -28,7 +28,7 @@ class Subreddit {
 
   int membersCount;
 
-  final String description;
+  String description;
 
   final String link;
 
@@ -53,7 +53,10 @@ class Subreddit {
       link = 'https://www.reddit.com/r/'+ drawInterface.displayName,
       sortingMethod = PostSort.hot,
       subscribed = GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits.contains(drawInterface.displayName),
-      topSortingMethod = null;
+      topSortingMethod = null
+  {
+    description = HtmlUnescape().convert(description);
+  }
 
   Future<void>refreshPosts() async
   {

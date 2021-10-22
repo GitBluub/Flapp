@@ -240,6 +240,13 @@
             </list>
           </value>
         </entry>
+        <entry key="html_unescape">
+          <value>
+            <list>
+              <option value="$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/html_unescape-2.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="http">
           <value>
             <list>
@@ -617,6 +624,7 @@
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_web_auth-0.3.1/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.15.0/lib" />
+      <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/html_unescape-2.0.0/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.0.8/lib" />

@@ -43,6 +43,7 @@ dependencies:
   flappy_search_bar_ns: ^2.0.2
   carousel_slider: ^4.0.0
   video_player: ^2.2.5
+  html_unescape: ^2.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
