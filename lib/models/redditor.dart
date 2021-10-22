@@ -14,7 +14,7 @@ class Redditor {
   final String name;
 
   /// Profile's bio
-  final String description;
+  String description;
   /// Karma of the user
   final int karma;
   /// Timestamp of the redditor's creation
@@ -25,7 +25,7 @@ class Redditor {
   final List<Post> posts;
 
   /// Redditor const constructor
-  const Redditor({Key? key,
+  Redditor({Key? key,
       required this.bannerUrl, required this.pictureUrl,
       required this.displayName, required this.name,
       required this.karma, required this.ancientness,
