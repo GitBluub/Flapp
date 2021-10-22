@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:draw/draw.dart' as draw;
+import 'package:html_unescape/html_unescape.dart';
 
 /// Entity for a post's comment
 class Comment {
@@ -13,7 +14,7 @@ class Comment {
 
   Comment.fromDraw(draw.Comment comment):
         authorName = comment.author,
-        content = comment.body == null ? "" : comment.body!,
+        content = comment.body == null ? "" : HtmlUnescape().convert(comment.body!),
         createdTime = comment.createdUtc;
 
 }

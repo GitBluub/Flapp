@@ -18,10 +18,28 @@ class ExtractArgumentsPostPage extends StatelessWidget {
   }
 }
 
-class PostPageController extends StatelessWidget {
+class PostPageController extends StatefulWidget {
   final Post post;
 
   const PostPageController({Key? key, required this.post}) : super(key: key);
+
+  @override
+  State<PostPageController> createState() => _PostPageControllerState();
+}
+
+class _PostPageControllerState extends State<PostPageController> {
+  Post? post;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() => post = null);
+    widget.post.fetchComments().then((_) {
+      setState(() {
+        post = widget.post;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
