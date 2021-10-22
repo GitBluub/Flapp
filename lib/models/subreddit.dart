@@ -35,11 +35,11 @@ class Subreddit {
   /// Number of subscribers
   int membersCount = 0;
   /// Subreddit's description
-  final String description = "";
+  String description = "";
   /// Short Link to subreddit
   final String link;
   /// URL to subreddit's banner
-  final String bannerUrl = "";
+  String bannerUrl = "";
   /// URL to subreddit's picture
   final String pictureUrl;
   /// Current sorting method for posts
@@ -71,16 +71,14 @@ class Subreddit {
       } else {
         bannerUrl =  unescape.convert(drawInterface.data!['banner_background_image'].toString());
       }
-  }
-
-    description = HtmlUnescape().convert(description);
+      description = HtmlUnescape().convert(description);
   }
   ///Refresh all stored posts using sorting method
   Future<void>refreshPosts() async
   {
-    var refreshedPosts = fetch(posts.length, null);
+    var refreshedPosts = fetch(this.posts.length, null);
 
-    posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
+    this.posts = [await for (var post in refreshedPosts) Post.fromSubmission(post as draw.Submission)];
   }
   /// Get more posts
   Future<void>fetchMorePosts() async
