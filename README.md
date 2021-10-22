@@ -16,6 +16,7 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Share the funniest posts
 - React to posts (Like / Dislike)
 - Refresh and get more posts while scrolling
+- Read comments from posts
 
 - Search for new subreddits to browse
 - Subscribe to a newly discovered subreddit (and unsubscribe if you don't enjoy it anymore)
@@ -32,5 +33,3 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 ## Upcoming features
 
 - Change some settings
-- See subreddits' banners
-- Get comments from posts
