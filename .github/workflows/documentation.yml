@@ -13,8 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
       - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: '2.0.5'
       - name: Update Documentation
         run: |
           flutter pub global activate dartdoc
