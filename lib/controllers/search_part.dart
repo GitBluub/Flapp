@@ -6,7 +6,6 @@ class SearchPageController extends StatelessWidget {
   const SearchPageController({Key? key}) : super(key: key);
 
   @override
-  @override
   Widget build(BuildContext context) {
     return SearchPageView();
   }
