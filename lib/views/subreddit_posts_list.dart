@@ -121,25 +121,32 @@ class _SubredditPostsListState extends State<SubredditPostsList>
                 // allow the notification to continue to be dispatched to further ancestors.
                 return true;
               },
-              child: ListView(
+              child: Scrollbar(child: ListView(
                 controller: listController,
                 children: [
                   for (var post in sub.posts)
                     PostView(post: post, displaySubName: false, preview: true)
                 ],
-              )))
+              ))))
     ]);
-
-    if (loading) {
-      return Stack(children: [
+    return Stack(children: [
+      list,
+      loading ? BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+          child: Container(height: 125, color: Theme.of(context).scaffoldBackgroundColor)) : Container(),
+      loading ? const LoadingWidget() : Container()
+    ]);
+    /*if (loading) {
+      return list;
+      /*return Stack(children: [
         list,
         BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
             child: Container(height: 125, color: Theme.of(context).scaffoldBackgroundColor)),
         const LoadingWidget(),
-      ]);
+      ])*/
     } else {
       return list;
-    }
+    }*/
   }
 }

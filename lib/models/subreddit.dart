@@ -32,7 +32,7 @@ class Subreddit {
   /// Number of subscribers
   int membersCount;
   /// Subreddit's description
-  final String description;
+  String description;
   /// Short Link to subreddit
   final String link;
   /// URL to subreddit's banner
