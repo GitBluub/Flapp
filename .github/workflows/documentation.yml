@@ -12,7 +12,7 @@ jobs:
     container: arthichaud/ci_docker_image:latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v1.5.3
       - name: Update Documentation
         run: |
           flutter pub global activate dartdoc
