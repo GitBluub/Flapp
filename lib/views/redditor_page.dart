@@ -109,7 +109,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
           Row(children: [
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Expanded(
+                child: Container(
                     child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
@@ -119,10 +119,10 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                 ))),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Expanded(child: Text(ancientnessFormat))),
+                child: Container(child: Text(ancientnessFormat))),
             Container(
                 padding: const EdgeInsets.only(left: 15),
-                child: Expanded(child: Text("${widget.user.karma} Karma")))
+                child: Container(child: Text("${widget.user.karma} Karma")))
           ]),
           Container(
               padding: const EdgeInsets.only(
