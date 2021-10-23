@@ -29,7 +29,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
     Subreddit sub = widget.subreddit as Subreddit;
     return FlappPage(
         title: sub.displayName,
-        body: Column(children: [
+        body: ListView(children: [
           ImageHeader(
                 bannerUrl: sub.bannerUrl,
                 pictureUrl: sub.pictureUrl,
@@ -79,7 +79,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                 children: [Text(sub.description)],
     )),
           Divider(),
-          Expanded(child:SubredditPostsList(subreddit: sub))
+          SizedBox(height: MediaQuery.of(context).size.height * 0.85, child:SubredditPostsList(subreddit: sub))
         ]));
   }
 }

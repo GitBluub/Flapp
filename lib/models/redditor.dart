@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'post.dart';
 import 'package:html_unescape/html_unescape.dart';
+import '../models/subreddit.dart';
+import 'package:get_it/get_it.dart';
+import '../models/reddit_interface.dart';
 
 /// Entity holding a Redditor's info
 class Redditor {
@@ -34,5 +37,14 @@ class Redditor {
   }) {
     var unescape = HtmlUnescape();
     description = unescape.convert(description);
+  }
+  /// Get a list of loaded Subreddits the user is subscribed to
+  Future<List<Subreddit>> getSubscribedSubreddits() async {
+    List<Subreddit> subs = [];
+    
+    for (var name in subscribedSubreddits) {
+      subs.add(await GetIt.I<RedditInterface>().getSubreddit(name, loadPosts: false));
+    }
+    return subs;
   }
 }

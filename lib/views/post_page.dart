@@ -1,7 +1,7 @@
 import 'package:flapp/views/loading.dart';
 import 'package:flutter/material.dart';
 import '../models/post.dart';
-import 'post_view.dart';
+import 'post_widget.dart';
 import 'flapp_page.dart';
 import '../models/comment.dart';
 import 'comment_view.dart';
@@ -26,7 +26,7 @@ class _PostPageViewState extends State<PostPageView>
     }
     Post post = widget.post as Post;
     return FlappPage(title: post.title, body: ListView(children: <Widget>[
-      PostView(post: post, preview: false, displaySubName: true)
+      PostWidget(post: post, preview: false, displaySubName: true)
     ] + [for (Comment comment in post.comments) CommentView(comment: comment)]));
   }
 }
