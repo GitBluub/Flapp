@@ -60,14 +60,14 @@ class _RedditorPageViewState extends State<RedditorPageView> {
             displaySubName: true,
           )
       ]) : Column(children: [
-        Container(padding: EdgeInsets.all(30), child: Icon(Icons.insert_comment)),
-        Text("No post!")]
+        Container(padding: EdgeInsets.all(30), child: const Icon(Icons.insert_comment)),
+        const Text("No post!")]
       ),
       'Comments': comments.isNotEmpty ? ListView(shrinkWrap: true, children: [
         for (var c in comments)
           CommentWidget(comment: c)
       ]) : Column(children: [
-        Container(padding: EdgeInsets.all(30), child: Icon(Icons.insert_comment)),
+        Container(padding: const EdgeInsets.all(30), child: const Icon(Icons.insert_comment)),
         Text("No comment!")]
       ),
       'Subredddits': ListView(shrinkWrap: true, children: [
