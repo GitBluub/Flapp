@@ -54,15 +54,18 @@ class ImageHeader extends StatelessWidget {
     Widget bannerWidget = Container();
 
     if (bannerUrl != "") {
-      bannerWidget = FittedBox(
-        fit: BoxFit.cover,
-        child: CachedNetworkImage(
-          fit: BoxFit.fitWidth,
-          repeat: ImageRepeat.repeat,
+      bannerWidget = CachedNetworkImage(
           imageUrl: bannerUrl,
-          placeholder: (context, url) =>  const LoadingWidget(),
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover
+              ),
+            ),
+          ),
+          placeholder: (context, url) => const LoadingWidget(),
           errorWidget: (context, url, error) => const Icon(Icons.error),
-        ),
       );
     }
     return Wrap(children: [
