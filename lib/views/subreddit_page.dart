@@ -26,11 +26,6 @@ class _SubredditPageViewState extends State<SubredditPageView> {
       return const LoadingWidget();
     }
     Subreddit sub = widget.subreddit as Subreddit;
-    print("Here: ${sub.drawInterface.headerImage}");
-    print("Here: ${sub.drawInterface.iconImage}");
-    print("Here: ${sub.drawInterface.mobileHeaderImage}");
-    sub.drawInterface.data!.forEach((k,v) => print('${k}: ${v}'));
-    print("Here: ${sub.drawInterface.infoParams}");
     return FlappPage(
         title: sub.displayName,
         body: ListView(children: [

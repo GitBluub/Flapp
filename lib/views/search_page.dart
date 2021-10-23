@@ -64,8 +64,10 @@ class SearchPageView extends StatelessWidget {
               children: [
                 Container(
                     padding: const EdgeInsets.all(15),
-                    child: CircularCachedNetworkImage(url: sub.pictureUrl, size: 50)
-                ),
+                    child: CircleAvatar(
+                      foregroundImage: sub.pictureUrl != "" ? Image.network(sub.pictureUrl, errorBuilder: (_,__,___) => Container(),).image : null,
+                      child: Text(sub.displayName[0]),
+                    )),
                 Expanded(
                     child: Text(sub.displayName)
                 ),
