@@ -25,16 +25,15 @@ class _SubredditPageViewState extends State<SubredditPageView> {
     if (widget.subreddit == null) {
       return const LoadingWidget();
     }
+
     Subreddit sub = widget.subreddit as Subreddit;
     return FlappPage(
         title: sub.displayName,
-        body: ListView(children: [
-          Wrap(children: [
-            ImageHeader(
+        body: Column(children: [
+          ImageHeader(
                 bannerUrl: sub.bannerUrl,
                 pictureUrl: sub.pictureUrl,
-                title: 'r/' + sub.displayName)
-          ]),
+                title: 'r/' + sub.displayName),
           Row(children: [
             Container(
                 padding: const EdgeInsets.only(left: 20),
@@ -80,8 +79,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                 children: [Text(sub.description)],
     )),
           Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height,child:
-          SubredditPostsList(subreddit: sub))
+          Expanded(child:SubredditPostsList(subreddit: sub))
         ]));
   }
 }

@@ -122,6 +122,7 @@ class _SubredditPostsListState extends State<SubredditPostsList>
                 return true;
               },
               child: Scrollbar(child: ListView(
+                shrinkWrap: true,
                 controller: listController,
                 children: [
                   for (var post in sub.posts)
@@ -133,7 +134,7 @@ class _SubredditPostsListState extends State<SubredditPostsList>
       list,
       loading ? BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-          child: Container(height: 125, color: Theme.of(context).scaffoldBackgroundColor)) : Container(),
+          child: Container()) : Container(),
       loading ? const LoadingWidget() : Container()
     ]);
     /*if (loading) {
