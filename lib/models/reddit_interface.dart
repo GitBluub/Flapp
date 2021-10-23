@@ -29,21 +29,7 @@ class RedditInterface {
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    loggedRedditor = Redditor(
-        description: loggedUser.data["subreddit"]["public_description"]
-            .replaceAll("&amp;", "&"),
-        bannerUrl:
-            loggedUser.data["subreddit"]["banner_img"].replaceAll("&amp;", "&"),
-        pictureUrl:
-            loggedUser.data["subreddit"]["icon_img"].replaceAll("&amp;", "&"),
-        displayName: loggedUser.displayName,
-        name: "u/" + loggedUser.fullname,
-        ancientness: loggedUser.createdUtc,
-        karma: loggedUser.awardeeKarma +
-            loggedUser.awarderKarma +
-            loggedUser.commentKarma,
-        subscribedSubreddits: subredditSubscribed,
-        posts: []);
+    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser, subscribedSubreddits: subredditSubscribed);
     return loggedRedditor;
   }
 

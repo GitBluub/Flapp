@@ -2,10 +2,10 @@ import '../models/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 
-class CommentView extends StatelessWidget {
+class CommentWidget extends StatelessWidget {
   final Comment comment;
 
-  const CommentView({Key? key, required this.comment}) : super(key: key);
+  const CommentWidget({Key? key, required this.comment}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

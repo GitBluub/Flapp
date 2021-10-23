@@ -1,13 +1,16 @@
+import 'package:flapp/views/post_widget.dart';
 import 'package:flutter/material.dart';
 import 'image_header.dart';
 import 'flapp_page.dart';
 import '../models/redditor.dart';
+import '../models/post.dart';
 import 'package:time_elapsed/time_elapsed.dart';
 import '../models/subreddit.dart';
 import 'loading.dart';
 import 'subreddit_widget.dart';
 import '../controllers/subreddit_page.dart';
-
+import '../models/comment.dart';
+import 'comment_widget.dart';
 /// View for reddditor page
 class RedditorPageView extends StatefulWidget {
   const RedditorPageView({Key? key, required this.user}) : super(key: key);
@@ -22,6 +25,8 @@ class RedditorPageView extends StatefulWidget {
 class _RedditorPageViewState extends State<RedditorPageView> {
   bool loading = true;
   List<Subreddit> subreddits = [];
+  List<Post> posts = [];
+  List<Comment> comments = [];
 
   @override
   void initState() {
@@ -31,15 +36,41 @@ class _RedditorPageViewState extends State<RedditorPageView> {
       loading = false;
       setState(() {});
     });
+    widget.user.getPosts().then((p) {
+      posts = p;
+      loading = false;
+      setState(() {});
+    });
+    widget.user.getComments().then((c) {
+      comments = c;
+      loading = false;
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     String ancientnessFormat = 'Redditor since ';
     Map<String, Widget> tabs = {
-      'Posts': Container(),
-      'Comments': Container(),
-      'Subredddits': ListView(children: [
+      'Posts': posts.isNotEmpty ? ListView(shrinkWrap: true,children: [
+        for (var p in posts)
+          PostWidget(
+            preview: true,
+            post: p,
+            displaySubName: true,
+          )
+      ]) : Column(children: [
+        Container(padding: EdgeInsets.all(30), child: Icon(Icons.insert_comment)),
+        Text("No post!")]
+      ),
+      'Comments': comments.isNotEmpty ? ListView(shrinkWrap: true, children: [
+        for (var c in comments)
+          CommentWidget(comment: c)
+      ]) : Column(children: [
+        Container(padding: EdgeInsets.all(30), child: Icon(Icons.insert_comment)),
+        Text("No comment!")]
+      ),
+      'Subredddits': ListView(shrinkWrap: true, children: [
         for (var s in subreddits)
           TextButton(
             style: TextButton.styleFrom(
@@ -91,7 +122,8 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                       child: Text(widget.user.description))
                 ],
               )),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.8,
+          SizedBox(
+              height: MediaQuery.of(context).size.height * 0.8,
               child: DefaultTabController(
                   length: tabs.length,
                   child: Scaffold(

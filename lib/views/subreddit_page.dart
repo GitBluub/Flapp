@@ -79,7 +79,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                 children: [Text(sub.description)],
     )),
           Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.85, child:SubredditPostsList(subreddit: sub))
+          SizedBox(height: MediaQuery.of(context).size.height * 0.80, child:SubredditPostsList(subreddit: sub))
         ]));
   }
 }
