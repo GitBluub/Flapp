@@ -13,47 +13,34 @@ import '../models/comment.dart';
 import 'comment_widget.dart';
 /// View for reddditor page
 class RedditorPageView extends StatefulWidget {
-  const RedditorPageView({Key? key, required this.user}) : super(key: key);
+  const RedditorPageView({Key? key, required this.user, required this.subreddits, required this.posts, required this.comments}) : super(key: key);
 
   /// Redditor's entity
   final Redditor user;
+
+  /// List of subreddits posted
+  final List<Subreddit>? subreddits;
+  /// List of posted posts
+  final List<Post>? posts;
+  /// List of comments
+  final List<Comment>? comments;
 
   @override
   State<RedditorPageView> createState() => _RedditorPageViewState();
 }
 
 class _RedditorPageViewState extends State<RedditorPageView> {
-  bool loading = true;
-  List<Subreddit> subreddits = [];
-  List<Post> posts = [];
-  List<Comment> comments = [];
-
-  @override
-  void initState() {
-    super.initState();
-    widget.user.getSubscribedSubreddits().then((subs) {
-      subreddits = subs;
-      loading = false;
-      setState(() {});
-    });
-    widget.user.getPosts().then((p) {
-      posts = p;
-      loading = false;
-      setState(() {});
-    });
-    widget.user.getComments().then((c) {
-      comments = c;
-      loading = false;
-      setState(() {});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     String ancientnessFormat = 'Redditor since ';
+
+    if (widget.subreddits == null || widget.comments == null || widget.posts == null) {
+      return const LoadingWidget();
+    }
     Map<String, Widget> tabs = {
-      'Posts': posts.isNotEmpty ? ListView(shrinkWrap: true,children: [
-        for (var p in posts)
+      'Posts': widget.posts!.isNotEmpty ? ListView(shrinkWrap: true,children: [
+        for (var p in widget.posts!)
           PostWidget(
             preview: true,
             post: p,
@@ -63,15 +50,15 @@ class _RedditorPageViewState extends State<RedditorPageView> {
         Container(padding: EdgeInsets.all(30), child: const Icon(Icons.insert_comment)),
         const Text("No post!")]
       ),
-      'Comments': comments.isNotEmpty ? ListView(shrinkWrap: true, children: [
-        for (var c in comments)
+      'Comments': widget.comments!.isNotEmpty ? ListView(shrinkWrap: true, children: [
+        for (var c in widget.comments!)
           CommentWidget(comment: c)
       ]) : Column(children: [
         Container(padding: const EdgeInsets.all(30), child: const Icon(Icons.insert_comment)),
         Text("No comment!")]
       ),
-      'Subredddits': ListView(shrinkWrap: true, children: [
-        for (var s in subreddits)
+      'Subredddits': widget.subreddits!.isNotEmpty ? ListView(shrinkWrap: true, children: [
+        for (var s in widget.subreddits!)
           TextButton(
             style: TextButton.styleFrom(
               primary: Theme.of(context).primaryColor,
@@ -82,13 +69,12 @@ class _RedditorPageViewState extends State<RedditorPageView> {
             },
             child: SubredditWidget(subreddit: s),
           )
-      ]),
+      ]) : Column(children: [
+    Container(padding: EdgeInsets.all(30), child: const Icon(Icons.bookmark)),
+    const Text("No subreddit!")]),
     };
 
     ancientnessFormat += TimeElapsed.fromDateTime(widget.user.ancientness);
-    if (loading) {
-      return const LoadingWidget();
-    }
     return FlappPage(
         title: widget.user.name,
         body: ListView(children: [
