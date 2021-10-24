@@ -3,6 +3,7 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'redditor.dart';
 import 'subreddit.dart';
+import 'frontpage.dart';
 import 'post.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -18,25 +19,25 @@ class RedditInterface {
   late Redditor loggedRedditor;
 
   /// Reddit object from DRAW
-  var _reddit;
+  late draw.Reddit reddit;
 
   /// Fetch logged Redditor using API
   Future<Redditor> _fetchLoggedRedditor() async {
-    var loggedUser = await _reddit.user.me();
-    final subredditsstream = _reddit.user.subreddits();
+    var loggedUser = await reddit.user.me();
+    final subredditsstream = reddit.user.subreddits();
     List<String> subredditSubscribed = [];
 
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser, subscribedSubreddits: subredditSubscribed);
+    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser as draw.Redditor, subscribedSubreddits: subredditSubscribed);
     return loggedRedditor;
   }
 
   /// Get list of subreddits matching name
   /// The subreddits don't hold posts
   Future<List<Subreddit>> searchSubreddits(String name) async {
-    var searchRes = await _reddit.subreddits.searchByName(name);
+    var searchRes = await reddit.subreddits.searchByName(name);
     List<Subreddit> sublist = [];
 
     for (var sub in searchRes) {
@@ -49,7 +50,7 @@ class RedditInterface {
   /// Get a subreddit with name
   /// The subreddit get a certain number of posts
   Future<Subreddit> getSubreddit(String name, {bool loadPosts = true}) async {
-    draw.SubredditRef subRef = _reddit.subreddit(name);
+    draw.SubredditRef subRef = reddit.subreddit(name);
     draw.Subreddit sub = await subRef.populate();
     List<Post> posts = [];
 
@@ -73,7 +74,7 @@ class RedditInterface {
       if (cred == "") {
         throw Exception("Empty creds");
       }
-      _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
+      reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
           clientId: clientId, userAgent: "flapp_application");
       await _fetchLoggedRedditor();
       connected = true;
@@ -88,6 +89,15 @@ class RedditInterface {
     return File('$path/credentials.json');
   }
 
+  Future<FrontPage> getFrontPage() async {
+    List<Post> posts = [];
+    await for (var post in draw.FrontPage(reddit).hot(limit: SubredditPostsList.pageSize)) {
+      posts.add(Post.fromSubmission(post as draw.Submission));
+    }
+
+    return FrontPage(posts);
+  }
+
   /// Creates an API connection and save credentials to a file
   Future<void> createAPIConnection() async {
     String? clientId = dotenv.env['FLAPP_API_KEY'];
@@ -96,21 +106,21 @@ class RedditInterface {
     if (clientId == null) {
       throw Exception("No FLAPP_API_KEY env var found...");
     }
-    _reddit = draw.Reddit.createInstalledFlowInstance(
+    reddit = draw.Reddit.createInstalledFlowInstance(
         clientId: clientId,
         userAgent: "flapp",
         redirectUri: Uri.parse("flapp://home"));
     // Present the dialog to the user
     final result = await FlutterWebAuth.authenticate(
-      url: _reddit.auth.url(["*"], "flapp", compactLogin: true).toString(),
+      url: reddit.auth.url(["*"], "flapp", compactLogin: true).toString(),
       callbackUrlScheme: "flapp",
     );
 
     // Extract token from resulting url
     final code = Uri.parse(result).queryParameters['code'];
 
-    await _reddit.auth.authorize(code.toString());
-    await file.writeAsString(_reddit.auth.credentials.toJson());
+    await reddit.auth.authorize(code.toString());
+    await file.writeAsString(reddit.auth.credentials.toJson());
     await _fetchLoggedRedditor();
     connected = true;
   }
