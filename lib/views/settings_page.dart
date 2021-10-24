@@ -22,7 +22,29 @@ class _SettingsPageViewState extends State<SettingsPageView>
   {
     List<Widget> settingsFields = [];
     Widget saveButton = Column(children: [
-      ElevatedButton(onPressed: () { print(widget.user.prefs['video_autoplay']); },
+      ElevatedButton(onPressed: () => showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Save changes'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Once you\'ve saved changes, you\'ll be redirected to your home page.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Save!'),
+              onPressed: () {
+                widget.user.pushPrefs();
+                //Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+              },
+            ),
+          ],
+        );
+      }),
         child: Text("Save changes"),
         style: ElevatedButton.styleFrom(primary: Theme.of(context).backgroundColor),
       ),

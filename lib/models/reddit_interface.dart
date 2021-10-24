@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:draw/draw.dart' as draw;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -130,5 +132,10 @@ class RedditInterface {
   Future get(String api, {Map<String, String?>? params, bool objectify = true, bool followRedirects = false})
   {
     return _reddit.get(api, params: params, objectify: objectify, followRedirects: followRedirects);
+  }
+
+  Future post(String api, Map<String, String> body, {Map<String, Uint8List?>? files, Map? params, bool discardResponse = false, bool objectify = true})
+  {
+    return _reddit.put(api, body, files: files, params: params, discardResponse: discardResponse, objectify: objectify);
   }
 }

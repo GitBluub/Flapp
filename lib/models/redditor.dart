@@ -81,22 +81,12 @@ class Redditor {
     }
     return comments;
   }
-  
-  /*String? _getPrefValue(String key)
-  {
-    if (prefs.containsKey(key)) {
-      return prefs[key];
-    } 
-    return null;
-  }
 
-  String? autoPlayVideo()
-  {
-    return _getPrefValue('video_autoplay');
+  Future<void> pushPrefs() async {
+    Map<String, String> out = {};
+    prefs.forEach((key, value) {
+      out[key] = value.toString();
+    });
+    GetIt.I<RedditInterface>().post('/api/v1/me/prefs', out, objectify: false);
   }
-
-  bool autoPlayVideo()
-  {
-    return _getPrefValue('video_autoplay');
-  }*/
 }

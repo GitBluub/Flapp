@@ -25,7 +25,6 @@ class LoginPageView extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          print(e);
                           return AlertDialog(
                             title: const Text('An error occurred'),
                             content: SingleChildScrollView(
