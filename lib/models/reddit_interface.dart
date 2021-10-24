@@ -25,11 +25,13 @@ class RedditInterface {
     var loggedUser = await _reddit.user.me();
     final subredditsstream = _reddit.user.subreddits();
     List<String> subredditSubscribed = [];
+    Map<String, dynamic> prefs = {};
 
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser, subscribedSubreddits: subredditSubscribed);
+    prefs = Map<String, dynamic>.from(await _reddit.get('/api/v1/me/prefs', params: {"raw_json": "1"}, objectify: false));
+    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser, subscribedSubreddits: subredditSubscribed, prefs: prefs);
     return loggedRedditor;
   }
 
@@ -123,5 +125,10 @@ class RedditInterface {
       await credentials.delete();
     }
     connected = false;
+  }
+
+  Future get(String api, {Map<String, String?>? params, bool objectify = true, bool followRedirects = false})
+  {
+    return _reddit.get(api, params: params, objectify: objectify, followRedirects: followRedirects);
   }
 }

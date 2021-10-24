@@ -27,6 +27,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
         widget.post.submission.url.toString() + "/DASH_720.mp4");
 
     _initializeVideoPlayerFuture = _controller.initialize();
+
   }
 
   @override

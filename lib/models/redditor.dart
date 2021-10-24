@@ -27,6 +27,8 @@ class Redditor {
   ///List of names of subscribed subreddits
   final List<String> subscribedSubreddits;
 
+  Map<String, dynamic> prefs;
+
   draw.Redditor drawInterface;
 
 
@@ -42,7 +44,7 @@ class Redditor {
     description = unescape.convert(description);
   }*/
 
-  Redditor.fromDRAW({Key? key, required this.drawInterface, required this.subscribedSubreddits}):
+  Redditor.fromDRAW({Key? key, required this.drawInterface, required this.subscribedSubreddits, required this.prefs}):
         description = HtmlUnescape().convert(drawInterface.data!["subreddit"]["public_description"]),
         bannerUrl = HtmlUnescape().convert(drawInterface.data!["subreddit"]["banner_img"]),
         pictureUrl = HtmlUnescape().convert(drawInterface.data!["subreddit"]["icon_img"]),
@@ -79,4 +81,22 @@ class Redditor {
     }
     return comments;
   }
+  
+  /*String? _getPrefValue(String key)
+  {
+    if (prefs.containsKey(key)) {
+      return prefs[key];
+    } 
+    return null;
+  }
+
+  String? autoPlayVideo()
+  {
+    return _getPrefValue('video_autoplay');
+  }
+
+  bool autoPlayVideo()
+  {
+    return _getPrefValue('video_autoplay');
+  }*/
 }
