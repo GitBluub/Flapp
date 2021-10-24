@@ -107,9 +107,9 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                 title: widget.user.displayName)
           ]),
           Row( children: [
-            Center(child: Container(
+            Container(
                 padding: const EdgeInsets.only(left: 30, top: 10),
-                child: Text("$ancientnessFormat - ${widget.user.karma} Karma"))),
+                child: Text("$ancientnessFormat - ${widget.user.karma} Karma")),
           ]),
           Container(
               padding: const EdgeInsets.only(
