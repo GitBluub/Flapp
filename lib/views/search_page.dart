@@ -10,7 +10,7 @@ import '../models/redditor.dart';
 import 'package:flappy_search_bar_ns/flappy_search_bar_ns.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
-import 'image_header.dart';
+import 'subreddit_widget.dart';
 
 /// View for Search page
 class SearchPageView extends StatelessWidget {
@@ -58,26 +58,7 @@ class SearchPageView extends StatelessWidget {
               onPressed: () {
                   Navigator.pushNamed(context, '/subreddit', arguments: SubredditPageArguments(sub.displayName));
               },
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                    padding: const EdgeInsets.all(15),
-                    child: CircleAvatar(
-                      foregroundImage: sub.pictureUrl != "" ? Image.network(sub.pictureUrl, errorBuilder: (_,__,___) => Container(),).image : null,
-                      child: Text(sub.displayName[0]),
-                    )),
-                Expanded(
-                    child: Text(sub.displayName)
-                ),
-
-                Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(NumberFormat.compact().format(sub.membersCount).toString() + " Members")
-                ),
-              ],
-            )
+              child: SubredditWidget(subreddit: sub),
             );
           },
         ),

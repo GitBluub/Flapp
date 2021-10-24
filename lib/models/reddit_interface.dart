@@ -12,10 +12,11 @@ import '../views/subreddit_posts_list.dart';
 class RedditInterface {
   /// Boolean to know if user is authenticated
   bool connected = false;
+
   /// Allows quick access to logged user.
   /// This allows not having to fetch it at every page
   late Redditor loggedRedditor;
-  
+
   /// Reddit object from DRAW
   var _reddit;
 
@@ -28,17 +29,7 @@ class RedditInterface {
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    loggedRedditor = Redditor(
-        description: loggedUser.data["subreddit"]["public_description"].replaceAll("&amp;", "&"),
-        bannerUrl: loggedUser.data["subreddit"]["banner_img"].replaceAll("&amp;", "&"),
-        pictureUrl: loggedUser.data["subreddit"]["icon_img"].replaceAll("&amp;", "&"),
-        displayName: loggedUser.displayName,
-        name: "u/" + loggedUser.fullname,
-        ancientness: loggedUser.createdUtc,
-        karma: loggedUser.awardeeKarma + loggedUser.awarderKarma + loggedUser.commentKarma,
-        subscribedSubreddits: subredditSubscribed,
-        posts: []
-    );
+    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser, subscribedSubreddits: subredditSubscribed);
     return loggedRedditor;
   }
 
@@ -57,13 +48,15 @@ class RedditInterface {
 
   /// Get a subreddit with name
   /// The subreddit get a certain number of posts
-  Future<Subreddit> getSubreddit(String name) async {
+  Future<Subreddit> getSubreddit(String name, {bool loadPosts = true}) async {
     draw.SubredditRef subRef = _reddit.subreddit(name);
     draw.Subreddit sub = await subRef.populate();
     List<Post> posts = [];
 
-    await for (var post in sub.hot(limit: SubredditPostsList.pageSize)) {
-      posts.add(Post.fromSubmission(post as draw.Submission));
+    if (loadPosts) {
+      await for (var post in sub.hot(limit: SubredditPostsList.pageSize)) {
+        posts.add(Post.fromSubmission(post as draw.Submission));
+      }
     }
     return Subreddit.fromDRAW(sub, posts);
   }
@@ -81,12 +74,11 @@ class RedditInterface {
         throw Exception("Empty creds");
       }
       _reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
-        clientId: clientId,
-        userAgent: "flapp_application");
+          clientId: clientId, userAgent: "flapp_application");
       await _fetchLoggedRedditor();
       connected = true;
-  } catch (e) {}
-}
+    } catch (e) {}
+  }
 
   /// Get the file that holds the log credentials
   Future<File> getCredentialsFile() async {
