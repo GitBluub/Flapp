@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:typed_data';
-
+import 'dart:convert';
 import 'package:draw/draw.dart' as draw;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,6 +10,7 @@ import 'post.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import '../views/subreddit_posts_list.dart';
+import 'package:http/http.dart' as http;
 
 /// Object that allow simple call to API, Singleton
 class RedditInterface {
@@ -142,5 +144,14 @@ class RedditInterface {
   Future put(String api, {Map<String, String>? body})
   {
     return _reddit.put(api, body: body);
+  }
+
+  Future patch(String api, Map<String, String> out)
+  {
+    return http.patch(Uri.parse("https://oauth.reddit.com$api"), body: json.encode(out), headers:
+        {
+        "Authorization": "Bearer " + _reddit.auth.credentials.accessToken,
+        }
+    ).then((http.Response value) {});
   }
 }

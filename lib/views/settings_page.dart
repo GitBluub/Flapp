@@ -38,8 +38,8 @@ class _SettingsPageViewState extends State<SettingsPageView>
             TextButton(
               child: const Text('Save!'),
               onPressed: () {
-                widget.user.pushPrefs();
-                //Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+                widget.user.pushPrefs(widget.settings.keys.toList());
+                Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
               },
             ),
           ],

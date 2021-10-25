@@ -82,11 +82,15 @@ class Redditor {
     return comments;
   }
 
-  Future<void> pushPrefs() async {
+  Future<void> pushPrefs(List<String> prefNames) async {
     Map<String, String> out = {};
     prefs.forEach((key, value) {
-      out[key] = value.toString();
+      if (prefNames.contains(key)) {
+        out[key] = value.toString();
+      }
     });
-    GetIt.I<RedditInterface>().put('/api/v1/me/prefs', body: out);
+    return GetIt.I<RedditInterface>().patch('/api/v1/me/prefs', out);
   }
+
+  bool autoPlayVideo() => prefs['video_autoplay'];
 }

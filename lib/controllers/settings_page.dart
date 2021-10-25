@@ -11,7 +11,7 @@ class SettingsPageController extends StatelessWidget {
   Widget build(BuildContext context) {
     Map <String, String> settings = {
       'email_post_reply': "Get an email when your post receives a reply",
-      'email_username_mention': "Get an email when a reddit mentions you",
+      'email_username_mention': "Get an email when a redditor mentions you",
       'email_comment_reply': "Get an email when your comment receives a reply",
       'over_18': "Allow NSFW content",
       'video_autoplay': "Autoplay videos",

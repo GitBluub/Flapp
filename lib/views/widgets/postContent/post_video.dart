@@ -3,6 +3,8 @@ import 'package:flapp/views/loading.dart';
 import '../../../models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:get_it/get_it.dart';
+import '../../../models/reddit_interface.dart';
 
 /// Widget to display video from post
 class PostVideoWidget extends StatefulWidget {
@@ -27,7 +29,9 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
         widget.post.submission.url.toString() + "/DASH_720.mp4");
 
     _initializeVideoPlayerFuture = _controller.initialize();
-
+    if (GetIt.I<RedditInterface>().loggedRedditor.autoPlayVideo()) {
+      _controller.play();
+    }
   }
 
   @override
