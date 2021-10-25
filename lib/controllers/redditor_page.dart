@@ -26,7 +26,7 @@ class _RedditorPageControllerState extends State<RedditorPageController>
   @override
   void initState() {
       super.initState();
-      user.getSubscribedSubreddits().then((subs) {
+      user.getSubscribedSubreddits(false).then((subs) {
       subreddits = subs;
       setState(() {});
     });

@@ -3,11 +3,11 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'redditor.dart';
 import 'subreddit.dart';
-import 'frontpage.dart';
+import 'post_holder.dart';
 import 'post.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import '../views/subreddit_posts_list.dart';
+import '../views/posts_list.dart';
 
 /// Object that allow simple call to API, Singleton
 class RedditInterface {
@@ -55,7 +55,7 @@ class RedditInterface {
     List<Post> posts = [];
 
     if (loadPosts) {
-      await for (var post in sub.hot(limit: SubredditPostsList.pageSize)) {
+      await for (var post in sub.hot(limit: PostsList.pageSize)) {
         posts.add(Post.fromSubmission(post as draw.Submission));
       }
     }
@@ -89,13 +89,13 @@ class RedditInterface {
     return File('$path/credentials.json');
   }
 
-  Future<FrontPage> getFrontPage() async {
+  Future<PostHolder> getFrontPage() async {
     List<Post> posts = [];
-    await for (var post in draw.FrontPage(reddit).hot(limit: SubredditPostsList.pageSize)) {
+    await for (var post in draw.FrontPage(reddit).hot(limit: PostsList.pageSize)) {
       posts.add(Post.fromSubmission(post as draw.Submission));
     }
 
-    return FrontPage(posts);
+    return PostHolder(posts: posts, drawInterface: draw.FrontPage(reddit));
   }
 
   /// Creates an API connection and save credentials to a file
