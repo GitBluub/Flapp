@@ -87,6 +87,6 @@ class Redditor {
     prefs.forEach((key, value) {
       out[key] = value.toString();
     });
-    GetIt.I<RedditInterface>().post('/api/v1/me/prefs', out, objectify: false);
+    GetIt.I<RedditInterface>().put('/api/v1/me/prefs', body: out);
   }
 }
