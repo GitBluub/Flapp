@@ -106,27 +106,14 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                 pictureUrl: widget.user.pictureUrl,
                 title: widget.user.displayName)
           ]),
-          Row(children: [
+          Row( children: [
             Container(
-                padding: const EdgeInsets.only(left: 15),
-                child: Container(
-                    child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(), primary: Colors.grey),
-                  child: Row(
-                      children: const [Icon(Icons.edit), Text('Edit profile')]),
-                ))),
-            Container(
-                padding: const EdgeInsets.only(left: 15),
-                child: Container(child: Text(ancientnessFormat))),
-            Container(
-                padding: const EdgeInsets.only(left: 15),
-                child: Container(child: Text("${widget.user.karma} Karma")))
+                padding: const EdgeInsets.only(left: 30, top: 10),
+                child: Text("$ancientnessFormat - ${widget.user.karma} Karma")),
           ]),
           Container(
               padding: const EdgeInsets.only(
-                  top: 15, bottom: 20, left: 30, right: 15),
+                  top: 30, bottom: 20, left: 30, right: 15),
               child: Wrap(
                 children: [
                   Align(

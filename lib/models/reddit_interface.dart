@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:convert';
 import 'package:draw/draw.dart' as draw;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,6 +10,7 @@ import 'post_holder.dart';
 import 'post.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import '../views/posts_list.dart';
 
 /// Object that allow simple call to API, Singleton
@@ -26,11 +30,13 @@ class RedditInterface {
     var loggedUser = await reddit.user.me();
     final subredditsstream = reddit.user.subreddits();
     List<String> subredditSubscribed = [];
+    Map<String, dynamic> prefs = {};
 
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser as draw.Redditor, subscribedSubreddits: subredditSubscribed);
+    prefs = Map<String, dynamic>.from(await _reddit.get('/api/v1/me/prefs', params: {"raw_json": "1"}, objectify: false));
+    loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser as draw.Redditor, subscribedSubreddits: subredditSubscribed, prefs: prefs);
     return loggedRedditor;
   }
 
@@ -133,5 +139,29 @@ class RedditInterface {
       await credentials.delete();
     }
     connected = false;
+  }
+
+  Future get(String api, {Map<String, String?>? params, bool objectify = true, bool followRedirects = false})
+  {
+    return _reddit.get(api, params: params, objectify: objectify, followRedirects: followRedirects);
+  }
+
+  Future post(String api, Map<String, String> body, {Map<String, Uint8List?>? files, Map? params, bool discardResponse = false, bool objectify = true})
+  {
+    return _reddit.post(api, body, files: files, params: params, discardResponse: discardResponse, objectify: objectify);
+  }
+
+  Future put(String api, {Map<String, String>? body})
+  {
+    return _reddit.put(api, body: body);
+  }
+
+  Future patch(String api, Map<String, String> out)
+  {
+    return http.patch(Uri.parse("https://oauth.reddit.com$api"), body: json.encode(out), headers:
+        {
+        "Authorization": "Bearer " + _reddit.auth.credentials.accessToken,
+        }
+    );
   }
 }

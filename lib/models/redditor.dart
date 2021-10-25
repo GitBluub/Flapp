@@ -26,6 +26,8 @@ class Redditor {
   final DateTime ancientness;
   ///List of names of subscribed subreddits
   final List<String> subscribedSubreddits;
+  /// Dictionnary of preferences provided by the api
+  Map<String, dynamic> prefs;
 
   draw.Redditor drawInterface;
 
@@ -42,7 +44,7 @@ class Redditor {
     description = unescape.convert(description);
   }*/
 
-  Redditor.fromDRAW({Key? key, required this.drawInterface, required this.subscribedSubreddits}):
+  Redditor.fromDRAW({Key? key, required this.drawInterface, required this.subscribedSubreddits, required this.prefs}):
         description = HtmlUnescape().convert(drawInterface.data!["subreddit"]["public_description"]),
         bannerUrl = HtmlUnescape().convert(drawInterface.data!["subreddit"]["banner_img"]),
         pictureUrl = HtmlUnescape().convert(drawInterface.data!["subreddit"]["icon_img"]),
@@ -79,4 +81,16 @@ class Redditor {
     }
     return comments;
   }
+
+  Future<void> pushPrefs(List<String> prefNames) async {
+    Map<String, String> out = {};
+    prefs.forEach((key, value) {
+      if (prefNames.contains(key)) {
+        out[key] = value.toString();
+      }
+    });
+    return GetIt.I<RedditInterface>().patch('/api/v1/me/prefs', out);
+  }
+
+  bool autoPlayVideo() => prefs['video_autoplay'];
 }

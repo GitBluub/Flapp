@@ -8,6 +8,7 @@ import 'controllers/home_page.dart';
 import 'models/reddit_interface.dart';
 import 'controllers/search_page.dart';
 import 'controllers/post_page.dart';
+import 'controllers/settings_page.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
@@ -36,6 +37,7 @@ class Flapp extends StatelessWidget {
         '/search': (context) => const SearchPageController(),
         '/subreddit': (context) => const ExtractArgumentsSubredditPage(),
         '/post': (context) => const ExtractArgumentsPostPage(),
+        '/settings': (context) => const SettingsPageController(),
       },
     );
   }
