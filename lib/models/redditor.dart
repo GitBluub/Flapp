@@ -26,7 +26,7 @@ class Redditor {
   final DateTime ancientness;
   ///List of names of subscribed subreddits
   final List<String> subscribedSubreddits;
-
+  /// Dictionnary of preferences provided by the api
   Map<String, dynamic> prefs;
 
   draw.Redditor drawInterface;
