@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'flapp_drawer.dart';
-import '../models/redditor.dart';
+import 'package:get_it/get_it.dart';
+import '../models/reddit_interface.dart';
 
+/// Application base page, hold scaffold and drawer
 class FlappPage extends StatelessWidget {
+  /// Body of the page
   final Widget body;
+  /// Title of the page
   final String title;
-  final Redditor user;
-  const FlappPage({Key? key, required this.title, required this.user, required this.body}) : super(key: key);
+  const FlappPage({Key? key, required this.title, required this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class FlappPage extends StatelessWidget {
           title: Text(title,
               style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
-        drawer: FlappDrawer(user: user),
+        drawer: FlappDrawer(user: GetIt.I<RedditInterface>().loggedRedditor),
         body: body
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 
+/// View for login screen
 class LoginPageView extends StatelessWidget {
   const LoginPageView({Key? key}) : super(key: key);
 
@@ -12,6 +13,7 @@ class LoginPageView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Image(image: AssetImage('assets/title.png')),
           Container(
               alignment: Alignment.center,
               child: ElevatedButton(

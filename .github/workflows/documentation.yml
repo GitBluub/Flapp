@@ -1,0 +1,32 @@
+name: Update Documentation
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - add_documentation
+
+jobs:
+  Deployment:
+    runs-on: ubuntu-latest
+    container: arthichaud/ci_docker_image:latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: subosito/flutter-action@v1.5.3
+      - name: Update Documentation
+        run: |
+          flutter pub global activate dartdoc
+          rm -rf doc
+          dartdoc
+          cd doc/api
+          git config --global user.email "${GITHUB_ACTOR}@github.com";
+          git config --global user.name "${GITHUB_ACTOR}";
+          git init
+          git add -A;
+          git commit -m "Deploying the documentation";
+          git remote add origin https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@${GITHUB_REPO};
+          git checkout -b Documentation
+          git push --force origin Documentation;
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: "github.com/GitBluub/Flapp"

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/post.dart';
 
+/// Vote widget for post
 class VoteWidget extends StatefulWidget {
+  /// Related post
   Post post;
   VoteWidget({Key? key, required this.post})
       : super(key: key);
