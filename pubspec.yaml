@@ -45,6 +45,8 @@ dependencies:
   video_player: ^2.2.5
   html_unescape: ^2.0.0
   http: ^0.13.4
+  flutter_markdown: ^0.6.8
+  url_launcher: ^6.0.12
 
 
   # The following adds the Cupertino Icons font to your application.

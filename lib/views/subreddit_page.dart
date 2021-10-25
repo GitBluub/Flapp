@@ -4,7 +4,7 @@ import '../models/subreddit.dart';
 import 'flapp_page.dart';
 import 'loading.dart';
 import 'image_header.dart';
-import 'subreddit_posts_list.dart';
+import 'posts_list.dart';
 import 'package:share/share.dart';
 
 /// View for Subreddit's page
@@ -79,7 +79,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                 children: [Text(sub.description)],
     )),
           Divider(),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.80, child:SubredditPostsList(subreddit: sub))
+          SizedBox(height: MediaQuery.of(context).size.height * 0.80, child:PostsList(holder: sub))
         ]));
   }
 }
