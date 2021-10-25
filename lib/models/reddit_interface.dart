@@ -35,7 +35,7 @@ class RedditInterface {
     await for (var sub in subredditsstream) {
       subredditSubscribed.add(sub.displayName as String);
     }
-    prefs = Map<String, dynamic>.from(await _reddit.get('/api/v1/me/prefs', params: {"raw_json": "1"}, objectify: false));
+    prefs = Map<String, dynamic>.from(await reddit.get('/api/v1/me/prefs', params: {"raw_json": "1"}, objectify: false));
     loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser as draw.Redditor, subscribedSubreddits: subredditSubscribed, prefs: prefs);
     return loggedRedditor;
   }
@@ -143,24 +143,24 @@ class RedditInterface {
 
   Future get(String api, {Map<String, String?>? params, bool objectify = true, bool followRedirects = false})
   {
-    return _reddit.get(api, params: params, objectify: objectify, followRedirects: followRedirects);
+    return reddit.get(api, params: params, objectify: objectify, followRedirects: followRedirects);
   }
 
   Future post(String api, Map<String, String> body, {Map<String, Uint8List?>? files, Map? params, bool discardResponse = false, bool objectify = true})
   {
-    return _reddit.post(api, body, files: files, params: params, discardResponse: discardResponse, objectify: objectify);
+    return reddit.post(api, body, files: files, params: params, discardResponse: discardResponse, objectify: objectify);
   }
 
   Future put(String api, {Map<String, String>? body})
   {
-    return _reddit.put(api, body: body);
+    return reddit.put(api, body: body);
   }
 
   Future patch(String api, Map<String, String> out)
   {
     return http.patch(Uri.parse("https://oauth.reddit.com$api"), body: json.encode(out), headers:
         {
-        "Authorization": "Bearer " + _reddit.auth.credentials.accessToken,
+        "Authorization": "Bearer " + reddit.auth.credentials.accessToken,
         }
     );
   }
