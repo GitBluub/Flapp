@@ -44,24 +44,10 @@ class PostWidget extends StatelessWidget {
             : Container()
       ],
     );
-    Widget textContent = Row(
-      children: [
-        Expanded(
-            child:
-            Text(
-              post.content,
-              maxLines: preview ? 5 : null,
-              overflow: preview ? TextOverflow.ellipsis : null,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            )
-        ),
-      ],
-    );
+
     Widget otherContent = Row(
         children: [
-          PostContentWidget(post: post)
+          PostContentWidget(post: post, preview: preview)
         ]
     );
     return Container(
@@ -76,7 +62,6 @@ class PostWidget extends StatelessWidget {
               }
             }),
             Container(padding: const EdgeInsets.all(5)),
-            textContent,
             otherContent,
             Container(
               padding: const EdgeInsets.all(10),
