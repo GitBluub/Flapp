@@ -4,28 +4,25 @@ import 'package:flutter/material.dart';
 import 'post_widget.dart';
 import 'loading.dart';
 import '../models/subreddit.dart';
+import '../models/post_holder.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
 import 'loading.dart';
 
 /// Widget for a subreddit's post list
-class SubredditPostsList extends StatefulWidget {
-  static int pageSize = 15;
+class PostsList extends StatefulWidget {
+  static const int pageSize = 15;
 
-  late Subreddit? subreddit;
-  late String? subredditName;
+  late PostHolder? holder;
 
-  SubredditPostsList({Key? key, this.subredditName, this.subreddit})
-      : super(key: key) {
-    assert(subreddit != null || subredditName != null);
-    assert(subreddit == null || subredditName == null);
-  }
+  PostsList({Key? key, this.holder})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SubredditPostsListState();
+  State<StatefulWidget> createState() => _PostsListState();
 }
 
-class _SubredditPostsListState extends State<SubredditPostsList>
+class _PostsListState extends State<PostsList>
     with AutomaticKeepAliveClientMixin {
   bool loading = false;
 
@@ -35,17 +32,7 @@ class _SubredditPostsListState extends State<SubredditPostsList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (widget.subreddit == null) {
-      GetIt.I<RedditInterface>()
-          .getSubreddit(widget.subredditName!)
-          .then((subredditValue) {
-        setState(() {
-          widget.subreddit = subredditValue;
-        });
-      });
-      return const LoadingWidget();
-    }
-    Subreddit sub = widget.subreddit as Subreddit;
+    PostHolder sub = widget.holder as PostHolder;
 
     ScrollController listController = ScrollController();
     Widget list = Column(crossAxisAlignment: CrossAxisAlignment.end, children: [

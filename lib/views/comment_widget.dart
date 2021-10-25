@@ -1,6 +1,7 @@
 import '../models/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:time_elapsed/time_elapsed.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class CommentWidget extends StatelessWidget {
   final Comment comment;
@@ -23,8 +24,16 @@ class CommentWidget extends StatelessWidget {
             Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                    child: Text(comment.content),
-                    padding: const EdgeInsets.only(left: 20, bottom: 30))),
+                    height: 200,
+                    padding: const EdgeInsets.only(left: 20, bottom: 30),
+                    width: MediaQuery.of(context).size.width - 40,
+                    child: NotificationListener<ScrollEndNotification>(
+                      onNotification: (notification) {return true;},
+                      child: Markdown(
+                        data: comment.content),
+                      )
+                    )
+            ),
             const Divider(),
           ],
         ));
