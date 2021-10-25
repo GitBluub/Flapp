@@ -51,7 +51,7 @@ class Redditor {
         ancientness = drawInterface.createdUtc!,
         karma = drawInterface.awardeeKarma! + drawInterface.awarderKarma! + drawInterface.commentKarma!;
   /// Get a list of loaded Subreddits the user is subscribed to
-  Future<List<Subreddit>> getSubscribedSubreddits(bool loadPosts) async {
+  Future<List<Subreddit>> getSubscribedSubreddits({required bool loadPosts}) async {
     List<Subreddit> subs = [];
     for (var name in subscribedSubreddits) {
       subs.add(await GetIt.I<RedditInterface>().getSubreddit(name, loadPosts: loadPosts));

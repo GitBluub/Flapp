@@ -26,7 +26,7 @@ class _HomePageControllerState extends State<HomePageController>
         frontPage = value;
       });
     });
-    GetIt.I<RedditInterface>().loggedRedditor.getSubscribedSubreddits(true).then((value) {
+    GetIt.I<RedditInterface>().loggedRedditor.getSubscribedSubreddits(loadPosts: true).then((value) {
       setState((){
         subreddits = value;
       });
