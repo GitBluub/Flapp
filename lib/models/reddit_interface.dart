@@ -152,6 +152,6 @@ class RedditInterface {
         {
         "Authorization": "Bearer " + _reddit.auth.credentials.accessToken,
         }
-    ).then((http.Response value) {});
+    );
   }
 }
