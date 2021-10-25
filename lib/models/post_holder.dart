@@ -8,7 +8,8 @@ enum PostSort {
   hot,
   top,
   newest,
-  rising
+  rising,
+  random
 }
 
 /// Enumeration of possible top sorting method for posts
@@ -75,6 +76,8 @@ class PostHolder
         }
       case PostSort.newest:
         return drawInterface.newest(limit: limit, after: after);
+      case PostSort.random:
+        return drawInterface.randomRising(limit: limit, after: after);
       case PostSort.rising:
         return drawInterface.rising(limit: limit, after: after);
     }
