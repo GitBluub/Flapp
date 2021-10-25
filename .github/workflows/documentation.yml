@@ -18,7 +18,7 @@ jobs:
           flutter pub global activate dartdoc
           rm -rf doc
           dartdoc
-          cd doc
+          cd doc/api
           git config --global user.email "${GITHUB_ACTOR}@github.com";
           git config --global user.name "${GITHUB_ACTOR}";
           git init
