@@ -15,8 +15,7 @@ class PostsList extends StatefulWidget {
 
   late PostHolder? holder;
 
-  PostsList({Key? key, this.holder})
-      : super(key: key);
+  PostsList({Key? key, this.holder}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PostsListState();
@@ -35,7 +34,11 @@ class _PostsListState extends State<PostsList>
     PostHolder sub = widget.holder as PostHolder;
 
     ScrollController listController = ScrollController();
-    Widget list = Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+    Widget list = Column(children: [
+      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Container(
+          padding: const EdgeInsets.only(right: 20),
+          child: const Text("Sort by: ")),
       Container(
           padding: const EdgeInsets.only(right: 20),
           child: DropdownButton<PostSort>(
@@ -83,7 +86,7 @@ class _PostsListState extends State<PostsList>
                           )
                         ]),
                 );
-              }).toList())),
+              }).toList()))]),
       Expanded(
           child: NotificationListener<ScrollEndNotification>(
               onNotification: (notification) {
@@ -108,7 +111,8 @@ class _PostsListState extends State<PostsList>
                 // allow the notification to continue to be dispatched to further ancestors.
                 return true;
               },
-              child: Scrollbar(child: ListView(
+              child: Scrollbar(
+                  child: ListView(
                 shrinkWrap: true,
                 controller: listController,
                 children: [
@@ -119,9 +123,11 @@ class _PostsListState extends State<PostsList>
     ]);
     return Stack(children: [
       list,
-      loading ? BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-          child: Container()) : Container(),
+      loading
+          ? BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+              child: Container())
+          : Container(),
       loading ? const LoadingWidget() : Container()
     ]);
     /*if (loading) {
