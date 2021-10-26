@@ -26,8 +26,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(
-        widget.post.submission.url.toString() + "/DASH_720.mp4");
-
+        widget.post.submission.data?["secure_media"]["reddit_video"]["hls_url"]);
     _initializeVideoPlayerFuture = _controller.initialize();
     if (GetIt.I<RedditInterface>().loggedRedditor.autoPlayVideo()) {
       _controller.play();

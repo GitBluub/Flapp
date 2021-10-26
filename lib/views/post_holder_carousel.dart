@@ -11,8 +11,12 @@ class PostHolderCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabs = [for (var name in holders.keys) Tab(text: name)];
-    List<Widget> postLists = [for (var holder in holders.values) PostsList(holder: holder)];
+    List<Widget> tabs = [];
+    List<Widget> postLists = [];
+    holders.forEach((name, holder) {
+      tabs.add(Tab(text: name));
+      postLists.add(PostsList(holder: holder, displaySubredditName: name == "Home",));
+    });
     return DefaultTabController(
         length: holders.length,
         child: Scaffold(

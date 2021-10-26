@@ -14,8 +14,9 @@ class PostsList extends StatefulWidget {
   static const int pageSize = 15;
 
   late PostHolder? holder;
+  bool displaySubredditName;
 
-  PostsList({Key? key, this.holder}) : super(key: key);
+  PostsList({Key? key, this.holder, required this.displaySubredditName}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PostsListState();
@@ -117,7 +118,7 @@ class _PostsListState extends State<PostsList>
                 controller: listController,
                 children: [
                   for (var post in sub.posts)
-                    PostWidget(post: post, displaySubName: false, preview: true)
+                    PostWidget(post: post, displaySubName: widget.displaySubredditName, preview: true)
                 ],
               ))))
     ]);
