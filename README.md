@@ -2,6 +2,9 @@
 
 # Get the essential from your Reddit browsing
 
+[![Build](https://github.com/GitBluub/Flapp/actions/workflows/build.yml/badge.svg)](https://github.com/GitBluub/Flapp/actions/workflows/build.yml)
+[![Documentation](https://img.shields.io/badge/Documentation-Dartdoc-blue)](https://gitbluub.github.io/Flapp/)
+
 Flapp is a mobile app which lets you access your favorite subreddits and enjoy their contents while having a simple, non-disruptive browsing experience.
 
 ## Features
