@@ -94,3 +94,39 @@ The posts will be loaded, and you can now enjoy the posts!
 
 ### From a subreddit's page
 
+Once you are on a subreddit's page, scroll down to enjoy the numerous posts
+
+To refresh posts, scroll back to the top: it will reload the posts' content.
+
+To load more posts, scroll down to the bottom.
+
+## 11 - Sort posts
+
+Sometimes, you might want to consult posts that are fresh and new!
+
+FLAPP offers you the possibility to sort posts.
+To do so, you'll need to access posts from the home page or a subreddit's page.
+Tap the 'sort by' button sort posts using the following algorithms:
+
+    - Top: The most liked posts from the subreddit
+    - Hot: The most popular posts
+    - New: The newly posted content
+    - Random: A random sorting
+    - Rising: The posts that are getting popular recently
+
+## 12 - React to a post
+
+When you see a post you enjoy or dislike, don't hesitate to share your reaction!
+
+    - To like a post, tap the 'thumb up' button at the bottom of the post
+    - To dislike a post, tap the 'thumb down' button at the bottom of the post
+    - To remove reaction, tap the button related to your reaction
+
+## 13 - Read comments to a post
+
+When you see a post you enjoy and want to see the comments, tap the comment bubble button at the bottom of the post.
+Scroll down to read them all!
+
+## 14 -Share a post
+
+When you see a post you enjoy and want to share with your friends, tap the share button at the bottom of the post.
