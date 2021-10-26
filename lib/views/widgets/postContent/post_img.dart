@@ -30,8 +30,14 @@ class _PostImgWidgetState extends State<PostImgWidget>
         width: width,
         child: Image.network(
           widget.post.submission.url.toString(),
-            fit: BoxFit.fitHeight,
-            errorBuilder: (_,__,___) => Container()
+          fit: BoxFit.fitHeight,
+          errorBuilder: (_,__,___) => Container(),
+          loadingBuilder:(BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return const Center(child: LoadingWidget());
+          }
 
         ),
     );
