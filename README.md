@@ -2,6 +2,10 @@
 
 # Get the essential from your Reddit browsing
 
+[![Build](https://github.com/GitBluub/Flapp/actions/workflows/build.yml/badge.svg)](https://github.com/GitBluub/Flapp/actions/workflows/build.yml)
+[![App Documentation](https://img.shields.io/badge/Documentation-Dartdoc-blue)](https://gitbluub.github.io/Flapp/)
+[![User Documentation](https://img.shields.io/badge/User-Documentation-green)](https://github.com/GitBluub/Flapp/user_documentation)
+
 Flapp is a mobile app which lets you access your favorite subreddits and enjoy their contents while having a simple, non-disruptive browsing experience.
 
 ## Features
@@ -21,6 +25,8 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Search for new subreddits to browse
 - Subscribe to a newly discovered subreddit (and unsubscribe if you don't enjoy it anymore)
 
+- Change some settings
+
 - Access your profile page
 - Logout to keep you
 
@@ -29,7 +35,3 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Dart with Flutter (2.5.1)
 - Android Studio
 - DRAW (Reddit API Wrapper)
-
-## Upcoming features
-
-- Change some settings
