@@ -71,7 +71,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
                       ]))),
             ));
           } else {
-            return const LoadingWidget();
+            return const Center(child: LoadingWidget());
           }
         });
   }
