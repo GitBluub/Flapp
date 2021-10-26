@@ -28,7 +28,7 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Change some settings
 
 - Access your profile page
-- Logout to keep you
+- Logout
 
 ## Tool stack
 
