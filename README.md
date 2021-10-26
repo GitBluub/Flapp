@@ -21,6 +21,8 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Search for new subreddits to browse
 - Subscribe to a newly discovered subreddit (and unsubscribe if you don't enjoy it anymore)
 
+- Change some settings
+
 - Access your profile page
 - Logout to keep you
 
@@ -29,7 +31,3 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Dart with Flutter (2.5.1)
 - Android Studio
 - DRAW (Reddit API Wrapper)
-
-## Upcoming features
-
-- Change some settings
