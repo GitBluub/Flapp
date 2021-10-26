@@ -60,7 +60,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
             ])
           : Column(children: [
               Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: const Icon(Icons.insert_comment)),
               const Text("No post!")
             ]),
@@ -72,7 +72,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
               Container(
                   padding: const EdgeInsets.all(30),
                   child: const Icon(Icons.insert_comment)),
-              Text("No comment!")
+              const Text("No comment!")
             ]),
       'Subredddits': widget.subreddits!.isNotEmpty
           ? ListView(shrinkWrap: true, children: [
@@ -90,7 +90,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
             ])
           : Column(children: [
               Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   child: const Icon(Icons.bookmark)),
               const Text("No subreddit!")
             ]),

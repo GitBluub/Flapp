@@ -100,7 +100,7 @@ class PostWidget extends StatelessWidget {
                 )),
               ],
             ),
-            Divider(),
+            const Divider(),
           ],
         ));
   }

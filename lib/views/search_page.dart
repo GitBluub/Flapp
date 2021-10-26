@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flapp/controllers/subreddit_page.dart';
 import 'package:flapp/models/subreddit.dart';
 import 'package:flapp/views/loading.dart';
-import 'package:flappy_search_bar_ns/scaled_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'flapp_page.dart';
-import '../models/redditor.dart';
 import 'package:flappy_search_bar_ns/flappy_search_bar_ns.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
@@ -15,7 +11,7 @@ import 'subreddit_widget.dart';
 /// View for Search page
 class SearchPageView extends StatelessWidget {
 
-  SearchPageView({Key? key}) : super(key: key);
+  const SearchPageView({Key? key}) : super(key: key);
 
   /// Get list of subreddit's matching name
   Future<List<Subreddit>> _searchSubreddits(String? name) {

@@ -15,6 +15,7 @@ class PostImgWidget extends StatefulWidget {
 
 class _PostImgWidgetState extends State<PostImgWidget>
     with AutomaticKeepAliveClientMixin {
+  @override
   bool get wantKeepAlive => true;
 
   @override
@@ -31,7 +32,7 @@ class _PostImgWidgetState extends State<PostImgWidget>
         width: width,
         imageUrl: widget.post.submission.url.toString(),
         placeholder: (context, url) {
-          return LoadingWidget();
+          return const LoadingWidget();
         },
         errorWidget: (context, child, stackTrace) {
           return Container();

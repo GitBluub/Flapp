@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:convert';
 import 'package:draw/draw.dart' as draw;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,7 +32,7 @@ class RedditInterface {
     Map<String, dynamic> prefs = {};
 
     await for (var sub in subredditsstream) {
-      subredditSubscribed.add(sub.displayName as String);
+      subredditSubscribed.add(sub.displayName);
     }
     prefs = Map<String, dynamic>.from(await reddit.get('/api/v1/me/prefs', params: {"raw_json": "1"}, objectify: false));
     loggedRedditor = Redditor.fromDRAW(drawInterface: loggedUser as draw.Redditor, subscribedSubreddits: subredditSubscribed, prefs: prefs);
@@ -84,7 +83,9 @@ class RedditInterface {
           clientId: clientId, userAgent: "flapp_application");
       await _fetchLoggedRedditor();
       connected = true;
-    } catch (e) {}
+    } catch (e) {
+      return;
+    }
   }
 
   /// Get the file that holds the log credentials

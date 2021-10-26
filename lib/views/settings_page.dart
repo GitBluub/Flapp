@@ -45,7 +45,7 @@ class _SettingsPageViewState extends State<SettingsPageView>
           ],
         );
       }),
-        child: Text("Save changes"),
+        child: const Text("Save changes"),
         style: ElevatedButton.styleFrom(primary: Theme.of(context).backgroundColor),
       ),
 

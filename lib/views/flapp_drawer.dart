@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../models/redditor.dart';
-import 'loading.dart';
 import '../models/reddit_interface.dart';
 import 'package:get_it/get_it.dart';
 import 'image_header.dart';

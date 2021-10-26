@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/redditor.dart';
 import '../views/home_page.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
