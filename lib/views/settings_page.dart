@@ -39,7 +39,7 @@ class _SettingsPageViewState extends State<SettingsPageView>
               child: const Text('Save!'),
               onPressed: () {
                 widget.user.pushPrefs(widget.settings.keys.toList());
-                Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+                Navigator.popUntil(context, ModalRoute.withName('/home'));
               },
             ),
           ],
