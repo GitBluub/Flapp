@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'flapp_page.dart';
-import 'loading.dart';
 import 'post_holder_carousel.dart';
 import '../models/subreddit.dart';
 import '../models/post_holder.dart';

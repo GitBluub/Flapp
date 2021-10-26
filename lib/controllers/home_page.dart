@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../views/home_page.dart';
 import 'package:get_it/get_it.dart';
 import '../models/reddit_interface.dart';
-import '../models/post_holder.dart';
 import '../models/subreddit.dart';
 
 class HomePageController extends StatefulWidget {
