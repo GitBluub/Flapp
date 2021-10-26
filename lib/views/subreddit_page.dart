@@ -57,10 +57,10 @@ class _SubredditPageViewState extends State<SubredditPageView> {
                           ? Colors.grey
                           : Theme.of(context).scaffoldBackgroundColor,
                       side: sub.subscribed
-                          ? BorderSide(width: 2.0, color: Colors.grey)
+                          ? const BorderSide(width: 2.0, color: Colors.grey)
                           : null),
                   child: Row(children: [
-                    sub.subscribed ? Text('JOINED') : Text('JOIN')
+                    sub.subscribed ? const Text('JOINED') : const Text('JOIN')
                   ]),
                 )),
             Expanded(flex: 2, child: Text(
@@ -78,7 +78,7 @@ class _SubredditPageViewState extends State<SubredditPageView> {
               child: Wrap(
                 children: [Text(sub.description)],
     )),
-          Divider(),
+          const Divider(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.80, child:PostsList(holder: sub, displaySubredditName: false,))
         ]));
   }

@@ -43,12 +43,15 @@ class Post {
   /// Get ContentType from Submission
   ContentType getContentType()
   {
-    if (submission.isVideo)
+    if (submission.isVideo) {
       return ContentType.video;
-    if (submission.isSelf)
+    }
+    if (submission.isSelf) {
       return ContentType.self;
-    if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(submission.url.toString()))
+    }
+    if (RegExp(r"\.(gif|jpe?g|bmp|png)$").hasMatch(submission.url.toString())) {
       return ContentType.image;
+    }
     return ContentType.self;
   }
 

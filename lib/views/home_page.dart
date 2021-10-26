@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/redditor.dart';
 import 'flapp_page.dart';
 import 'loading.dart';
 import 'post_holder_carousel.dart';

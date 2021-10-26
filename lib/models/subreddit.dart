@@ -2,12 +2,8 @@ import 'package:html_unescape/html_unescape.dart';
 import 'post_holder.dart';
 
 import 'post.dart';
-import 'package:draw/draw.dart' as draw;
-import '../views/posts_list.dart';
 import 'package:get_it/get_it.dart';
 import 'reddit_interface.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:html_unescape/html_unescape.dart';
 
 /// Entity holding Subreddit's information
 class Subreddit extends PostHolder {

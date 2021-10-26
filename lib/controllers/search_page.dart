@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../views/search_page.dart';
-import '../models/reddit_interface.dart';
-import 'package:get_it/get_it.dart';
 
 /// Controller for Search Page, where the user can search for subreddits
 class SearchPageController extends StatelessWidget {
@@ -9,6 +7,6 @@ class SearchPageController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SearchPageView();
+    return const SearchPageView();
   }
 }

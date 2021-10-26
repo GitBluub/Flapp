@@ -20,6 +20,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
     with AutomaticKeepAliveClientMixin {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
+  @override
   bool get wantKeepAlive => true;
 
   @override
@@ -57,7 +58,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
               onDoubleTap: () {},
               child: Hero(
                   tag: 'video-by-' + widget.post.title,
-                  child: Container(
+                  child: SizedBox(
                       width: width,
                       child:
                           Stack(alignment: Alignment.bottomCenter, children: [
@@ -70,7 +71,7 @@ class _PostVideoWidgetState extends State<PostVideoWidget>
                       ]))),
             ));
           } else {
-            return LoadingWidget();
+            return const LoadingWidget();
           }
         });
   }

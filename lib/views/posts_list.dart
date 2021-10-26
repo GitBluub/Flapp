@@ -3,11 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'post_widget.dart';
 import 'loading.dart';
-import '../models/subreddit.dart';
 import '../models/post_holder.dart';
-import 'package:get_it/get_it.dart';
-import '../models/reddit_interface.dart';
-import 'loading.dart';
 
 /// Widget for a subreddit's post list
 class PostsList extends StatefulWidget {

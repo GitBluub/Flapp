@@ -1,4 +1,3 @@
-import 'package:flapp/views/post_widget.dart';
 import 'package:flapp/views/redditor_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';

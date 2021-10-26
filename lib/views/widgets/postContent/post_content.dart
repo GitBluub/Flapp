@@ -16,7 +16,6 @@ class PostContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     ContentType type = post.getContentType();
 
-    ScrollController listController = ScrollController();
     switch (type)
     {
       case ContentType.image:
@@ -29,7 +28,7 @@ class PostContentWidget extends StatelessWidget {
         }
         return preview ?
             Expanded(
-              child:Container(
+              child: SizedBox(
                 height: 200,
                   width: MediaQuery.of(context).size.width - 40,
                   child: NotificationListener<ScrollEndNotification>(
