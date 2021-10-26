@@ -14,26 +14,18 @@ class HomePageController extends StatefulWidget {
 
 class _HomePageControllerState extends State<HomePageController>
 {
-  PostHolder? frontPage;
-  List<Subreddit>? subreddits;
-
-  @override
-  void initState() {
-    super.initState();
-    GetIt.I<RedditInterface>().getFrontPage().then((value) {
-      setState((){
-        frontPage = value;
-      });
-    });
-    GetIt.I<RedditInterface>().loggedRedditor.getSubscribedSubreddits(loadPosts: true).then((value) {
-      setState((){
-        subreddits = value;
-      });
-    });
-  }
-
   @override
   Widget build (BuildContext context) {
-    return HomePageView(frontPage: frontPage, subscribedSubreddits: subreddits);
+    Map<String, Future<Subreddit> Function()> subredditFetchers = {};
+
+    for (String name in GetIt.I<RedditInterface>().loggedRedditor.subscribedSubreddits) {
+      subredditFetchers[name] = () {
+        return GetIt.I<RedditInterface>().getSubreddit(name, loadPosts: true);
+      };
+    }
+
+    return HomePageView(
+      frontPageFetcher: GetIt.I<RedditInterface>().getFrontPage, subscribedSubredditsFetcher: subredditFetchers
+    );
   }
 }

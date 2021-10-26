@@ -44,6 +44,7 @@ class Redditor {
     description = unescape.convert(description);
   }*/
 
+  /// Load redditor object from Draw entity
   Redditor.fromDRAW({Key? key, required this.drawInterface, required this.subscribedSubreddits, required this.prefs}):
         description = HtmlUnescape().convert(drawInterface.data!["subreddit"]["public_description"]),
         bannerUrl = HtmlUnescape().convert(drawInterface.data!["subreddit"]["banner_img"]),

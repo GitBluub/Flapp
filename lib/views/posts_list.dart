@@ -9,10 +9,15 @@ import '../models/post_holder.dart';
 class PostsList extends StatefulWidget {
   static const int pageSize = 15;
 
-  late PostHolder? holder;
-  bool displaySubredditName;
+  PostHolder? holder;
+  final Future<PostHolder> Function()? holderFetcher;
+  final bool displaySubredditName;
 
-  PostsList({Key? key, this.holder, required this.displaySubredditName}) : super(key: key);
+  PostsList({Key? key, this.holderFetcher, this.holder, required this.displaySubredditName}) : super(key: key)
+  {
+    assert(holder == null || holderFetcher == null);
+    assert(holder != null || holderFetcher != null);
+  }
 
   @override
   State<StatefulWidget> createState() => _PostsListState();
@@ -26,8 +31,23 @@ class _PostsListState extends State<PostsList>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.holderFetcher != null) {
+      widget.holderFetcher!.call().then((holder) =>
+          setState(() {
+            widget.holder = holder;
+          })
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (widget.holder == null) {
+      return const LoadingWidget();
+    }
     PostHolder sub = widget.holder as PostHolder;
 
     ScrollController listController = ScrollController();

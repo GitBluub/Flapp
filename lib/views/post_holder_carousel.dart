@@ -5,20 +5,20 @@ import '../models/post_holder.dart';
 /// Carousel for subreddits (used on home page)
 class PostHolderCarousel extends StatelessWidget {
   /// A map associating a name to a holder;
-  final Map<String, PostHolder> holders;
-  const PostHolderCarousel({Key? key, required this.holders})
+  final Map<String, Future<PostHolder> Function()> holdersFetcher;
+  const PostHolderCarousel({Key? key, required this.holdersFetcher})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> tabs = [];
     List<Widget> postLists = [];
-    holders.forEach((name, holder) {
+    holdersFetcher.forEach((name, holderFetcher) {
       tabs.add(Tab(text: name));
-      postLists.add(PostsList(holder: holder, displaySubredditName: name == "Home",));
+      postLists.add(PostsList(holderFetcher: holderFetcher, displaySubredditName: name == "Home",));
     });
     return DefaultTabController(
-        length: holders.length,
+        length: holdersFetcher.length,
         child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 48,

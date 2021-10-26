@@ -7,26 +7,24 @@ import '../models/post_holder.dart';
 
 /// View for Home/Main Page
 class HomePageView extends StatelessWidget {
-  HomePageView({Key? key, required this.frontPage, required this.subscribedSubreddits}) : super(key: key);
-  /// Holder for post in reddit's front page
-  PostHolder? frontPage;
-  /// List of filled subreddits
-  List<Subreddit>? subscribedSubreddits;
+  const HomePageView({Key? key, required this.frontPageFetcher, required this.subscribedSubredditsFetcher}) : super(key: key);
+  /// Fetcher for Holder for post in reddit's front page
+  final Future<PostHolder> Function() frontPageFetcher;
+  /// Fetcher for List of filled subreddits, associating with names
+  final Map<String, Future<Subreddit> Function()> subscribedSubredditsFetcher;
 
   @override
   Widget build(BuildContext context) {
-    
-    if (frontPage == null || subscribedSubreddits == null) {
-      return const LoadingWidget();
-    }
-    Map<String, PostHolder> holders = {};
-    holders["Home"] = frontPage!;
-    for (Subreddit s in subscribedSubreddits!) {
-      holders[s.displayName] = s;
-    }
+
+    Map<String, Future<PostHolder>Function()> holders = {};
+
+    holders["Home"] = frontPageFetcher;
+    subscribedSubredditsFetcher.forEach((key, value) {
+      holders[key] = value;
+    });
     return FlappPage(
       title: "Home",
-      body: PostHolderCarousel(holders: holders),
+      body: PostHolderCarousel(holdersFetcher: holders),
     );
   }
 }
