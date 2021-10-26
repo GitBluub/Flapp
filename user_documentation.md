@@ -77,3 +77,20 @@ Once you're there:
 Once you joined, it'll be displayed in you home page and in the subreddit tab in the user page
 
 After you unsubscribed, it' will disappear from you home page and from the subreddit tab in the user page
+
+## 9 - Share a subreddit
+
+You find a subreddit outstanding ? You can share it with your friends!
+To do so, go to the subreddit's page, and tab the 'share' button at the top right hand side of the page!
+
+## 10 - Access posts from a subreddit
+
+### From the home page
+
+**Only if you subscribed to the subreddit**
+To access posts from a subreddit you subscribed to, the easiest way is to go to the home page. Tap the name of the subreddit you want to access the posts of. (Scroll horizontally if don't find the subreddit at first)
+
+The posts will be loaded, and you can now enjoy the posts!
+
+### From a subreddit's page
+
