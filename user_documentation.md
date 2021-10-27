@@ -8,7 +8,7 @@ To use FLAPP, and each of its features, you'll need a Reddit account. You won't 
 
 ## 0 - Login
 
-When you first launch FLAPP, you'll see a grey button labeled 'Login'. Tap it to execute the login process:
+When you first launch FLAPP, you'll see a grey button labeled 'Login'. Tap it to execute the login process.
 
 A web page will open. You'll be prompt to enter your Reddit username and password. Then press the blue 'log in' button below. **Keep in mind**, FLAPP is not a malicious app, it can't access your password.
 
@@ -16,10 +16,17 @@ Once you successfully connected, another Web page will sum up all privileges req
 
 You are now logged in! You are now on the **home page**
 
+<img src="doc/assets/Login1.png" height="200px">
+<img src="doc/assets/Login2.png" height="200px">
+<img src="doc/assets/Login3.png" height="200px">
+
 ## 1 - Access Drawer
 
 The FLAPP drawer is a space where you can access almost all of FLAPP's pages
 You can access it from anywhere. To do so, click the drawer button, at the top left hand corner of the screen.
+
+<img src="doc/assets/Home.png" height="200px">
+<img src="doc/assets/Drawer1.png" height="200px">
 
 ## 2 - Find a subreddit
 
@@ -30,19 +37,29 @@ Type a subreddit name, and press enter.
 
 A list of subreddit's name will be displayed. Tap the one you want to access.
 
+<img src="doc/assets/Search.png" height="200px">
+<img src="doc/assets/Search1.png" height="200px">
+
 ## 3 - Go to your profile page
 
 You might want to access your profile page for a few reasons: checkout your new profile picture or banner, your karma count, see your posts adn comments, etc.
 
 To go to this page, open the FLAPP Drawer and click the 'profile' button
 
+<img src="doc/assets/Drawer1.png" height="200px">
+<img src="doc/assets/ProfilePosts.png" height="200px">
+
 ## 4 - Consult your posts
 
 To see what post you submitted on reddit, you'll need to go to your profile page. Tap the 'posts' tab and scroll down to see the posts!
 
+<img src="doc/assets/ProfilePosts.png" height="200px">
+
 ## 5 - Consult your comments
 
 To see what you comment on reddit, you'll need to go to your profile page. Tap the 'comments' tab and scroll down to see your comments!
+
+<img src="doc/assets/ProfileComments.png" height="200px">
 
 ## 6 - Get the subreddits you joined
 
@@ -50,9 +67,13 @@ To see what you comment on reddit, you'll need to go to your profile page. Tap t
 
 On your home page (the first page you go to when you open the app), at the top, you'll see a scroll bar. Each item it contains is a subreddit you joined. Scroll horizontally to see all of them.
 
+<img src="doc/assets/Home.png" height="200px">
+
 ### From the profile page
 
 On your profile page, tap the 'subreddits' button to display the list of subreddits you joined. Scroll down to see them all.
+
+<img src="doc/assets/ProfileSubreddits.png" height="200px">
 
 ## 7 - Go to a subreddit page
 
@@ -62,9 +83,13 @@ You can access a lot of information on subreddits' page: number of members, bann
 
 If you already joined the subreddit, simply go to your profile page, tap the 'subreddits' tab. Tap the subreddit you want to access the page of.
 
+<img src="doc/assets/ProfileSubreddits.png" height="200px">
+
 ### Another subreddit
 
 If you didn't joined the subreddit, go search for it on the search page. Once you found it in the result list, tap it to access its page
+
+<img src="doc/assets/Search1.png" height="200px">
 
 ## 8 - Join / Un-join a subreddit
 
@@ -77,6 +102,9 @@ Once you're there:
 Once you joined, it'll be displayed in you home page and in the subreddit tab in the user page
 
 After you unsubscribed, it' will disappear from you home page and from the subreddit tab in the user page
+
+<img src="doc/assets/SubredditJoin.png" height="200px">
+<img src="doc/assets/SubredditJoined.png" height="200px">
 
 ## 9 - Share a subreddit
 
@@ -92,6 +120,8 @@ To access posts from a subreddit you subscribed to, the easiest way is to go to 
 
 The posts will be loaded, and you can now enjoy the posts!
 
+<img src="doc/assets/Home.png" height="200px">
+
 ### From a subreddit's page
 
 Once you are on a subreddit's page, scroll down to enjoy the numerous posts
@@ -99,6 +129,8 @@ Once you are on a subreddit's page, scroll down to enjoy the numerous posts
 To refresh posts, scroll back to the top: it will reload the posts' content.
 
 To load more posts, scroll down to the bottom.
+
+<img src="doc/assets/SubredditJoin.png" height="200px">
 
 ## 11 - Sort posts
 
@@ -113,6 +145,8 @@ Tap the 'sort by' button sort posts using the following algorithms:
     - New: The newly posted content
     - Random: A random sorting
     - Rising: The posts that are getting popular recently
+
+<img src="doc/assets/Sort.png" height="200px">
 
 ## 12 - React to a post
 
