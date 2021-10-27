@@ -16,7 +16,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk lib/src/main.dart
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
