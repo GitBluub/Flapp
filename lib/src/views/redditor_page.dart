@@ -39,61 +39,76 @@ class RedditorPageView extends StatefulWidget {
 }
 
 class _RedditorPageViewState extends State<RedditorPageView> {
+
+  Widget _getEmptySectionWidget(IconData icon, String message) {
+    return Column(children: [
+      Container(
+          padding: const EdgeInsets.all(30),
+          child: Icon(icon)),
+      Text(message)
+    ]);
+  }
+
+  Widget _getPostsWidget() {
+    if (widget.posts == null) {
+      return const LoadingWidget();
+    }
+    List<Post> posts = widget.posts as List<Post>;
+    if (posts.isEmpty) {
+      return _getEmptySectionWidget(Icons.insert_comment, "No post!");
+    }
+    return ListView(shrinkWrap: true, children: [
+      for (var p in widget.posts!)
+        PostWidget(
+          preview: true,
+          post: p,
+          displaySubName: true,
+        )
+    ]);
+  }
+
+  Widget _getCommentsWidget() {
+    if (widget.comments == null) {
+      return const LoadingWidget();
+    }
+    if (widget.comments!.isEmpty) {
+      return _getEmptySectionWidget(Icons.insert_comment, "No comment!");
+    }
+    return ListView(shrinkWrap: true, children: [
+      for (var c in widget.comments!) CommentWidget(comment: c)
+    ]);
+  }
+
+  Widget _getSubredditsWidget() {
+    if (widget.subreddits == null) {
+      return const LoadingWidget();
+    }
+    if (widget.subreddits!.isEmpty) {
+      return _getEmptySectionWidget(Icons.bookmark, "No subreddit!");
+    }
+    return ListView(shrinkWrap: true, children: [
+      for (var s in widget.subreddits!)
+        TextButton(
+          style: TextButton.styleFrom(
+            primary: Theme.of(context).primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/subreddit',
+                arguments: SubredditPageArguments(s.displayName));
+          },
+          child: SubredditWidget(subreddit: s),
+        )
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     String ancientnessFormat = 'Redditor since ';
 
-    if (widget.subreddits == null ||
-        widget.comments == null ||
-        widget.posts == null) {
-      return const LoadingWidget();
-    }
     Map<String, Widget> tabs = {
-      'Posts': widget.posts!.isNotEmpty
-          ? ListView(shrinkWrap: true, children: [
-              for (var p in widget.posts!)
-                PostWidget(
-                  preview: true,
-                  post: p,
-                  displaySubName: true,
-                )
-            ])
-          : Column(children: [
-              Container(
-                  padding: const EdgeInsets.all(30),
-                  child: const Icon(Icons.insert_comment)),
-              const Text("No post!")
-            ]),
-      'Comments': widget.comments!.isNotEmpty
-          ? ListView(shrinkWrap: true, children: [
-              for (var c in widget.comments!) CommentWidget(comment: c)
-            ])
-          : Column(children: [
-              Container(
-                  padding: const EdgeInsets.all(30),
-                  child: const Icon(Icons.insert_comment)),
-              const Text("No comment!")
-            ]),
-      'Subredddits': widget.subreddits!.isNotEmpty
-          ? ListView(shrinkWrap: true, children: [
-              for (var s in widget.subreddits!)
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/subreddit',
-                        arguments: SubredditPageArguments(s.displayName));
-                  },
-                  child: SubredditWidget(subreddit: s),
-                )
-            ])
-          : Column(children: [
-              Container(
-                  padding: const EdgeInsets.all(30),
-                  child: const Icon(Icons.bookmark)),
-              const Text("No subreddit!")
-            ]),
+      'Posts': _getPostsWidget(),
+      'Comments': _getCommentsWidget(),
+      'Subredddits': _getSubredditsWidget()
     };
 
     ancientnessFormat += TimeElapsed.fromDateTime(widget.user.ancientness);
@@ -106,7 +121,7 @@ class _RedditorPageViewState extends State<RedditorPageView> {
                 pictureUrl: widget.user.pictureUrl,
                 title: widget.user.displayName)
           ]),
-          Row( children: [
+          Row(children: [
             Container(
                 padding: const EdgeInsets.only(left: 30, top: 10),
                 child: Text("$ancientnessFormat - ${widget.user.karma} Karma")),
