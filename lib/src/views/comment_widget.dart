@@ -10,6 +10,7 @@ class CommentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(comment.content);
     return Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -24,16 +25,9 @@ class CommentWidget extends StatelessWidget {
             Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                    height: 200,
                     padding: const EdgeInsets.only(left: 20, bottom: 30),
-                    width: MediaQuery.of(context).size.width - 40,
-                    child: NotificationListener<ScrollEndNotification>(
-                      onNotification: (notification) {return true;},
-                      child: Markdown(
-                        data: comment.content),
-                      )
-                    )
-            ),
+                    child: MarkdownBody(data: comment.content.trim()),
+                        )),
             const Divider(),
           ],
         ));
