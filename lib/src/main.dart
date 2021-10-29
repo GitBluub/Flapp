@@ -30,15 +30,29 @@ class Flapp extends StatelessWidget {
       title: 'flapp',
       theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.white),
       initialRoute: connected ? "/home" : "/login",
-      routes: {
-        '/login': (context) => const LoginPageController(),
-        '/user': (context) => const RedditorPageController(),
-        '/home': (context) => const HomePageController(),
-        '/search': (context) => const SearchPageController(),
-        '/subreddit': (context) => const ExtractArgumentsSubredditPage(),
-        '/post': (context) => const ExtractArgumentsPostPage(),
-        '/settings': (context) => const SettingsPageController(),
-      },
+      onGenerateRoute: (settings) {
+        Map routes = {
+          '/login': () => const LoginPageController(),
+          '/user': () => const RedditorPageController(),
+          '/home': () => const HomePageController(),
+          '/search': () => const SearchPageController(),
+          '/subreddit': () => const ExtractArgumentsSubredditPage(),
+          '/post': () => const ExtractArgumentsPostPage(),
+          '/settings': () => const SettingsPageController(),
+        };
+        if (settings.name == Navigator.defaultRouteName) {
+          return null;
+        }
+        return PageRouteBuilder(
+            settings: settings, // Pass this to make popUntil(), pushNamedAndRemoveUntil(), works
+            pageBuilder: (_, __, ___) => routes[settings.name].call(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+               SlideTransition(
+                position: animation.drive(Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).chain(CurveTween(curve: Curves.ease))),
+                child: child,
+              )
+        );
+      }
     );
   }
 }
