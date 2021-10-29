@@ -28,13 +28,12 @@ class PostContentWidget extends StatelessWidget {
         }
         return preview ?
             Expanded(
-              child: SizedBox(
-                height: 200,
-                  width: MediaQuery.of(context).size.width - 40,
+              child: LimitedBox(
+                maxHeight: 200,
+                  maxWidth: MediaQuery.of(context).size.width - 40,
                   child: NotificationListener<ScrollEndNotification>(
-                    onNotification: (notification) {return true;},
-                    child: Markdown(
-                        data: post.content),
+                    onNotification: (notification) => true,
+                    child: Markdown(data: post.content),
                   )
               )
             )
