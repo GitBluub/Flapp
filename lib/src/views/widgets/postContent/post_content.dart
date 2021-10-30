@@ -38,6 +38,7 @@ class PostContentWidget extends StatelessWidget {
                         isAlwaysShown: true,
                         controller: scrollController,
                         child: ListView.builder(
+                            shrinkWrap: true,
                             controller: scrollController,
                             itemCount: 1,
                             itemBuilder: (BuildContext context, _) => MarkdownBody(data: post.content)
