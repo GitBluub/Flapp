@@ -21,7 +21,7 @@ jobs:
       - name: Set Build name
         run: mv ./build/app/outputs/flutter-apk/app-release.apk flapp.apk
       - name: Upload build
-        if: github.ref == 'refs/head/master'
+        #if: github.ref == 'refs/head/master'
         uses: actions/upload-artifact@v2
         with:
           name: build
