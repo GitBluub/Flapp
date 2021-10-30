@@ -4,7 +4,7 @@
 
 [![Build](https://github.com/GitBluub/Flapp/actions/workflows/build.yml/badge.svg)](https://github.com/GitBluub/Flapp/actions/workflows/build.yml)
 [![App Documentation](https://img.shields.io/badge/Documentation-Dartdoc-blue)](https://gitbluub.github.io/Flapp/)
-[![User Documentation](https://img.shields.io/badge/User-Documentation-green)](https://github.com/GitBluub/Flapp/blob/master/user_documentation.md)
+[![User Documentation](https://img.shields.io/badge/User-Documentation-green)](https://github.com/GitBluub/Flapp/blob/master/flapp.pdf)
 
 Flapp is a mobile app which lets you access your favorite subreddits and enjoy their contents while having a simple, non-disruptive browsing experience.
 
@@ -28,10 +28,14 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 - Change some settings
 
 - Access your profile page
-- Logout to keep you
+- Logout
 
 ## Tool stack
 
 - Dart with Flutter (2.5.1)
 - Android Studio
 - DRAW (Reddit API Wrapper)
+
+## User Documentation
+
+Click [here](https://github.com/GitBluub/Flapp/blob/dev/flapp.pdf) to access user documentation
