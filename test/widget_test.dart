@@ -35,6 +35,24 @@ Future checkingDrawer(WidgetTester tester) async {
   expect(profileBtn, findsOneWidget);
 }
 
+Future goingSettings(WidgetTester tester) async {
+  // Build our app and trigger a frame.
+  await tester.pumpWidget(Flapp(connected:  GetIt.I<RedditInterface>().connected));
+  final burgerButton = find.byIcon(Icons.menu);
+  expect(burgerButton, findsOneWidget);
+  await tester.tap(burgerButton);
+  await tester.pump();
+  final drawerHeader = find.byType(DrawerHeader);
+  expect(drawerHeader, findsOneWidget);
+  final settingsBtn = find.byIcon(Icons.settings);
+  expect(settingsBtn, findsOneWidget);
+  await tester.pump(new Duration(milliseconds: 500));
+  await tester.tap(settingsBtn);
+  await tester.pump(new Duration(milliseconds: 500));
+  final imgHeader = find.byType(ImageHeader);
+  expect(imgHeader, findsNothing);
+}
+
 Future goingProfile(WidgetTester tester) async {
   // Build our app and trigger a frame.
   await tester.pumpWidget(Flapp(connected:  GetIt.I<RedditInterface>().connected));
@@ -50,7 +68,7 @@ Future goingProfile(WidgetTester tester) async {
   await tester.tap(profileBtn);
   await tester.pump(new Duration(milliseconds: 500));
   final imgHeader = find.byType(ImageHeader);
-  expect(imgHeader, findsNothing);
+  expect(imgHeader, findsOneWidget);
 }
 
 void main() async {
