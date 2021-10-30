@@ -17,7 +17,7 @@ jobs:
           channel: 'stable'
       - run: echo "FLAPP_API_KEY=${{ secrets.REDDIT_API_KEY }}" > .env
       - run: flutter pub get
-      - run: flutter build apk lib/src/main.dart
+      - run: flutter build apk lib/src/main.dart --profile
       - name: Set Build name
         run: mv ./build/app/outputs/flutter-apk/app-release.apk flapp.apk
       - name: Upload build
