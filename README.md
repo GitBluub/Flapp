@@ -38,4 +38,4 @@ Flapp is a mobile app which lets you access your favorite subreddits and enjoy t
 
 ## User Documentation
 
-Click [here](https://github.com/GitBluub/Flapp/blob/dev/flapp.pdf) to access user documentation
+Click [here](https://github.com/GitBluub/Flapp/blob/master/flapp.pdf) to access user documentation
