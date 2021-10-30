@@ -26,16 +26,3 @@ jobs:
         with:
           name: build
           path: flapp.apk
-  release:
-    if: github.ref == 'refs/heads/master'
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download files from previous job
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: flapp.apk
