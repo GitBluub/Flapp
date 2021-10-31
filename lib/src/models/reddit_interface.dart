@@ -88,6 +88,25 @@ class RedditInterface {
     }
   }
 
+  /// Create an API connection using previously created credentials
+  Future<void> restoreAPIConnectionTest() async {
+    String? clientId = dotenv.env['FLAPP_API_KEY'];
+
+    try {
+      final file = File('./credentials.json');
+      final cred = await file.readAsString();
+      if (cred == "") {
+        throw Exception("Empty creds");
+      }
+      reddit = draw.Reddit.restoreInstalledAuthenticatedInstance(cred,
+          clientId: clientId, userAgent: "flapp_application");
+      await _fetchLoggedRedditor();
+      connected = true;
+    } catch (e) {
+      return;
+    }
+  }
+
   /// Get the file that holds the log credentials
   Future<File> getCredentialsFile() async {
     final directory = await getApplicationDocumentsDirectory();
