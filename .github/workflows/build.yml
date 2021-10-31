@@ -15,26 +15,21 @@ jobs:
       - uses: subosito/flutter-action@v1.5.3
         with:
           channel: 'stable'
-      - run: echo "FLAPP_API_KEY=${{ secrets.REDDIT_API_KEY }}" > .env
-      - run: flutter pub get
-      - run: flutter build apk lib/src/main.dart --profile
+      - name: Create API Key
+        run: echo "FLAPP_API_KEY=${{ secrets.REDDIT_API_KEY }}" > .env
+      - name: Get flutter dependencies
+        run: flutter pub get
+      - name: Build application
+        run: flutter build apk lib/src/main.dart --profile
       - name: Set Build name
         run: mv ./build/app/outputs/flutter-apk/app-profile.apk flapp.apk
-      - name: Upload build
-        #if: github.ref == 'refs/head/master'
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: flapp.apk
-  release:
-    if: github.ref == 'refs/heads/master'
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Publish Release
+        if: github.ref == 'refs/heads/master' 
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
-          prerelease: true
+          prerelease: false
           title: "Development Build"
           files: flapp.apk
+      
