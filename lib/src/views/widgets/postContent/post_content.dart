@@ -15,6 +15,7 @@ class PostContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ContentType type = post.getContentType();
+    ScrollController scrollController = ScrollController();
 
     switch (type)
     {
@@ -28,16 +29,23 @@ class PostContentWidget extends StatelessWidget {
         }
         return preview ?
             Expanded(
-              child: SizedBox(
-                height: 200,
-                  width: MediaQuery.of(context).size.width - 40,
+              child: LimitedBox(
+                maxHeight: 200,
+                  maxWidth: MediaQuery.of(context).size.width - 40,
                   child: NotificationListener<ScrollEndNotification>(
-                    onNotification: (notification) {return true;},
-                    child: Markdown(
-                        data: post.content),
+                    onNotification: (notification) => true,
+                    child: Scrollbar(
+                        isAlwaysShown: true,
+                        controller: scrollController,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            controller: scrollController,
+                            itemCount: 1,
+                            itemBuilder: (BuildContext context, _) => MarkdownBody(data: post.content)
+                        ),
                   )
               )
-            )
+            ))
             : Expanded(
               child:MarkdownBody(
                   data: post.content,
