@@ -36,26 +36,6 @@ Future checkingDrawer(WidgetTester tester) async {
   expect(profileBtn, findsOneWidget);
 }
 
-Future searchingSubreddit(WidgetTester tester) async {
-  // Build our app and trigger a frame.
-  await tester.pumpWidget(Flapp(connected:  GetIt.I<RedditInterface>().connected));
-  final burgerButton = find.byIcon(Icons.menu);
-  expect(burgerButton, findsOneWidget);
-  await tester.tap(burgerButton);
-  await tester.pump();
-  final drawerHeader = find.byType(DrawerHeader);
-  expect(drawerHeader, findsOneWidget);
-  final searchBtn = find.byIcon(Icons.manage_search);
-  expect(searchBtn, findsOneWidget);
-  await tester.pump(new Duration(milliseconds: 500));
-  await tester.tap(searchBtn);
-  await tester.pump(new Duration(milliseconds: 500));
-  await tester.pump();
-  //finds the searchbar
-  final searchText = find.text("Search Subreddits");
-  expect(searchText, findsOneWidget);
-}
-
 Future goingSearch(WidgetTester tester) async {
   // Build our app and trigger a frame.
   await tester.pumpWidget(Flapp(connected:  GetIt.I<RedditInterface>().connected));
